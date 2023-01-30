@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #9DD0D1;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="80.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: #00AA83;" width="1920.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="34.0" layoutY="1046.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: #00AA83;" width="1920.0" />
+      <Text layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tucker's Cars,LLC">
+         <font>
+            <Font name="MV Boli" size="64.0" />
+         </font>
+      </Text>
+      <Circle fill="WHITE" layoutX="1882.5" layoutY="37.5" radius="37.5" stroke="BLACK" strokeType="INSIDE" />
+      <Text layoutX="1849.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SN">
+         <font>
+            <Font name="SansSerif Regular" size="48.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="1541.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salesperson Name">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="75.0" fitWidth="158.0" layoutX="548.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Assets/OriginalCarArt.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
