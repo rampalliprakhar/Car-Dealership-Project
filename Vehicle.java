@@ -1,7 +1,7 @@
 /*---------------------------------------------------
  *  Author: J. Alan Wallace, Triny Nguyen
  *  Written: 1/25/2023
- *  Last Updated: 1/25/2023
+ *  Last Updated: 1/31/2023
  *  
  *  Compilation: javac Vehicle.java
  *  Execution: java Vehicle
@@ -22,11 +22,12 @@ public class Vehicle {
     private Integer year;
     private String make;
     private String model;
-    private Integer value;
+    private Double value;
+    private Double discount; // Price = value - discount
     private String bodyCondition;
     private String mechCondition; // Mechanical Condition
     private String color;
-    private Integer mileage;
+    private Double mileage;
     private ArrayList<String> additionalFeatures;
     private Long datePutOnLot;
     
@@ -37,18 +38,17 @@ public class Vehicle {
         this.year = 1901;
         this.make = "No Make Specified";
         this.model = "No Model Specified";
-        this.value = 0;
+        this.value = 0.0;
+        this.discount = 0.0;
         this.bodyCondition = "No Body Condition Specified";
         this.mechCondition = "No Mechanical Condition Specified";
         this.color = "No Color Specified";
-        this.mileage = 0;
+        this.mileage = 0.0;
         this.additionalFeatures = new ArrayList<String>();
         this.datePutOnLot = System.currentTimeMillis();
-        
-        
     } // default constructor
     
-    public Vehicle(int value, int year, String make, String model, String bodyCondition, String mechCondition, String color, int mileage, Date DatePutOnLot) {
+    public Vehicle(double value, int year, String make, String model, String bodyCondition, String mechCondition, String color, double mileage, Date DatePutOnLot) {
         this.setValue(value);
         this.setYear(year);
         this.setMake(make);
@@ -62,12 +62,12 @@ public class Vehicle {
     
     public Double getVIN() {
         return this.VIN;
-    }
+    } // end getVIN
     
     public boolean setVIN(double vin) {
         this.VIN = vin;
         return true;
-    }
+    } // end setVIN
     
     public Integer getYear() {
         return this.year;
@@ -99,21 +99,43 @@ public class Vehicle {
         return true;
     } // end setModel
     
-    public Integer getValue() {
+    public Double getValue() {
         return this.value;
     } // end getValue
     
-    public boolean setValue(Integer value) {
-        if (value > Integer.MAX_VALUE) return false;
+    public boolean setValue(Double value) {
+        if (value > Double.MAX_VALUE || value < Double.MIN_VALUE) return false;
         if (value < 0) return false;
         
         this.value = value;
         return true;
     } // end setValue
     
+    public Double getDiscount() {
+        return this.discount;
+    } // end getDiscount
+    
+    public void setDiscount(Double dollars) {
+        /* This version of the setDiscout method adjusts the discount based on
+         * a set dollar discount (e.g. $2000.00)*/
+        this.discount = dollars;
+    } // end setDiscount(dollar discount)
+    
+    public void setDiscount(Float percent) {
+        /* This version of the setDiscount method adjusts the discount based on
+         * a percentage discount (e.g. 33%)*/
+        this.discount = this.value - (this.value * percent);
+    } // end setDiscount(percent discount)
+    
+    public Double getPrice() {
+        /* The price is the total value minus any discounts.
+         * Price is a calculated value, not stored in any data fields.*/
+        return this.value - this.discount;
+    } // end getPrice
+    
     public String getBodyCondition() {
         return this.bodyCondition;
-    } // return getBodyCondition
+    } // end getBodyCondition
     
     public boolean setBodyCondition(String bodyCon) {
         for (int count = 0; count < this.listOfConditions.length - 1; count++) {
@@ -148,12 +170,12 @@ public class Vehicle {
         return true;
     } // end setColor
     
-    public Integer getMileage() {
+    public Double getMileage() {
         return this.mileage;
     } // end getMileage
     
-    public boolean setMileage(Integer mileage) {
-        if (value > Integer.MAX_VALUE) return false;
+    public boolean setMileage(Double mileage) {
+        if (value > Double.MAX_VALUE || value < Double.MIN_VALUE) return false;
         if (value < 0) return false;
         
         this.mileage = mileage;
@@ -187,6 +209,7 @@ public class Vehicle {
         } // end setDatePutOnLot
     
     public Date getTimeOnLot() {
+        /* TimeOnLot is a calculated value, not stored in any data fields.*/
         if (this.datePutOnLot >= System.currentTimeMillis()) throw new InvalidTimeOnLotException();
         
         Date timeOnLot = new Date(System.currentTimeMillis() - this.datePutOnLot );
