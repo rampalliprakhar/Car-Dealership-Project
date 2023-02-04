@@ -1,13 +1,18 @@
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
 
 public class CustomerProfile {
 	private String firstName;
 	private String lastName;
-	private double customerID; // or int?
-	private String phoneNum; // is it string or double
-	private Date birthDate;
+	private int customerID;
+	private String phoneNum;
+	private Date   birthDate;
 	
 	private Addresses address; // customer can have multiple
+		
+	private static Set<Integer> set = new HashSet<Integer>();			
 
 	
 	// default constructor
@@ -26,12 +31,21 @@ public class CustomerProfile {
 		this.birthDate = birthDate;
 		this.address = address;
 		
-		//this.customerID = randomly generate a unique ID
-		
+		this.customerID = id();	
 	}
-
-
-	
+	public int id() {
+		Random rand = new Random(); 		
+		
+		int num = rand.nextInt(10000);
+		
+		while (set.contains(num)) {
+			num = rand.nextInt(10000);
+		}
+		
+			set.add(num);
+			return num;
+	}
+	 
 	
 	// getters and setters
 	public String getFirstName() {
@@ -54,7 +68,7 @@ public class CustomerProfile {
 	}
 
 
-	public double getCustomerID() {
+	public int getCustomerID() {
 		return customerID;
 	}
 
@@ -93,3 +107,4 @@ public class CustomerProfile {
 		this.address = address;
 	}	
 }
+
