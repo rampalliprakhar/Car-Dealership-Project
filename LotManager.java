@@ -1,17 +1,17 @@
 
 public class LotManager extends Employee{
 
-	/* unique responsibilities: 
+	/* unique view: 
 	 * can create and change vehicles in vehicle database
 	 */
 	
 	// default constructor
 	public LotManager() {
-		super();
+		System.out.println("error, please fill out the form");
 	}
 
 	// constructor
-	public LotManager(String firstName, String lastName, String position, String userName, String password) {
-		super(firstName, lastName, "Lot Manager", userName, password);
+	public LotManager(String firstName, String lastName, String password) {
+		super(firstName, lastName, "Lot Manager", password);
 	}
 }
