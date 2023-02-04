@@ -1,54 +1,60 @@
+import java.util.HashSet;
+import java.util.Random;
+import java.util.Set;
+
 
 public class Employee {
+	
 
 	// all employees should be able to log in, log out, view vehicle database, idk
 	
-	
 	private String firstName;
 	private String lastName;
-	private double employeeID; // or int??
+	private int employeeID;
 	private String position;
 
 	
-	private String userName;
 	private String password;
-
 	
+	private static Set<Integer> set = new HashSet<Integer>();			
+
 	// default constructor
 	public Employee() {
 		
 	}
 	
 	// constructor 
-	public Employee(String firstName, String lastName, String position, String userName,
-			String password) {
+	public Employee(String firstName, String lastName, String position, String password) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.position = position;
-		this.userName = userName;
 		this.password = password;
+
+		this.employeeID = id();
+
+	}
+	
+	public int id() {
+		Random rand = new Random(); 		
 		
-//		this.employeeID = // randomly generates UNIQUE number
+		int num = rand.nextInt(10000);
+		
+		while (set.contains(num)) {
+			num = rand.nextInt(10000);
+		}
+		
+			set.add(num);
+			return num;
 	}
 
-
-
-
-	public boolean logIn(String userName, String password) {
+	public boolean logIn(int employeeID, String password) {
 		
-		if (userName == this.userName && password == this.password)
+		if (employeeID == this.employeeID && password == this.password)
 			return true;
 		else return false;
 
 	}
-
-	
-	
-	
-	
-	
-	
 	
 	// getters and setters
 	
@@ -68,13 +74,9 @@ public class Employee {
 		this.lastName = lastName;
 	}
 
-	public double getEmployeeID() {
+	public int getEmployeeID() {
 		return employeeID;
 	}
-
-//	public void setEmployeeID(double employeeID) {                 uneeded bc id is already created randomly??
-//		this.employeeID = employeeID;
-//	}
 
 	public String getPosition() {
 		return position;
@@ -82,14 +84,6 @@ public class Employee {
 
 	public void setPosition(String position) {
 		this.position = position;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
 	}
 
 	public String getPassword() {
