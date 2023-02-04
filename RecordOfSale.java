@@ -16,8 +16,8 @@ public class RecordOfSale {
 	
 	// customer and salesperson info
 	private String customerName;
-	private double customerID;
-	private double employeeID; 
+	private int customerID;
+	private int employeeID; 
 	private double employeeName;	
 	private double commissionValue;
 	
@@ -29,7 +29,7 @@ public class RecordOfSale {
 	// constructor
 	public RecordOfSale(String soldVehicleMake, Vehicle soldVehicleModel, Vehicle soldVehicleyear,
 			double soldVehiclePrice, Vehicle soldVehicleVIN, Date salesDate, String paymentMethod, String customerName,
-			double customerID, double employeeID, double employeeName, double commissionValue) {
+			int customerID, int employeeID, double employeeName, double commissionValue) {
 		super();
 		this.soldVehicleMake = soldVehicleMake;
 		this.soldVehicleModel = soldVehicleModel;
