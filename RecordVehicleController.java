@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.collections.*;
 import java.io.IOException;
+import java.util.Date;
 
 public class RecordVehicleController {
     
@@ -16,7 +17,7 @@ public class RecordVehicleController {
     @FXML
     private TextField VINField;
     @FXML
-    private TextField Year;
+    private TextField YearField;
     @FXML
     private ChoiceBox<String> MakeDropdown;
     @FXML
@@ -41,7 +42,8 @@ public class RecordVehicleController {
             "Cadillac", "Chevrolet", "Chrysler", "Dodge", "Ferrari", "Fiat", "Ford", "Genesis", "GMC", "Honda", "Hyundai", "Infiniti", "Jaguar", "Jeep", "Kia", 
             "Lamborghini", "Land Rover", "Lexus", "Lincoln", "Maserati", "Mazda", "McLaren", "Mercedes-Benz", "Mini", "Mitsubishi", "Nissan", "Porsche", "Ram", 
             "Rolls-Royce", "Subaru", "Tesla", "Toyota", "Volkswagen", "Volvo");
-    private String previousPage = "MainPage.fxml";
+    
+    private String previousPage = Main.getView();
     
     @FXML
     private void initialize() {
@@ -61,12 +63,13 @@ public class RecordVehicleController {
     
     public void save(ActionEvent event) throws IOException {
         
-        /* This method will also need to save all of the inputs to the
-         * newly created Customer object.*/
+        Vehicle vehicle = new Vehicle(new Double(VINField.getText()), new Double(ValueField.getText()), new Integer(YearField.getText()), MakeDropdown.getValue(),
+                ModelField.toString(), BodyConDropdown.getValue(), MechConDropdown.getValue(), ColorField.getText(), new Double(MileageField.getText()), new Date());
+        
+        /* Insert code to save the newly created vehicle to the database*/
         
         Main m = new Main();
-        m.changeScene("TESTSaveConfirm.fxml");
-        // Note to self: change this to MainPage.fxml when that code is received
+        m.changeScene(Main.getView());
         
     } // end save
     
@@ -76,13 +79,14 @@ public class RecordVehicleController {
         
         ValueField.clear();
         VINField.clear();
-        Year.clear();
+        YearField.clear();
         MakeDropdown.setValue("Select a Make");
         ModelField.clear();
         MileageField.clear();
         ColorField.clear();
         BodyConDropdown.setValue("Select a Condition");
         MechConDropdown.setValue("Select a Condition");
+        
     } // end clear
     
     public void pageReturn(ActionEvent event) throws IOException {
