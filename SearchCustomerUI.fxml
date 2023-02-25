@@ -4,82 +4,118 @@
 <?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1921.0" style="-fx-background-color: #9DD0D1;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <TextField layoutX="308.0" layoutY="275.0" prefHeight="51.0" prefWidth="378.0" promptText="First Name">
-         <font>
-            <Font size="24.0" />
-         </font></TextField>
-      <TextField layoutX="308.0" layoutY="359.0" prefHeight="51.0" prefWidth="378.0" promptText="Last Name">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </TextField>
-      <Button layoutX="122.0" layoutY="454.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="132.0" text="Return">
-         <font>
-            <Font name="System Bold" size="24.0" />
-         </font>
-      </Button>
-      <Button layoutX="554.0" layoutY="458.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="132.0" text="Search">
-         <font>
-            <Font name="System Bold" size="24.0" />
-         </font>
-      </Button>
-      <ListView fixedCellSize="50.0" layoutX="808.0" layoutY="265.0" prefHeight="966.0" prefWidth="1113.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="808.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
-         <contextMenu>
-            <ContextMenu>
-              <items>
-                <MenuItem mnemonicParsing="false" text="Select" />
-              </items>
-            </ContextMenu>
-         </contextMenu>
-      </ListView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="80.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: #00AA83;" width="1920.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="34.0" layoutY="1046.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: #00AA83;" width="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1045.6" />
-      <Text layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tucker's Cars,LLC">
-         <font>
-            <Font name="MV Boli" size="64.0" />
-         </font>
-      </Text>
-      <Circle fill="WHITE" layoutX="1882.5" layoutY="37.5" radius="37.5" stroke="BLACK" strokeType="INSIDE" />
-      <Text layoutX="1849.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SN">
-         <font>
-            <Font name="SansSerif Regular" size="48.0" />
-         </font>
-      </Text>
-      <Text fill="WHITE" layoutX="1541.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salesperson Name">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Text>
-      <ImageView fitHeight="75.0" fitWidth="158.0" layoutX="548.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@Assets/OriginalCarArt.png" />
-         </image>
-      </ImageView>
-      <Text layoutX="122.0" layoutY="398.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name">
-         <font>
-            <Font size="34.0" />
-         </font>
-      </Text>
-      <Text layoutX="121.0" layoutY="314.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name">
-         <font>
-            <Font size="34.0" />
-         </font>
-      </Text>
-      <Text layoutX="273.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search Customer">
-         <font>
-            <Font size="36.0" />
-         </font>
-      </Text>
-   </children>
-</AnchorPane>
+<ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1921.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SearchCustomerController">
+   <content>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1921.0" style="-fx-background-color: #9DD0D1;">
+         <children>
+            <TextField fx:id="firstName" layoutX="308.0" layoutY="275.0" prefHeight="51.0" prefWidth="378.0" promptText="First Name">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="lastName" layoutX="308.0" layoutY="358.0" prefHeight="51.0" prefWidth="378.0" promptText="Last Name">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </TextField>
+            <Button fx:id="clearButton" layoutX="122.0" layoutY="454.0" mnemonicParsing="false" onAction="#clear" prefHeight="51.0" prefWidth="132.0" text="Clear">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Button>
+            <Button fx:id="searchButton" layoutX="548.0" layoutY="454.0" mnemonicParsing="false" onAction="#searchCus" prefHeight="51.0" prefWidth="132.0" text="Search">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Button>
+            <Button fx:id="registerNewCustomer" layoutX="166.0" layoutY="724.0" mnemonicParsing="false" onAction="#registerNewCus" prefHeight="51.0" prefWidth="482.0" text="Register New Customer">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Button>
+            <HBox layoutX="848.0" layoutY="80.0" prefHeight="530.0" prefWidth="1071.0">
+               <children>
+                  <ListView fx:id="listView" fixedCellSize="57.0" onMouseClicked="#openCusProfile" prefHeight="624.0" prefWidth="1099.0">
+                     <contextMenu>
+                        <ContextMenu>
+                           <items>
+                              <MenuItem fx:id="selectButton" mnemonicParsing="false" onAction="#openCusProfile" text="Select" />
+                           </items>
+                        </ContextMenu>
+                     </contextMenu>
+                  </ListView>
+               </children>
+            </HBox>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="80.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: #00AA83;" width="1920.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="34.0" layoutY="1046.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: #00AA83;" width="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1045.6" />
+            <Text layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tucker's Cars,LLC">
+               <font>
+                  <Font name="MV Boli" size="64.0" />
+               </font>
+            </Text>
+            <Circle fill="WHITE" layoutX="1882.5" layoutY="37.5" radius="37.5" stroke="BLACK" strokeType="INSIDE" />
+            <Text layoutX="1849.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SN">
+               <font>
+                  <Font name="SansSerif Regular" size="48.0" />
+               </font>
+            </Text>
+            <Text fill="WHITE" layoutX="1541.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salesperson Name">
+               <font>
+                  <Font size="36.0" />
+               </font>
+            </Text>
+            <ImageView fitHeight="75.0" fitWidth="158.0" layoutX="548.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Assets/OriginalCarArt.png" />
+               </image>
+            </ImageView>
+            <Text layoutX="122.0" layoutY="398.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name">
+               <font>
+                  <Font size="34.0" />
+               </font>
+            </Text>
+            <Text layoutX="121.0" layoutY="314.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name">
+               <font>
+                  <Font size="34.0" />
+               </font>
+            </Text>
+            <Text layoutX="273.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Search Customer">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+            </Text>
+            <Button fx:id="returnButton" layoutX="696.0" layoutY="41.0" mnemonicParsing="false" onAction="#pageReturn" prefHeight="100.0" prefWidth="100.0">
+               <font>
+                  <Font name="MV Boli" size="48.0" />
+               </font>
+            </Button>
+            <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="697.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../images/Assets/ReturnIcon.png" />
+               </image>
+            </ImageView>
+            <Text layoutX="701.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RETURN" textAlignment="CENTER">
+               <font>
+                  <Font name="MV Boli" size="22.0" />
+               </font>
+            </Text>
+            <Button fx:id="openProfileButton" layoutX="1299.0" layoutY="724.0" mnemonicParsing="false" onAction="#openCusProfile" prefHeight="51.0" prefWidth="482.0" text="Open Selected Profile">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </content>
+</ScrollPane>
