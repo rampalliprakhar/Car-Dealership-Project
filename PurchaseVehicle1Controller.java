@@ -32,7 +32,13 @@ public class PurchaseVehicle1Controller {
     @FXML
     private Button ReturnButton;
     
-    private String previousPage = "MainPage.fxml";
+    final private ObservableList<String> conditionList = FXCollections.observableArrayList("New", "Excellent", "Good", "Average", "Fair", "Poor", "Broken");
+    final private ObservableList<String> makeList = FXCollections.observableArrayList("Acura", "Alfa Romeo", "Aston Martin", "Audi", "Bentley", "BMW", "Buick", 
+            "Cadillac", "Chevrolet", "Chrysler", "Dodge", "Ferrari", "Fiat", "Ford", "Genesis", "GMC", "Honda", "Hyundai", "Infiniti", "Jaguar", "Jeep", "Kia", 
+            "Lamborghini", "Land Rover", "Lexus", "Lincoln", "Maserati", "Mazda", "McLaren", "Mercedes-Benz", "Mini", "Mitsubishi", "Nissan", "Porsche", "Ram", 
+            "Rolls-Royce", "Subaru", "Tesla", "Toyota", "Volkswagen", "Volvo");
+    
+    private String previousPage = Main.getView();
     
     @FXML
     private void initialize() {
@@ -40,6 +46,8 @@ public class PurchaseVehicle1Controller {
         /* This method is called automatically, and initializes the dropdown
          * boxes with the values of the source ObservableLists*/
         
+        MakeDropdown.setValue("Select a Make");
+        MakeDropdown.setItems(makeList);
 
     }
     
