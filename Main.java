@@ -34,6 +34,10 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource(fxml));
         stg.getScene().setRoot(root);
     }
+	
+    public void changeScene(String fxml, Parent root) throws IOException {
+        stg.getScene().setRoot(root);
+    } // method helps with carrying over textfield info from one UI to the other
     
 	public static void main(String[] args) {
 		launch(args);
