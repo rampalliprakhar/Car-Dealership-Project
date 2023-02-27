@@ -33,10 +33,10 @@ public class SalespersonUIController {
     @FXML
     void btnCreOrdManuClicked(ActionEvent event) throws IOException {
     	// goes to Create Order for Manufacturer page.
-		 if(event.getSource() == CreateOrderManufacturer) {
-			 Main m = new Main();
-			 m.changeScene("CreateOrderforManufacturer.fxml");
-		 } 
+	if(event.getSource() == CreateOrderManufacturer) {
+	    Main m = new Main();
+	    m.changeScene("CreateOrderforManufacturer.fxml");
+	} 
     }
 
     @FXML
@@ -44,7 +44,7 @@ public class SalespersonUIController {
     	// goes to Create Order for Other Dealership page.
     	if(event.getSource() == CreateOrderDealership) {
     	    Main m = new Main();
-    		m.changeScene("CreateOrderforOtherDealership.fxml");
+    	    m.changeScene("CreateOrderforOtherDealership.fxml");
     	}
     }
 
@@ -72,7 +72,7 @@ public class SalespersonUIController {
     	// goes to Register Customer page.
     	if(event.getSource() == RegisterCustomer) {
     	    Main m = new Main();
-    		m.changeScene("RegCustomerUI.fxml");
+    	    m.changeScene("RegCustomerUI.fxml");
     	}
     }
 
@@ -81,7 +81,7 @@ public class SalespersonUIController {
     	// goes to Sign Out page.
     	if(event.getSource() == SignOut) {
     	    Main m = new Main();
-    		m.changeScene("CarLogout.fxml");
+    	    m.changeScene("CarLogout.fxml");
     	}
     }
 
@@ -90,8 +90,8 @@ public class SalespersonUIController {
     	// goes to Verify Trade-In Value page.
     	// Had to change the names in the original files.
     	if(event.getSource() == VerifyTradeValue) {
-    		 Main m = new Main();
-    		 m.changeScene("VerifyTradeIn.fxml");
+    	    Main m = new Main();
+    	    m.changeScene("VerifyTradeIn.fxml");
     	}
     }
 }
