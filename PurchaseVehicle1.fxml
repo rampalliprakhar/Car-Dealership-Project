@@ -87,7 +87,7 @@
             <Font name="MV Boli" size="48.0" />
          </font>
       </Button>
-      <Button fx:id="SearchButton" layoutX="435.0" layoutY="722.0" mnemonicParsing="false" onAction="#save" prefHeight="86.0" prefWidth="275.0" text="SEARCH">
+      <Button fx:id="SearchButton" layoutX="435.0" layoutY="722.0" mnemonicParsing="false" onAction="#search" prefHeight="86.0" prefWidth="275.0" text="SEARCH">
          <font>
             <Font name="MV Boli" size="48.0" />
          </font>
