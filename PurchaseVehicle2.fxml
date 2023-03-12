@@ -38,27 +38,17 @@
             <Font name="MV Boli" size="22.0" />
          </font>
       </Text>
-      <TextField fx:id="phoneNoField" editable="false" layoutX="630.0" layoutY="841.0" prefHeight="60.0" prefWidth="1000.0">
+      <TextField fx:id="licenseNumField" editable="false" layoutX="508.0" layoutY="683.0" prefHeight="60.0" prefWidth="1000.0">
          <font>
             <Font name="SansSerif Regular" size="24.0" />
          </font>
       </TextField>
-      <TextField fx:id="customerNameField" editable="false" layoutX="630.0" layoutY="680.0" prefHeight="60.0" prefWidth="1000.0">
-         <font>
-            <Font name="SansSerif Regular" size="24.0" />
-         </font>
-      </TextField>
-      <TextField fx:id="addressField" editable="false" layoutX="630.0" layoutY="761.0" prefHeight="60.0" prefWidth="1000.0">
-         <font>
-            <Font name="SansSerif Regular" size="24.0" />
-         </font>
-      </TextField>
-      <Button fx:id="backToSearchButton" layoutX="348.0" layoutY="920.0" mnemonicParsing="false" onAction="#backToSearch" prefHeight="116.0" prefWidth="440.0" text="BACK TO SEARCH">
+      <Button fx:id="backToSearchButton" layoutX="348.0" layoutY="820.0" mnemonicParsing="false" onAction="#backToSearch" prefHeight="116.0" prefWidth="440.0" text="BACK TO SEARCH">
          <font>
             <Font name="MV Boli" size="42.0" />
          </font>
       </Button>
-      <Button fx:id="confirmButton" layoutX="1190.0" layoutY="920.0" mnemonicParsing="false" onAction="#confirm" prefHeight="116.0" prefWidth="440.0" text="CONFIRM">
+      <Button fx:id="confirmButton" layoutX="1190.0" layoutY="820.0" mnemonicParsing="false" onAction="#confirm" prefHeight="116.0" prefWidth="440.0" text="CONFIRM">
          <font>
             <Font name="MV Boli" size="48.0" />
          </font>
@@ -148,7 +138,7 @@
             <Font name="SansSerif Regular" size="40.0" />
          </font>
       </Text>
-      <Text layoutX="798.0" layoutY="650.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Information:">
+      <Text layoutX="680.0" layoutY="656.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Driver's License Number:">
          <font>
             <Font name="SansSerif Regular" size="40.0" />
          </font>
@@ -163,20 +153,5 @@
             <Font name="SansSerif Regular" size="24.0" />
          </font>
       </TextField>
-      <Text layoutX="333.0" layoutY="724.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Name">
-         <font>
-            <Font name="SansSerif Regular" size="40.0" />
-         </font>
-      </Text>
-      <Text layoutX="330.0" layoutY="885.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number">
-         <font>
-            <Font name="SansSerif Regular" size="40.0" />
-         </font>
-      </Text>
-      <Text layoutX="330.0" layoutY="805.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address">
-         <font>
-            <Font name="SansSerif Regular" size="40.0" />
-         </font>
-      </Text>
    </children>
 </AnchorPane>
