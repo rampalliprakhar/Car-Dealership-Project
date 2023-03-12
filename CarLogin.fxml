@@ -58,7 +58,7 @@
       </ImageView>
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="948.0" layoutY="210.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@3png-clipart-anonymous-person-login-google-account-computer-icons-user-activity-miscellaneous-computer.png" />
+            <Image url="@../images/Assets/ProfileIcon.png" />
          </image>
       </ImageView>
       <Label layoutX="966.0" layoutY="379.0" text="Log-In">
