@@ -93,6 +93,11 @@
                   <Font name="Georgia Bold" size="36.0" />
                </font>
             </Button>
+            <Label fx:id="invalidInformation" layoutX="141.0" layoutY="348.0" prefHeight="30.0" prefWidth="318.0" textFill="#f00707">
+               <font>
+                  <Font name="Times New Roman Bold" size="18.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </children>
