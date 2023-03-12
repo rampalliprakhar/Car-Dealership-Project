@@ -65,14 +65,14 @@ public class CreateOrderforManufacturerController implements Initializable {
 		 MakeCar.getValue();
 		 ModelCar.getValue();
 		 Main m = new Main();
-		 m.changeScene4("VerifyTradeIn.fxml");
+		 m.changeScene("VerifyTradeIn.fxml");
 	 }
 	 
 	 public void returnPage(ActionEvent event) throws IOException {
 		 // returns back to the main page
 		 if(event.getSource() == ReturnButton) {
 			 Main m = new Main();
-			 m.changeScene1(previousPage);
+			 m.changeScene(previousPage);
 		 }
 	 }
 
