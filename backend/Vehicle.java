@@ -11,7 +11,7 @@
  *  Sample Output:
  *---------------------------------------------------*/
 
-package classes;
+package backend;
 import java.util.Date;
 import java.util.ArrayList;
 
@@ -48,7 +48,7 @@ public class Vehicle {
         this.datePutOnLot = System.currentTimeMillis();
     } // default constructor
     
-    public Vehicle(double value, int year, String make, String model, String bodyCondition, String mechCondition, String color, double mileage, Date DatePutOnLot) {
+    public Vehicle(Double VIN, Double value, Integer year, String make, String model, String bodyCondition, String mechCondition, String color, Double mileage, Date DatePutOnLot) {
         this.setValue(value);
         this.setYear(year);
         this.setMake(make);

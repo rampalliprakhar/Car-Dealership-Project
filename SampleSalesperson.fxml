@@ -4,7 +4,6 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -18,90 +17,79 @@
             <Font name="MV Boli" size="64.0" />
          </font>
       </Text>
-      <Circle fill="WHITE" layoutX="1866.0" layoutY="42.0" radius="37.5" stroke="BLACK" strokeType="INSIDE" />
-      <Text layoutX="1834.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SN">
-         <font>
-            <Font name="SansSerif Regular" size="48.0" />
-         </font>
-      </Text>
-      <Text fill="WHITE" layoutX="1507.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salesperson Name">
-         <font>
-            <Font name="SansSerif Regular" size="36.0" />
-         </font>
-      </Text>
       <ImageView fitHeight="75.0" fitWidth="158.0" layoutX="548.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Downloads/OriginalCarArt.png" />
+            <Image url="@../images/Assets/OriginalCarArt.png" />
          </image>
       </ImageView>
-      <Button fx:id="RegisterCustomer" alignment="CENTER" contentDisplay="CENTER" layoutX="-2.0" layoutY="80.0" mnemonicParsing="false" onAction="#btnRegCustClicked" prefHeight="323.0" prefWidth="642.0" style="-fx-background-color: #9DD0D1; -fx-border-color: #000000;" text="Register Customer" textAlignment="CENTER">
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="-2.0" layoutY="80.0" mnemonicParsing="false" onAction="#btnRegCustClicked" prefHeight="323.0" prefWidth="642.0" style="-fx-background-color: #9DD0D1; -fx-border-color: #000000;" text="Register Customer" textAlignment="CENTER">
          <font>
             <Font name="SansSerif Regular" size="64.0" />
          </font>
       </Button>
-      <Button fx:id="EnterPurchase" alignment="BASELINE_CENTER" contentDisplay="CENTER" layoutX="640.0" layoutY="80.0" mnemonicParsing="false" onAction="#btnEntPurchClicked" prefHeight="323.0" prefWidth="643.0" style="-fx-background-color: #9DD0D1; -fx-border-color: #000000;" text="Enter Purchase" textAlignment="CENTER">
+      <Button alignment="BASELINE_CENTER" contentDisplay="CENTER" layoutX="640.0" layoutY="81.0" mnemonicParsing="false" onAction="#btnEntPurchClicked" prefHeight="322.0" prefWidth="640.0" style="-fx-background-color: #9DD0D1; -fx-border-color: #000000;" text="Enter Purchase" textAlignment="CENTER">
          <font>
             <Font name="SansSerif Regular" size="64.0" />
          </font>
       </Button>
-      <Button fx:id="RecordNewArrival" alignment="BASELINE_CENTER" contentDisplay="CENTER" layoutX="1280.0" layoutY="80.0" mnemonicParsing="false" onAction="#btnRecNewArrivClicked" prefHeight="323.0" prefWidth="640.0" style="-fx-background-color: #9DD0D1; -fx-border-color: #000000;" text="Record New Arrival" textAlignment="CENTER">
+      <Button alignment="BASELINE_CENTER" contentDisplay="CENTER" layoutX="1280.0" layoutY="81.0" mnemonicParsing="false" onAction="#btnRecNewArrivClicked" prefHeight="322.0" prefWidth="640.0" style="-fx-background-color: #9DD0D1; -fx-border-color: #000000;" text="Record New Arrival" textAlignment="CENTER">
          <font>
             <Font name="SansSerif Regular" size="64.0" />
          </font>
       </Button>
-      <Button fx:id="CreateOrderDealership" alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="-3.0" layoutY="402.0" mnemonicParsing="false" onAction="#btnCreOrderDealClicked" prefHeight="325.0" prefWidth="643.0" style="-fx-background-color: #9DD0D1; -fx-border-color: #000000;" text="Create Order for Other Dealership" textAlignment="CENTER" wrapText="true">
+      <Button alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="-2.0" layoutY="403.0" mnemonicParsing="false" onAction="#btnCreOrderDealClicked" prefHeight="322.0" prefWidth="642.0" style="-fx-background-color: #9DD0D1; -fx-border-color: #000000;" text="Create Order for Other Dealership" textAlignment="CENTER" wrapText="true">
          <font>
             <Font name="SansSerif Regular" size="64.0" />
          </font>
       </Button>
-      <Button fx:id="CreateOrderManufacturer" alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="640.0" layoutY="402.0" mnemonicParsing="false" onAction="#btnCreOrdManuClicked" prefHeight="325.0" prefWidth="641.0" style="-fx-background-color: #9DD0D1; -fx-border-color: #000000;" text="Create Order for Manufacturer" textAlignment="CENTER" wrapText="true">
+      <Button alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="640.0" layoutY="402.0" mnemonicParsing="false" onAction="#btnCreOrdManuClicked" prefHeight="323.0" prefWidth="640.0" style="-fx-background-color: #9DD0D1; -fx-border-color: #000000;" text="Create Order for Manufacturer" textAlignment="CENTER" wrapText="true">
          <font>
             <Font name="SansSerif Regular" size="64.0" />
          </font>
       </Button>
-      <Button fx:id="VerifyTradeValue" alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="1280.75" layoutY="402.0" mnemonicParsing="false" onAction="#btnVerTradValClicked" prefHeight="325.0" prefWidth="640.0" style="-fx-background-color: #9DD0D1; -fx-border-color: #000000;" text="Verify Trade-In Value" textAlignment="CENTER" wrapText="true">
+      <Button alignment="BOTTOM_CENTER" contentDisplay="CENTER" layoutX="1280.0" layoutY="403.0" mnemonicParsing="false" onAction="#btnVerTradValClicked" prefHeight="323.0" prefWidth="640.0" style="-fx-background-color: #9DD0D1; -fx-border-color: #000000;" text="Verify Trade-In Value" textAlignment="CENTER" wrapText="true">
          <font>
             <Font name="SansSerif Regular" size="64.0" />
          </font>
       </Button>
-      <Button fx:id="SignOut" alignment="BASELINE_CENTER" contentDisplay="CENTER" layoutX="639.5" layoutY="727.0" mnemonicParsing="false" onAction="#btnSignOutClicked" prefHeight="321.0" prefWidth="642.0" style="-fx-background-color: #9DD0D1; -fx-border-color: #000000;" text="Sign Out" textAlignment="CENTER" wrapText="true">
+      <Button alignment="BASELINE_CENTER" contentDisplay="CENTER" layoutX="640.0" layoutY="725.0" mnemonicParsing="false" onAction="#btnSignOutClicked" prefHeight="322.0" prefWidth="640.0" style="-fx-background-color: #9DD0D1; -fx-border-color: #000000;" text="Sign Out" textAlignment="CENTER" wrapText="true">
          <font>
             <Font name="SansSerif Regular" size="64.0" />
          </font>
       </Button>
       <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="910.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Downloads/EnterPurchaseIcon.png" />
+            <Image url="@../images/Assets/EnterPurchaseIcon.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="1573.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Downloads/RecordNewArrivalIcon.png" />
+            <Image url="@../images/Assets/RecordNewArrivalIcon.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="241.0" layoutY="470.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Downloads/CreateOrderOtherDealershipIcon.png" />
+            <Image url="@../images/Assets/CreateOrderOtherDealershipIcon.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="915.0" layoutY="465.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Downloads/CreateOrderManufacturerIcon.png" />
+            <Image url="@../images/Assets/CreateOrderManufacturerIcon.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="1570.0" layoutY="488.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Downloads/VerifyTradeInValueIcon.png" />
+            <Image url="@../images/Assets/VerifyTradeInValueIcon.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="925.0" layoutY="775.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Downloads/SignOutIcon.png" />
+            <Image url="@../images/Assets/SignOutIcon.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="245.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../Downloads/ProfileIcon.png" />
+            <Image url="@../images/Assets/ProfileIcon.png" />
          </image>
       </ImageView>
    </children>

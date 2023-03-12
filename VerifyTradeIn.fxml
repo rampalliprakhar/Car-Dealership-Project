@@ -21,7 +21,7 @@
             </Label>
             <ImageView fitHeight="46.0" fitWidth="109.0" layoutX="305.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../Desktop/Designs/OriginalCarArt.png" />
+                  <Image url="@../images/Assets/OriginalCarArt.png" />
                </image>
             </ImageView>
             <Label layoutX="460.0" layoutY="5.0" text="Verify Trade-In Value">
@@ -37,7 +37,7 @@
             </Label>
             <ImageView fitHeight="48.0" fitWidth="94.0" layoutX="1085.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../Desktop/Designs/ReturnIcon.png" />
+                  <Image url="@../images/Assets/ReturnIcon.png" />
                </image>
             </ImageView>
             <Label layoutX="333.0" layoutY="155.0" text="Year">
