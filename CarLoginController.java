@@ -26,21 +26,23 @@ public class CarLoginController {
 	protected String successPrompt = String.format("-fx-text-fill: GREEN;"); // correct input with green font
 	protected String failurePrompt = String.format("-fx-text-fill: RED;"); // incorrect input with red font
 	
-	String userID = "197654325"; // temporary user id
-	String Passkey = "password123"; // temporary password
-	int login_attempt = 3; // number of login attempts
+	int login_attempt = 0; // set login attempts to 0
 	
-	public boolean isUsernameValid(String userinput) {
-		return userinput.matches("^[0-9]{8}$"); // any number from 0 - 9 with total length of 9
-	}
-	public boolean isPasswordValid(String passkey) {
-		// any small, big alphabet with numbers 0-9 including special characters ! or & with
-		// total length of 13
-		String password = "^[a-zA-Z0-9][!|&]{12}$"; 
-		return passkey.matches(password);
-	}
+    public static boolean isValidUsername(String userinput){
+        if(userinput.length() > 8){ // if username input length is greater than 8
+            //System.out.println("Invalid Username"); // print invalid username
+        }
+        return userinput.matches("^[0-9]{8}$"); // input size is 8, only has numbers 0-9
+    }
+    public static boolean isValidPassword(String passkey){
+        if(passkey.length() > 11){ // if input length is greater than 11
+            System.out.println("Invalid password"); // print invalid password
+        }
+        // input size between 0-11, all alphabets small and capital, numbers allowed
+        String password = "^[a-zA-Z0-9][^!&]{0,11}$"; 
+        return passkey.matches(password);
+    }
 	
-
 	public void LogIn(ActionEvent event) throws IOException 
 	{
 	// if username or password is blank
@@ -72,15 +74,12 @@ public class CarLoginController {
 				 String password = PasswordField.getText();
 				 // check to see if login attempts is less than 3 and both username and 
 				 // password matches the given key
-				 if(login_attempt < 3 && userEntry.equals(userID) && password.equals(Passkey)){
-				 	Main m  = new Main(); // if matches, then move Manager View page
-				 	m.changeScene("ManagerViewUISample.fxml");
+				 if(login_attempt < 3 && isValidUsername(userEntry) == true && isValidPassword(password) == true) {
+					 Main m = new Main();
+					 m.changeScene("ManagerViewUISample.fxml");
 				 }
-				 // if username is correct 
-//				 if(EmployeeField.getText().equals(userID) || !PasswordField.getText().equals(Passkey)) {
-//				 	PasswordField.clear();
-//				 } // checking to see if login attempts is 4, and userEntry or password does not match given key
-				 else if(login_attempt == 4 && !userEntry.equals(userID) && !password.equals(Passkey)){
+				 // if either username or password is incorrect, it denies and shows the login attempts made
+				 else if(login_attempt == 4 && !isValidUsername(userEntry) == true || !isValidPassword(password) == true){
 				 	invalidInformation.setText("denied " + login_attempt); // label stating denied with login attempt
 				 }
 				 else{
