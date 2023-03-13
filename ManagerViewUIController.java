@@ -3,6 +3,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import java.io.IOException;
@@ -35,25 +36,57 @@ public class ManagerViewUIController {
 
     @FXML
     private Button ViewWeeklyReports;
+    
+    @FXML
+    private ImageView CreateOrderManufacturerIcon;
+
+    @FXML
+    private ImageView CreateOrderOtherDealershipIcon;
+
+    @FXML
+    private ImageView EnterPurchaseIcon;
+
+    @FXML
+    private ImageView OriginalCarArt;
+
+    @FXML
+    private ImageView ProfileIcon;
+
+    @FXML
+    private ImageView RecordNewArrivalIcon;
+
+    @FXML
+    private ImageView ReportsIcon;
+
+    @FXML
+    private ImageView SetWeeklyDiscountsIcon;
+
+    @FXML
+    private ImageView SignOutIcon;
+
+    @FXML
+    private ImageView VerifyTradeInValueIcon;
+    
 
     public void btnCreOrdManuClicked(ActionEvent event) throws IOException{
     	// goes to Create Order for Manufacturer page.
     	if(event.getSource() == CreateOrderManufacturer) {
-            Main m = new Main();
-    	    m.changeScene("CreateOrderforManufacturer.fxml");
+    		 Main m = new Main();
+    		 m.changeScene("CreateOrderforManufacturer.fxml");
     	}      
     }
     
     public void btnCreOrderDealClicked(ActionEvent event) throws IOException {
     	// goes to Create Order for Other Dealership page.
-	if(event.getSource() == CreateOrderDealership) {
+        if(event.getSource() == CreateOrderDealership) {
 	    Main m = new Main();
 	    m.changeScene("CreateOrderforOtherDealership.fxml");
 	}
+
     }
 
     public void btnEntPurchClicked(ActionEvent event) throws IOException {
-        // goes to Enter Purchase page.
+     // goes to Enter Purchase page.
     	if(event.getSource() == EnterPurchase) {
     	    Main m = new Main();
     	    m.changeScene("PurchaseVehicle1.fxml");
