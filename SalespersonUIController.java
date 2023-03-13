@@ -3,6 +3,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import java.io.IOException;
@@ -29,6 +30,30 @@ public class SalespersonUIController {
 
     @FXML
     private Button VerifyTradeValue;
+    
+    @FXML
+    private ImageView CreateOrderManufacturerIcon;
+
+    @FXML
+    private ImageView CreateOrderOtherDealershipIcon;
+
+    @FXML
+    private ImageView EnterPurchaseIcon;
+
+    @FXML
+    private ImageView OriginalCarArt;
+
+    @FXML
+    private ImageView ProfileIcon;
+
+    @FXML
+    private ImageView RecordNewArrivalIcon;
+
+    @FXML
+    private ImageView SignOutIcon;
+
+    @FXML
+    private ImageView VerifyTradeInValueIcon;
 
     @FXML
     void btnCreOrdManuClicked(ActionEvent event) throws IOException {
@@ -36,7 +61,7 @@ public class SalespersonUIController {
 	if(event.getSource() == CreateOrderManufacturer) {
 	    Main m = new Main();
 	    m.changeScene("CreateOrderforManufacturer.fxml");
-	} 
+        } 
     }
 
     @FXML
@@ -62,8 +87,8 @@ public class SalespersonUIController {
     void btnRecNewArrivClicked(ActionEvent event) throws IOException {
     	// goes to Record New Arrival page.
     	if(event.getSource() == RecordNewArrival) {
-    		 Main m = new Main();
-    		 m.changeScene("RecordVehicleUI.fxml");
+    	    Main m = new Main();
+    	    m.changeScene("RecordVehicleUI.fxml");
     	}
     }
 
@@ -72,7 +97,7 @@ public class SalespersonUIController {
     	// goes to Register Customer page.
     	if(event.getSource() == RegisterCustomer) {
     	    Main m = new Main();
-    	    m.changeScene("RegCustomerUI.fxml");
+            m.changeScene("RegCustomerUI.fxml");
     	}
     }
 
@@ -90,7 +115,7 @@ public class SalespersonUIController {
     	// goes to Verify Trade-In Value page.
     	// Had to change the names in the original files.
     	if(event.getSource() == VerifyTradeValue) {
-    	    Main m = new Main();
+            Main m = new Main();
     	    m.changeScene("VerifyTradeIn.fxml");
     	}
     }
