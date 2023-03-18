@@ -41,8 +41,8 @@ public class Main extends Application {
     } // method helps with carrying over textfield info from one UI to the other
     
 	public static void main(String[] args) throws Exception {
-		launch(args);
 		System.out.println(getGoogleCloudDBConnection());
+		launch(args);
 	}
 	
 	public static String getView() {
