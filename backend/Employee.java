@@ -1,7 +1,7 @@
 /*---------------------------------------------------
  *  Author: J. Alan Wallace, Triny Nguyen
  *  Written: 3/3/2023
- *  Last Updated: 3/3/2023
+ *  Last Updated: 3/17/2023
  *  
  *  Compilation: javac Employee.java
  *  Execution: java Employee
@@ -56,7 +56,15 @@ public class Employee {
 
     }
     
-    // need an updateCommission method
+    public void updateCommission(Double currentSalesTotal) {
+        
+        if (currentSalesTotal != null) {
+            if (currentSalesTotal < SALES_RANK_ONE) this.comPercentage = COM_RANK_ONE;
+            if (currentSalesTotal >= SALES_RANK_ONE && currentSalesTotal < SALES_RANK_TWO) this.comPercentage =  COM_RANK_TWO;
+            if (currentSalesTotal > SALES_RANK_TWO) this.comPercentage = COM_RANK_THREE;
+        }
+        
+    } // end updateCommission
     
     // getters and setters
     
