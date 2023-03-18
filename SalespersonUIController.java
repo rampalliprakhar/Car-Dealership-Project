@@ -115,8 +115,8 @@ public class SalespersonUIController {
     	// goes to Verify Trade-In Value page.
     	// Had to change the names in the original files.
     	if(event.getSource() == VerifyTradeValue) {
-            Main m = new Main();
-    	    m.changeScene("VerifyTradeIn.fxml");
+    	    Main m = new Main();
+    	    m.changeScene("VerifyTradeInUI.fxml");
     	}
     }
 }
