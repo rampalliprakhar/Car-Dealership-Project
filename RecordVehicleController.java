@@ -10,6 +10,8 @@ import javafx.collections.*;
 import java.io.IOException;
 import java.util.Date;
 
+import backend.Vehicle;
+
 public class RecordVehicleController {
     
     @FXML
@@ -45,6 +47,7 @@ public class RecordVehicleController {
     
     private String previousPage = Main.getView();
     
+    
     @FXML
     private void initialize() {
         
@@ -64,7 +67,11 @@ public class RecordVehicleController {
     public void save(ActionEvent event) throws IOException {
         
         Vehicle vehicle = new Vehicle(new Double(VINField.getText()), new Double(ValueField.getText()), new Integer(YearField.getText()), MakeDropdown.getValue(),
-                ModelField.toString(), BodyConDropdown.getValue(), MechConDropdown.getValue(), ColorField.getText(), new Double(MileageField.getText()), new Date());
+                ModelField.getText(), BodyConDropdown.getValue(), MechConDropdown.getValue(), ColorField.getText(), new Double(MileageField.getText()), new Date());
+        
+        // Debug statement to test the save method
+        System.out.println(vehicle.getVIN() + " " + vehicle.getValue() + " " + vehicle.getYear() + " " + vehicle.getMake() + " " + vehicle.getModel() + " " +vehicle.getBodyCondition() + " " + vehicle.getMechCondition() + " " + vehicle.getColor() +
+        " " + vehicle.getMileage() + " " + vehicle.getDatePutOnLot());
         
         /* Insert code to save the newly created vehicle to the database*/
         
