@@ -130,7 +130,7 @@ public class ManagerViewUIController {
     	// Had to change the names in the original files.
     	if(event.getSource() == VerifyTadeValue) {
     	    Main m = new Main();
-    	    m.changeScene("VerifyTradeIn.fxml");
+    	    m.changeScene("VerifyTradeInUI.fxml");
     	}
     }
 
