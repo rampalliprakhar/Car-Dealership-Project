@@ -9,6 +9,9 @@ import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import java.io.IOException;
 
+import backend.Address;
+import backend.CustomerProfile;
+
 public class RegisterCustomerController {
     
     @FXML
@@ -28,8 +31,6 @@ public class RegisterCustomerController {
     @FXML
     private TextField DriversLicenseField;
     @FXML
-    private DatePicker DOBPicker;
-    @FXML
     private Button SaveButton;
     @FXML
     private Button ClearButton;
@@ -46,7 +47,11 @@ public class RegisterCustomerController {
         
         Address custAddress = new Address(AddressField.getText(), CityField.getText(), StateField.getText(), ZIPField.getText(), "");
         
-        CustomerProfile customer = new CustomerProfile(FirstNameField.getText(), LastNameField.getText(), PhoneField.getText(), DOBPicker.getValue(), custAddress);
+        String licenseAsString = DriversLicenseField.getText();
+        Long licenseNum = null;
+        if (licenseAsString != null && licenseAsString.length() > 0) licenseNum = Long.decode(licenseAsString);
+        
+        CustomerProfile customer = new CustomerProfile(licenseNum, FirstNameField.getText(), LastNameField.getText(), PhoneField.getText(), custAddress);
         // Future code: Save customer to database.
         
         Main m = new Main();
