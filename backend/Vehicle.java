@@ -1,7 +1,7 @@
 /*---------------------------------------------------
  *  Author: J. Alan Wallace, Triny Nguyen
  *  Written: 1/25/2023
- *  Last Updated: 1/31/2023
+ *  Last Updated: 3/17/2023
  *  
  *  Compilation: javac Vehicle.java
  *  Execution: java Vehicle
@@ -28,13 +28,14 @@ public class Vehicle {
     private String mechCondition; // Mechanical Condition
     private String color;
     private Double mileage;
-    private ArrayList<String> additionalFeatures;
+    //private ArrayList<String> additionalFeatures;
     private Long datePutOnLot;
     
     // This is a list of all possible conditions for bodyCondition and mechCondition
     private final String[] listOfConditions = {"Very Bad/Broken", "Bad", "Average", "Good", "Like New"}; 
     
     public Vehicle() {
+        this.VIN = 000000000.00;
         this.year = 1901;
         this.make = "No Make Specified";
         this.model = "No Model Specified";
@@ -44,11 +45,12 @@ public class Vehicle {
         this.mechCondition = "No Mechanical Condition Specified";
         this.color = "No Color Specified";
         this.mileage = 0.0;
-        this.additionalFeatures = new ArrayList<String>();
+        //this.additionalFeatures = new ArrayList<String>();
         this.datePutOnLot = System.currentTimeMillis();
     } // default constructor
     
     public Vehicle(Double VIN, Double value, Integer year, String make, String model, String bodyCondition, String mechCondition, String color, Double mileage, Date DatePutOnLot) {
+        this.setVIN(VIN);
         this.setValue(value);
         this.setYear(year);
         this.setMake(make);
@@ -137,28 +139,16 @@ public class Vehicle {
         return this.bodyCondition;
     } // end getBodyCondition
     
-    public boolean setBodyCondition(String bodyCon) {
-        for (int count = 0; count < this.listOfConditions.length - 1; count++) {
-            if (this.listOfConditions[count].equalsIgnoreCase(bodyCon)) {
-                this.bodyCondition = bodyCon;
-                return true;
-            }
-        }
-        return false;
+    public void setBodyCondition(String bodyCon) {
+        this.bodyCondition = bodyCon;
     } // end setBodyCondition
     
     public String getMechCondition() { 
         return this.mechCondition;
     } // end getMechCondition
     
-    public boolean setMechCondition(String mechCon) {
-        for (int count = 0; count < this.listOfConditions.length - 1; count++) {
-            if (this.listOfConditions[count].equalsIgnoreCase(mechCon)) {
-                this.bodyCondition = mechCon;
-                return true;
-            }
-        }
-        return false;
+    public void setMechCondition(String mechCon) {
+        this.mechCondition = mechCon;
     } // end setMechCondition
     
     public String getColor() {
@@ -182,22 +172,22 @@ public class Vehicle {
         return true;
     } // end setMileage
     
-    public ArrayList<String> getAdditionalFeatures() {
-        return this.additionalFeatures;
-    } // end getAdditionalFeatures
+//    public ArrayList<String> getAdditionalFeatures() {
+//        return this.additionalFeatures;
+//    } // end getAdditionalFeatures
+//    
+//    public boolean addAdditionalFeatures(String feature) {
+//        this.additionalFeatures.add(feature);
+//        return true;
+//    } // end addAdditionalFeatures
     
-    public boolean addAdditionalFeatures(String feature) {
-        this.additionalFeatures.add(feature);
-        return true;
-    } // end addAdditionalFeatures
-    
-    public boolean removeAdditionalFeatures(String feature) {
-        if (this.additionalFeatures.contains(feature)) {
-            this.additionalFeatures.remove(feature);
-            return true;
-        }
-        else return false;
-    } // end removeAdditionalFeatures
+//    public boolean removeAdditionalFeatures(String feature) {
+//        if (this.additionalFeatures.contains(feature)) {
+//            this.additionalFeatures.remove(feature);
+//            return true;
+//        }
+//        else return false;
+//    } // end removeAdditionalFeatures
     
     public Date getDatePutOnLot() {
         return new Date(this.datePutOnLot);
