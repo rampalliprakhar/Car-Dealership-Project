@@ -53,7 +53,7 @@
       </Text>
       <ImageView fitHeight="86.0" fitWidth="185.0" layoutX="570.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/Assets/OriginalCarArt.png" />
+            <Image url="@OriginalCarArt.png" />
          </image>
       </ImageView>
       <Text layoutX="887.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create Order for Manufacturer">
@@ -68,7 +68,7 @@
       </Button>
       <ImageView fitHeight="109.0" fitWidth="98.0" layoutX="1751.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/Assets/ReturnIcon.png" />
+            <Image url="@ReturnIcon.png" />
          </image>
       </ImageView>
       <Label layoutX="668.0" layoutY="300.0" prefHeight="41.0" prefWidth="173.0" text="Order ID">
@@ -122,6 +122,15 @@
          </font>
       </Button>
       <ChoiceBox fx:id="MakeCar" layoutX="901.0" layoutY="460.0" prefHeight="32.0" prefWidth="388.0" />
-      <ChoiceBox fx:id="ModelCar" layoutX="900.0" layoutY="535.0" prefHeight="32.0" prefWidth="391.0" />
+      <Label fx:id="invalidInput" layoutX="800.0" layoutY="685.0" prefHeight="28.0" prefWidth="494.0" textFill="#eb0707">
+         <font>
+            <Font name="Times New Roman" size="21.0" />
+         </font>
+      </Label>
+      <TextField fx:id="ModelCar" layoutX="900.0" layoutY="535.0" prefHeight="39.0" prefWidth="391.0" promptText="Model">
+         <font>
+            <Font name="Georgia" size="21.0" />
+         </font>
+      </TextField>
    </children>
 </AnchorPane>
