@@ -7,9 +7,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -20,16 +17,13 @@ import java.time.LocalDate;
 public class CustomerProfileController {
 	
 	@FXML
-	private TextField firstName, lastName, phoneNumber, customerID, streetAddress, city, state, zipCode;
+	private TextField firstName, lastName, phoneNumber, customerID, streetAddress, city, state, zipCode, VINField;
 	
 	@FXML
 	private DatePicker birthDate;
 	
 	@FXML
 	private Text updateSuccessful;
-	
-//	@FXML
-//	private Button updateProfile;
 	
 	@FXML
 	private Button addCusToSale, returnButton, updateProfile;
@@ -38,16 +32,81 @@ public class CustomerProfileController {
 	public void initialize() {
 		// test data
 		// should get information from database from given Customer ID from searchCustomerController
-		LocalDate date = LocalDate.now();
 		firstName.setText("Triny");
 		lastName.setText("Nguyen");
-		birthDate.setValue(date);
+		birthDate.setValue(LocalDate.of(2003,8,23));
 		phoneNumber.setText("803");
 		customerID.setText("675");
 		streetAddress.setText("502 Manchester Dr");
 		city.setText("Manning");
 		state.setText("SC");
 		zipCode.setText("29102");
+		
+		
+		// change name requirements bc they can have numbers and symbols
+		// only allows alphabetical characters
+		firstName.setTextFormatter(new TextFormatter<> (change -> {
+			if (change.getText().matches("[^a-zA-Z'-]")) {
+				return null;
+			}
+			return change;
+		})); // add length limit
+		
+		// only allows alphabetical characters
+		lastName.setTextFormatter(new TextFormatter<> (change -> {
+			if (change.getText().matches("[^a-zA-Z'-]")) {
+				return null;
+			}
+			return change;
+		})); // add length limit
+		
+		
+		
+		// birthdate
+		
+		
+		
+		// only allows numbers, parenthesis, and dashes
+		phoneNumber.setTextFormatter(new TextFormatter<> (change -> {
+			if (change.getText().matches("[^0-9-()]")) {
+				return null;
+			}
+			return change;
+		})); // not correct
+		
+		
+		
+		// customer ID
+		
+		// street
+		
+		
+		
+		
+		// only allows alphabetical characters
+		city.setTextFormatter(new TextFormatter<> (change -> {
+			if (change.getText().matches("[^a-zA-Z]")) {
+				return null;
+			}
+			return change;
+		})); // add length limit
+		
+		// only allows alphabetical characters
+		state.setTextFormatter(new TextFormatter<> (change -> {
+			if (change.getText().matches("[^a-zA-Z]")) {
+				return null;
+			}
+			return change;
+		})); // add length limit, not correct
+		
+		// only allows numbers
+		zipCode.setTextFormatter(new TextFormatter<> (change -> {
+			if (change.getText().matches("[^0-9]")) {
+				return null;
+			}
+			return change;
+		})); // add 5 digit limit
+
 		
 //		firstName.setTextFormatter();
 //		firstName.setInputMethodRequests(null);
@@ -67,24 +126,23 @@ public class CustomerProfileController {
     } // end pageReturn	
     
     public void addCusToSale(ActionEvent event) throws IOException{
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("RecordOfSaleUI.fxml"));
+    	Parent root = loader.load();
     	
-//    	Main m = new Main();
-//    	m.changeScene("RecordOfSaleUI.fxml");
+    	RecordOfSaleController recSaleController = loader.getController();
+    	recSaleController.showInformation(firstName.getText(), lastName.getText(), customerID.getText(), VINField.getText());
+
+    	Main m = new Main();
+    	m.changeScene("RecordOfSaleUI.fxml", root);
     }
     
-//    public void updateProfile(ActionEvent event) throws IOException {
-//
-////		firstName.getSelectedText();
-//
-//    	// change info in database
+    public void showInformation(String VIN) {
+    	VINField.setText(VIN);
+    }
     
-    
-    
-    
-    
-
+    public void updateProfile(ActionEvent event) throws IOException {
+//    change info in database
 //    if success print out success through updateSuccessful Text field
 //    if not, print out not successful
-//    }
-
+    }
 }
