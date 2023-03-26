@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="960.0" style="-fx-background-color: #00AA83; -fx-border-color: #00AA83;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SetDiscounts2Controller">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="510.0" layoutX="10.0" layoutY="10.0" stroke="#9dd0d1" strokeType="INSIDE" style="-fx-fill: #9DD0D1;" width="940.0">
+         <effect>
+            <InnerShadow height="30.0" radius="7.0" width="0.0" />
+         </effect>
+      </Rectangle>
+      <Label layoutX="350.0" layoutY="41.0" text="Set Discount">
+         <font>
+            <Font name="Georgia Bold Italic" size="36.0" />
+         </font>
+      </Label>
+      <Label layoutX="259.0" layoutY="91.0" text="Enter a percent discount:">
+         <font>
+            <Font name="Georgia" size="36.0" />
+         </font>
+      </Label>
+      <Label layoutX="436.0" layoutY="209.0" text="OR">
+         <font>
+            <Font name="Georgia" size="36.0" />
+         </font>
+      </Label>
+      <Label layoutX="238.0" layoutY="259.0" text="Enter a discounted price:">
+         <font>
+            <Font name="Georgia" size="36.0" />
+         </font>
+      </Label>
+      <Label layoutX="188.0" layoutY="323.0" text="Regular Price:">
+         <font>
+            <Font name="Georgia" size="36.0" />
+         </font>
+      </Label>
+      <TextField fx:id="percentDiscount" layoutX="324.0" layoutY="150.0" prefHeight="40.0" prefWidth="290.0" promptText="Percent Discount">
+         <font>
+            <Font name="Georgia" size="21.0" />
+         </font>
+      </TextField>
+      <Label layoutX="179.0" layoutY="381.0" text="New Discount Price:">
+         <font>
+            <Font name="Georgia" size="36.0" />
+         </font>
+      </Label>
+      <TextField fx:id="regularPrice" layoutX="523.0" layoutY="325.0" prefHeight="40.0" prefWidth="290.0" promptText="Regular Price">
+         <font>
+            <Font name="Georgia" size="21.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="newDiscountPrice" layoutX="523.0" layoutY="381.0" prefHeight="40.0" prefWidth="290.0" promptText="New Discount Price">
+         <font>
+            <Font name="Georgia" size="21.0" />
+         </font>
+      </TextField>
+      <Button fx:id="saveButton" layoutX="520.0" layoutY="433.0" mnemonicParsing="false" onAction="#save" prefHeight="62.0" prefWidth="218.0" text="SAVE">
+         <font>
+            <Font name="Georgia" size="34.0" />
+         </font>
+      </Button>
+      <Button fx:id="cancelButton" layoutX="230.0" layoutY="433.0" mnemonicParsing="false" onAction="#cancel" prefHeight="62.0" prefWidth="218.0" text="CANCEL">
+         <font>
+            <Font name="Georgia" size="34.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
