@@ -61,8 +61,15 @@ public class VerifyTradeInController {
     
     public void getValue(ActionEvent event) {
         
-        // ADDITIONAL CODE NEEDED
-        setValue(123456.78);
+        /* This logic is to fake the functionality of the KellyBlueBook API.
+         * We do not have the time to hook up the API, so this is just logic
+         * to simulate that. It is ($300,000 - mileage) / (2030-Year)
+         */
+        
+        Double value = new Double(300_000.00);
+        value = value - new Double(MileageField.getText());
+        value = value / (2030 - new Double(YearField.getText()));
+        setValue(value);
         
     } // end getValue
     
