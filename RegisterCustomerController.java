@@ -39,6 +39,84 @@ public class RegisterCustomerController {
     
     private String previousPage = Main.getView();
     
+        @FXML
+    public void intitialize() {
+
+		// change name requirements bc they can have numbers and symbols????
+        
+		// only allows alphabetical characters, dash, and apostrophe of up to 40 characters
+		FirstNameField.setTextFormatter(new TextFormatter<> (change -> {
+			if ((change.getControlNewText().length() > 40) ||
+				(change.getText().matches("[^a-zA-Z'-]"))) {
+				return null;
+			}
+			return change;
+		})); // change length limit?
+		
+		// only allows alphabetical characters, dash, and apostrophe of up to 40 characters
+		LastNameField.setTextFormatter(new TextFormatter<> (change -> {
+			if ((change.getControlNewText().length() > 40) ||
+				(change.getText().matches("[^a-zA-Z'-]"))) {
+				return null;
+			}
+			return change;
+		})); // change length limit?
+		
+		// only allows numbers, parenthesis, and dashes
+		PhoneField.setTextFormatter(new TextFormatter<> (change -> {
+			if (change.getText().matches("[^0-9-()]")) {
+				return null;
+			}
+			return change;
+		})); // not correct, add length limit
+			
+			
+		// only allows numbers and uppercase characters up to 12
+		DriversLicenseField.setTextFormatter(new TextFormatter<> (change -> {
+				if ((change.getControlNewText().length() > 12) ||
+				(change.getText().matches("[^A-Z1-9]"))) {
+				return null;
+			}
+			return change;
+		})); // change length limit NOWWWWW
+		
+		// only allows numbers and regular characters up to 40
+		AddressField.setTextFormatter(new TextFormatter<> (change -> {
+			if ((change.getControlNewText().length() > 40) ||
+			(change.getText().matches("[^A-Za-z1-9]"))) {
+			return null;
+		}
+		return change;
+	})); // change length limit?
+
+		// only allows alphabetical characters and up to 40 characters
+		CityField.setTextFormatter(new TextFormatter<> (change -> {
+			if ((change.getControlNewText().length() > 40) ||
+				(change.getText().matches("[^a-zA-Z]"))) {
+				return null;
+			}
+			return change;
+		})); // change length limit?
+		
+		// only allows alphabetical characters and up to 40 characters
+		StateField.setTextFormatter(new TextFormatter<> (change -> {
+			if ((change.getControlNewText().length() > 40) ||
+				(change.getText().matches("[^a-zA-Z]"))) {
+				return null;
+			}
+			return change;
+		})); // change length limit?
+		
+		// only allows numbers and up to 5 digits
+		ZIPField.setTextFormatter(new TextFormatter<> (change -> {
+			if ((change.getControlNewText().length() > 5) ||
+				(change.getText().matches("[^0-9]"))) {
+				return null;
+			}
+			return change;
+		}));
+
+    }
     
     public void save(ActionEvent event) throws IOException {
         
