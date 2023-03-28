@@ -43,7 +43,7 @@ public class RegisterCustomerController {
     public void intitialize() {
 
 		// change name requirements bc they can have numbers and symbols????
-        
+        	// is 40 a good length limit?
 		// only allows alphabetical characters, dash, and apostrophe of up to 40 characters
 		FirstNameField.setTextFormatter(new TextFormatter<> (change -> {
 			if ((change.getControlNewText().length() > 40) ||
@@ -51,7 +51,7 @@ public class RegisterCustomerController {
 				return null;
 			}
 			return change;
-		})); // change length limit?
+		}));
 		
 		// only allows alphabetical characters, dash, and apostrophe of up to 40 characters
 		LastNameField.setTextFormatter(new TextFormatter<> (change -> {
@@ -60,7 +60,7 @@ public class RegisterCustomerController {
 				return null;
 			}
 			return change;
-		})); // change length limit?
+		})); 
 		
 		// only allows numbers, parenthesis, and dashes
 		PhoneField.setTextFormatter(new TextFormatter<> (change -> {
@@ -87,7 +87,7 @@ public class RegisterCustomerController {
 			return null;
 		}
 		return change;
-	})); // change length limit?
+	}));
 
 		// only allows alphabetical characters and up to 40 characters
 		CityField.setTextFormatter(new TextFormatter<> (change -> {
@@ -96,7 +96,7 @@ public class RegisterCustomerController {
 				return null;
 			}
 			return change;
-		})); // change length limit?
+		}));
 		
 		// only allows alphabetical characters and up to 40 characters
 		StateField.setTextFormatter(new TextFormatter<> (change -> {
@@ -105,7 +105,7 @@ public class RegisterCustomerController {
 				return null;
 			}
 			return change;
-		})); // change length limit?
+		}));
 		
 		// only allows numbers and up to 5 digits
 		ZIPField.setTextFormatter(new TextFormatter<> (change -> {
