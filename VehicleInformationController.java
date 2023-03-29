@@ -172,7 +172,7 @@ public class VehicleInformationController {
 //    	return true;
 //    }
     
-	// recieves customer information from record of sale UI
+	// receives customer information from search vehicle UI
     public void showInformation(String cusID, String first, String last, String paymentMethod, LocalDate salesDate) {
     	customerID.setText(cusID);
     	custFirstName.setText(first);
@@ -191,9 +191,8 @@ public class VehicleInformationController {
 		   	RecordOfSaleController recSaleController = loader.getController();
 
 		   	// need to ensure they save before sending info to record of sale
-		   	recSaleController.showInformation(custFirstName.getText(), custLastName.getText(), customerID.getText(), MakeDropdown.getValue(), ModelField.getText(), 
-		   			YearField.getText(), ValueField.getText(), VINField.getText(), paymentMethod.getValue(), salesDate.getValue());
-	    	
+		   	recSaleController.showInformation(custFirstName.getText(), custLastName.getText(), customerID.getText(), YearField.getText(), MakeDropdown.getValue(), ModelField.getText(), 
+		   			VINField.getText(), ValueField.getText(), paymentMethod.getValue(), salesDate.getValue());
 		   	
 	    	Main m = new Main();
 	    	m.changeScene("RecordOfSaleUI.fxml", root);
