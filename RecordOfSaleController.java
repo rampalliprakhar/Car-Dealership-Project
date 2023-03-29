@@ -3,10 +3,8 @@ import javafx.fxml.FXML;
 import javafx.scene.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.collections.*;
-import javafx.scene.image.ImageView;
 import java.io.IOException;
 import java.time.LocalDate;
 
@@ -31,34 +29,20 @@ public class RecordOfSaleController {
     
     private String previousPage = Main.getView();
     
-    final private ObservableList<String> makeList = FXCollections.observableArrayList("Acura", "Alfa Romeo", "Aston Martin", "Audi", "Bentley", "BMW", "Buick", 
-            "Cadillac", "Chevrolet", "Chrysler", "Dodge", "Ferrari", "Fiat", "Ford", "Genesis", "GMC", "Honda", "Hyundai", "Infiniti", "Jaguar", "Jeep", "Kia", 
-            "Lamborghini", "Land Rover", "Lexus", "Lincoln", "Maserati", "Mazda", "McLaren", "Mercedes-Benz", "Mini", "Mitsubishi", "Nissan", "Porsche", "Ram", 
-            "Rolls-Royce", "Subaru", "Tesla", "Toyota", "Volkswagen", "Volvo");
-    
     final private ObservableList<String> paymentList = FXCollections.observableArrayList("Debit", "Credit", "Cash", "Check", "Other");
     
     public void initialize() {
     	salesDate.setValue(LocalDate.now());
         makeDropdown.setValue("Select a Make");
-        makeDropdown.setItems(makeList);
         paymentMethod.setValue("Select a Payment Method");
         paymentMethod.setItems(paymentList);
     }
-    
-    
-    
-    
-    
-   
+
     public void showCusInformation(String firstName, String lastName, String cusID) {
     	this.firstName.setText(firstName);
     	this.lastName.setText(lastName);
     	customerID.setText(cusID);
-//    	previousPage = "SearchCustomerUI.fxml";
     } // initializes page with these selected customer values if previous page was search customer
-    
-    
     
     public void showVehInformation(String make, String model, String year, String value, String VIN) {
     	makeDropdown.setValue(make);
@@ -68,27 +52,18 @@ public class RecordOfSaleController {
     	VINField.setText(VIN);
     }
     
-    
-    
-    
-    
-    
-    
-    public void showInformation(String firstName, String lastName, String cusID, String VIN) {
+    // receives information from customer profile UI, vehicle information UI, or search vehicle UI
+    public void showInformation(String firstName, String lastName, String cusID, String year, String make, String model, String VIN, String price, String paymentMethod, LocalDate salesDate) {
     	this.firstName.setText(firstName);
     	this.lastName.setText(lastName);
     	customerID.setText(cusID);
-    	VINField.setText(VIN);
-    }
-    
-    
-    public void showInformation (String make, String model, String year, String value, String VIN, String cusID) {
+    	yearField.setText(year);
     	makeDropdown.setValue(make);
     	modelField.setText(model);
-    	yearField.setText(year);
-    	valueField.setText(value);
     	VINField.setText(VIN);
-    	customerID.setText(cusID);
+    	valueField.setText(price);
+    	this.paymentMethod.setValue(paymentMethod);
+    	this.salesDate.setValue(salesDate);
     }
     
     public void addCusTOSale(ActionEvent event) throws IOException{
@@ -96,10 +71,10 @@ public class RecordOfSaleController {
     	Parent root = loader.load();
     	
     	SearchCustomerController controller = loader.getController();
-    	controller.showInformation(VINField.getText());
+    	controller.showInformation(yearField.getText(), makeDropdown.getValue(), modelField.getText(), VINField.getText(), valueField.getText(), paymentMethod.getValue(), salesDate.getValue());
 
     	Main m = new Main();
-    	m.changeScene("SearchCustomerUI.fxml");   
+    	m.changeScene("SearchCustomerUI.fxml", root);    
     }
 
     public void addVehToSale(ActionEvent event) throws IOException{
@@ -109,18 +84,16 @@ public class RecordOfSaleController {
     	Parent root = loader.load();
     	
     	SearchVehicleController controller = loader.getController();
-    	controller.showInformation(customerID.getText());
+    	controller.showInformation(customerID.getText(), firstName.getText(), lastName.getText(), paymentMethod.getValue(), salesDate.getValue());
 
     	Main m = new Main();
     	m.changeScene("SearchVehicleUI.fxml", root);    	
     	}
-   
-    
-    
     
     public void pageReturn(ActionEvent event) throws IOException{
     	Main m = new Main();
     	m.changeScene(previousPage);
+    	// goes to main menu
     }
     
     public void clear(ActionEvent event) throws IOException{
