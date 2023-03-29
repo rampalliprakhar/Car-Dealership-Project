@@ -16,11 +16,16 @@ import java.time.LocalDate;
 
 public class CustomerProfileController {
 	
-	@FXML
-	private TextField firstName, lastName, phoneNumber, customerID, streetAddress, city, state, zipCode, VINField;
+	// customerID refers to the driver's license number
 	
 	@FXML
-	private DatePicker birthDate;
+	private TextField firstName, lastName, phoneNumber, customerID, streetAddress, city, state, zipCode, VINField, yearField, modelField, valueField;
+	
+	@FXML
+    private ChoiceBox<String> makeDropdown, paymentMethod;
+	
+    @FXML
+    private DatePicker salesDate;
 	
 	@FXML
 	private Text updateSuccessful;
@@ -34,7 +39,6 @@ public class CustomerProfileController {
 		// should get information from database from given Customer ID from searchCustomerController
 		firstName.setText("Triny");
 		lastName.setText("Nguyen");
-		birthDate.setValue(LocalDate.of(2003,8,23));
 		phoneNumber.setText("803");
 		customerID.setText("675");
 		streetAddress.setText("502 Manchester Dr");
@@ -43,28 +47,24 @@ public class CustomerProfileController {
 		zipCode.setText("29102");
 		
 		
-		// change name requirements bc they can have numbers and symbols
-		// only allows alphabetical characters
+		// change name requirements bc they can have numbers and symbols????
+		// only allows alphabetical characters, dash, and apostrophe
 		firstName.setTextFormatter(new TextFormatter<> (change -> {
-			if (change.getText().matches("[^a-zA-Z'-]")) {
+			if ((change.getControlNewText().length() > 40) ||
+				(change.getText().matches("[^a-zA-Z'-]"))) {
 				return null;
 			}
 			return change;
-		})); // add length limit
+		})); // change length limit?
 		
-		// only allows alphabetical characters
+		// only allows alphabetical characters, dash, and apostrophe
 		lastName.setTextFormatter(new TextFormatter<> (change -> {
-			if (change.getText().matches("[^a-zA-Z'-]")) {
+			if ((change.getControlNewText().length() > 40) ||
+				(change.getText().matches("[^a-zA-Z'-]"))) {
 				return null;
 			}
 			return change;
-		})); // add length limit
-		
-		
-		
-		// birthdate
-		
-		
+		})); // change length limit?		
 		
 		// only allows numbers, parenthesis, and dashes
 		phoneNumber.setTextFormatter(new TextFormatter<> (change -> {
@@ -73,43 +73,52 @@ public class CustomerProfileController {
 			}
 			return change;
 		})); // not correct
+			
+			
+		// only allows numbers and uppercase characters up to 12
+		customerID.setTextFormatter(new TextFormatter<> (change -> {
+				if ((change.getControlNewText().length() > 12) ||
+				(change.getText().matches("[^A-Z1-9]"))) {
+				return null;
+			}
+			return change;
+		})); // change length limit NOWWWWW
 		
+		// only allows numbers and regular characters up to 40
+		streetAddress.setTextFormatter(new TextFormatter<> (change -> {
+			if ((change.getControlNewText().length() > 40) ||
+			(change.getText().matches("[^A-Za-z1-9\\s]"))) {
+			return null;
+		}
+		return change;
+	})); // change length limit?
 		
-		
-		// customer ID
-		
-		// street
-		
-		
-		
-		
-		// only allows alphabetical characters
+		// only allows alphabetical characters and up to 40 characters
 		city.setTextFormatter(new TextFormatter<> (change -> {
-			if (change.getText().matches("[^a-zA-Z]")) {
+			if ((change.getControlNewText().length() > 40) ||
+				(change.getText().matches("[^a-zA-Z\\s]"))) {
 				return null;
 			}
 			return change;
 		})); // add length limit
 		
-		// only allows alphabetical characters
+		// only allows alphabetical characters and up to 40 characters
 		state.setTextFormatter(new TextFormatter<> (change -> {
-			if (change.getText().matches("[^a-zA-Z]")) {
+			if ((change.getControlNewText().length() > 40) ||
+				(change.getText().matches("[^a-zA-Z\\s]"))) {
 				return null;
 			}
 			return change;
 		})); // add length limit, not correct
 		
-		// only allows numbers
+		// only allows numbers and up to 5 digits
 		zipCode.setTextFormatter(new TextFormatter<> (change -> {
-			if (change.getText().matches("[^0-9]")) {
+			if ((change.getControlNewText().length() > 5) ||
+				(change.getText().matches("[^0-9]"))) {
 				return null;
 			}
 			return change;
-		})); // add 5 digit limit
-
-		
-//		firstName.setTextFormatter();
-//		firstName.setInputMethodRequests(null);
+		}));
 	}
 	
     public void pageReturn(ActionEvent event) throws IOException {
@@ -130,14 +139,20 @@ public class CustomerProfileController {
     	Parent root = loader.load();
     	
     	RecordOfSaleController recSaleController = loader.getController();
-    	recSaleController.showInformation(firstName.getText(), lastName.getText(), customerID.getText(), VINField.getText());
+    	recSaleController.showInformation(firstName.getText(), lastName.getText(), customerID.getText(), yearField.getText(), makeDropdown.getValue(), modelField.getText(), VINField.getText(), valueField.getText(), paymentMethod.getValue(), salesDate.getValue());
 
     	Main m = new Main();
     	m.changeScene("RecordOfSaleUI.fxml", root);
     }
     
-    public void showInformation(String VIN) {
+    public void showInformation(String year, String make, String model, String VIN, String price, String paymentMethod, LocalDate salesDate) {
+    	yearField.setText(year);
+    	makeDropdown.setValue(make);
+    	modelField.setText(model);
     	VINField.setText(VIN);
+    	valueField.setText(price);
+    	this.paymentMethod.setValue(paymentMethod);
+    	this.salesDate.setValue(salesDate);
     }
     
     public void updateProfile(ActionEvent event) throws IOException {
