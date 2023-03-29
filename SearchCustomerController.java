@@ -1,15 +1,13 @@
 package application;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.*;
 import javafx.scene.*;
@@ -18,23 +16,67 @@ import javafx.stage.Stage;
 import javafx.application.Application;
 
 public class SearchCustomerController {
+    @FXML
+    private ChoiceBox<String> makeDropdown, paymentMethod;
+    
+    @FXML
+    private DatePicker salesDate;
+
 	
 	private CustomerProfile selectedCus;
 	
     @FXML
-    private TextField firstName, lastName;
+    private TextField firstName, lastName, VINField, yearField, modelField, valueField;
     
     @FXML
-    private Button searchButton, clearButton, returnButton, registerNewCustomer, openProfileButton;
+    private Button searchButton, clearButton, returnButton, registerNewCustomer;
     
-    @FXML
-    private MenuItem selectButton;
+    private String previousPage = Main.getView();
+
+    
+//    @FXML
+//    private MenuItem selectButton;
     
     @FXML
     private ListView<String> listView;
-        
+    
+    @FXML
     public void initialize() {
+		// change name requirements bc they can have numbers and symbols
+    	
+		// only allows alphabetical characters
+		firstName.setTextFormatter(new TextFormatter<> (change -> {
+			if ((change.getControlNewText().length() > 40) ||
+				(change.getText().matches("[^a-zA-Z'-]"))) {
+				return null;
+			}
+			return change;
+		})); // change length limit?
+		
+		// only allows alphabetical characters
+		lastName.setTextFormatter(new TextFormatter<> (change -> {
+			if ((change.getControlNewText().length() > 40) ||
+				(change.getText().matches("[^a-zA-Z'-]"))) {
+				return null;
+			}
+			return change;
+		})); // change length limit?
     }
+        
+    public void clear(ActionEvent event) {
+        
+        /* This method clears all of the fields.*/
+        
+        firstName.clear();
+        lastName.clear();
+        
+    } // end clear
+    
+    public void pageReturn(ActionEvent event) throws IOException {
+        
+        Main m = new Main();
+        m.changeScene("RecordOfSaleUI.fxml");
+    } // end pageReturn
     
     public void searchCus(ActionEvent event) throws IOException {    	
     	
@@ -58,33 +100,33 @@ public class SearchCustomerController {
     	 
 //    	listView.setItems(list);
       }
-    }
-    
-    public void openCusProfile(ActionEvent event) throws IOException{
-    	
-    	
-    	Main m = new Main();
-    	// open customer profile of selected customer by searching database
-    	m.changeScene("CustomerProfileUI.fxml");
-    	
-    } // end openCusProfile DOESNT WORK YET
+      
+    } // not complete
 
-	
+    
 	@FXML
+    // sends vehicle information to customer profile UI
     public void openCusProfile(MouseEvent event) throws IOException{
+		
+		// open customer profile using database
+		
+		
+		
+		
+		
+		
+		
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("CustomerProfileUI.fxml"));
+    	Parent root = loader.load();
+    	
+    	CustomerProfileController controller = loader.getController();
+    	controller.showInformation(yearField.getText(), makeDropdown.getValue(), modelField.getText(), VINField.getText(), valueField.getText(), paymentMethod.getValue(), salesDate.getValue());
+    	
     	Main m = new Main();
-//    	selectedCus = listView.getSelectionModel().getSelectedItem());
-    	
-    	m.changeScene("CustomerProfileUI.fxml");
-    	
-    } // end openCusProfile DOESNT WORK YET
+    	m.changeScene("CustomerProfileUI.fxml", root);
+    } // end openCusProfile
 	
-//  public void selectedCus(CustomerProfile cus) {
-//	selectedCus = cus;
-//	listView.getItems().addAll(Launch.getCus());
-//	updateGUI();
-//}
-	
+	// sends first and last name to register customer page
     public void registerNewCus(ActionEvent event) throws IOException {
     	
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("RegisterCustomerUI.fxml"));
@@ -92,29 +134,25 @@ public class SearchCustomerController {
     	
     	RegisterCustomerController regCusController = loader.getController();
     	regCusController.showInformation(firstName.getText(), lastName.getText());
-
     	
     	Main m = new Main();
     	m.changeScene("RegisterCustomerUI.fxml", root);
     } // end registerNewCus
     
+    // receives first and last name from customer profile UI
     public void showInformation(String firstName, String lastName) {
     	this.firstName.setText(firstName);
     	this.lastName.setText(lastName);
     }
-	
-    public void clear(ActionEvent event) {
-        
-        /* This method clears all of the fields.*/
-        
-        firstName.clear();
-        lastName.clear();
-        
-    } // end clear
     
-    public void pageReturn(ActionEvent event) throws IOException {
-        
-        Main m = new Main();
-        m.changeScene("SalespersonView.fxml");
-    } // end pageReturn
+    // receives car information from record of sales UI
+    public void showInformation(String year, String make, String model, String VIN, String price, String paymentMethod, LocalDate salesDate) {
+    	yearField.setText(year);
+    	makeDropdown.setValue(make);
+    	modelField.setText(model);
+    	VINField.setText(VIN);
+    	valueField.setText(price);
+    	this.paymentMethod.setValue(paymentMethod);
+    	this.salesDate.setValue(salesDate);
+    }
 }
