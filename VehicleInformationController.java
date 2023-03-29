@@ -22,16 +22,16 @@ import javafx.beans.value.ObservableValue;
 public class VehicleInformationController {
 
     @FXML
-    private TextField ValueField, VINField, YearField, ModelField, MileageField, ColorField;
+    private TextField ValueField, VINField, YearField, ModelField, MileageField, ColorField, customerID, custFirstName, custLastName;
     
     @FXML
-    private Button returnButton;
+    private Button returnButton, purchaseVehicle;
     
     @FXML
-    private DatePicker datePutOnLot; // time on lot calculated from date put on lot
+    private DatePicker datePutOnLot, salesDate; // time on lot calculated from date put on lot
 
     @FXML
-    private ChoiceBox<String> MakeDropdown, BodyConDropdown, MechConDropdown;
+    private ChoiceBox<String> MakeDropdown, BodyConDropdown, MechConDropdown, paymentMethod;
     
     @FXML
     private Button SaveButton, ReturnButton;   
@@ -56,7 +56,8 @@ public class VehicleInformationController {
         datePutOnLot.setValue(LocalDate.now());
 
         ModelField.setTextFormatter(new TextFormatter<> (change -> {
-        	if (change.getText().matches("[^a-zA-Z]")) {
+			if ((change.getControlNewText().length() > 40) ||
+				(change.getText().matches("[^a-zA-Z]"))) {
         		return null;
         	}
         	return change;
@@ -64,7 +65,8 @@ public class VehicleInformationController {
         
         
 		ColorField.setTextFormatter(new TextFormatter<> (change -> {
-			if (change.getText().matches("[^a-zA-Z]")) {
+			if ((change.getControlNewText().length() > 40) ||
+				(change.getText().matches("[^a-zA-Z]"))) {
 				return null;
 			}
 			return change;
@@ -72,7 +74,8 @@ public class VehicleInformationController {
 
 		
 		YearField.setTextFormatter(new TextFormatter<> (change -> {
-			if (change.getText().matches("[^0-9]")) {
+			if ((change.getControlNewText().length() > 4) ||
+				(change.getText().matches("[^0-9]"))) {
 				return null;
 			}
 			return change;
@@ -85,15 +88,25 @@ public class VehicleInformationController {
 //			return null;
 //		}));
 		
+		ValueField.setTextFormatter(new TextFormatter<> (change -> {
+		if ((change.getControlNewText().length() > 20) ||
+			(change.getText().matches("[^0-9,]"))) {
+			return null;
+		}
+		return change;
+	})); // is WRONGGGGG
+		
 		VINField.setTextFormatter(new TextFormatter<> (change -> {
-			if (change.getText().matches("[^0-9A-Z]")) {
+			if ((change.getControlNewText().length() > 20) ||
+				(change.getText().matches("[^0-9A-Z]"))) {
 				return null;
 			}
 			return change;
-		})); // add only 17 length
+		})); 
 		
 		MileageField.setTextFormatter(new TextFormatter<> (change -> {
-			if (change.getText().matches("[^0-9]")) {
+			if ((change.getControlNewText().length() > 40) ||
+				(change.getText().matches("[^0-9]"))) {
 				return null;
 			}
 			return change;
@@ -159,6 +172,33 @@ public class VehicleInformationController {
 //    	return true;
 //    }
     
+	// recieves customer information from record of sale UI
+    public void showInformation(String cusID, String first, String last, String paymentMethod, LocalDate salesDate) {
+    	customerID.setText(cusID);
+    	custFirstName.setText(first);
+    	custLastName.setText(last);
+    	this.paymentMethod.setValue(paymentMethod);
+    	this.salesDate.setValue(salesDate);
+    }
+    
+	@FXML
+	// sends customer information to record of sale UI
+	public void purchaseVeh(ActionEvent event) throws IOException {		
+		
+		    FXMLLoader loader = new FXMLLoader(getClass().getResource("RecordOfSaleUI.fxml"));
+		   	Parent root = loader.load();
+		   	
+		   	RecordOfSaleController recSaleController = loader.getController();
+
+		   	// need to ensure they save before sending info to record of sale
+		   	recSaleController.showInformation(custFirstName.getText(), custLastName.getText(), customerID.getText(), MakeDropdown.getValue(), ModelField.getText(), 
+		   			YearField.getText(), ValueField.getText(), VINField.getText(), paymentMethod.getValue(), salesDate.getValue());
+	    	
+		   	
+	    	Main m = new Main();
+	    	m.changeScene("RecordOfSaleUI.fxml", root);
+		
+	} // not complete
     
     
 }
