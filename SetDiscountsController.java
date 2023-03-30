@@ -7,7 +7,6 @@ import backend.Vehicle;
 import java.util.Date;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.*;
 
 public class SetDiscountsController {
     
@@ -31,8 +30,8 @@ public class SetDiscountsController {
     @FXML
     private Button clearButton;
     
-    private Vehicle testCar1 = new Vehicle(new Double(123456789.00), new Double(15000.00), new Integer(1996), "Ford", "Fiesta", "New", "Broken", "Grey", new Double(120000.00), new Date(System.currentTimeMillis()));
-    private Vehicle testCar2 = new Vehicle(new Double(123456789.00), new Double(17000.00), new Integer(2018), "Honda", "Acura", "New", "Broken", "Blue", new Double(1500.00), new Date(System.currentTimeMillis()));
+    private Vehicle testCar1 = new Vehicle("123456789", new Double(15000.00), new Integer(1996), "Ford", "Fiesta", "New", "Broken", "Grey", new Double(120000.00), new Date(System.currentTimeMillis()));
+    private Vehicle testCar2 = new Vehicle("987654321", new Double(17000.00), new Integer(2018), "Honda", "Acura", "New", "Broken", "Blue", new Double(1500.00), new Date(System.currentTimeMillis()));
     private Vehicle testCar3 = new Vehicle();
     
     private Vehicle vehicle1 = null;
@@ -122,7 +121,7 @@ public class SetDiscountsController {
         
         if (vehicle1 != null) {
             v1ValueField.setText(vehicle1.getValue().toString());
-            v1VINField.setText(vehicle1.getVIN().toString());
+            v1VINField.setText(vehicle1.getVIN());
             v1YearField.setText(vehicle1.getYear().toString());
             v1Make.setText(vehicle1.getMake());
             v1ModelField.setText(vehicle1.getModel());
@@ -134,7 +133,7 @@ public class SetDiscountsController {
         
         if (vehicle2 != null) {
             v1ValueField1.setText(vehicle2.getValue().toString());
-            v1VINField1.setText(vehicle2.getVIN().toString());
+            v1VINField1.setText(vehicle2.getVIN());
             v1YearField1.setText(vehicle2.getYear().toString());
             v1Make1.setText(vehicle2.getMake());
             v1ModelField1.setText(vehicle2.getModel());
@@ -146,7 +145,7 @@ public class SetDiscountsController {
         
         if (vehicle3 != null) {
             v1ValueField2.setText(vehicle3.getValue().toString());
-            v1VINField2.setText(vehicle3.getVIN().toString());
+            v1VINField2.setText(vehicle3.getVIN());
             v1YearField2.setText(vehicle3.getYear().toString());
             v1Make2.setText(vehicle3.getMake());
             v1ModelField2.setText(vehicle3.getModel());
@@ -230,7 +229,5 @@ public class SetDiscountsController {
         discountPane.setVisible(false);
         tabPane.setVisible(true);
     }
-    
-    
-    
+        
 }
