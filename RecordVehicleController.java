@@ -66,7 +66,7 @@ public class RecordVehicleController {
     
     public void save(ActionEvent event) throws IOException {
         
-        Vehicle vehicle = new Vehicle(new Double(VINField.getText()), new Double(ValueField.getText()), new Integer(YearField.getText()), MakeDropdown.getValue(),
+        Vehicle vehicle = new Vehicle(VINField.getText(), new Double(ValueField.getText()), new Integer(YearField.getText()), MakeDropdown.getValue(),
                 ModelField.getText(), BodyConDropdown.getValue(), MechConDropdown.getValue(), ColorField.getText(), new Double(MileageField.getText()), new Date());
         
         // Debug statement to test the save method
