@@ -13,7 +13,6 @@
 
 package backend;
 import java.util.Date;
-import java.util.ArrayList;
 
 public class Vehicle {
     
@@ -32,7 +31,7 @@ public class Vehicle {
     private Long datePutOnLot;
     
     // This is a list of all possible conditions for bodyCondition and mechCondition
-    private final String[] listOfConditions = {"Very Bad/Broken", "Bad", "Average", "Good", "Like New"}; 
+    private final String[] listOfConditions = {"Very Bad/Broken", "Bad", "Average", "Good", "Like New"};
     
     public Vehicle() {
         this.VIN = "No VIN Specified";
@@ -49,7 +48,7 @@ public class Vehicle {
         this.datePutOnLot = System.currentTimeMillis();
     } // default constructor
     
-    public Vehicle(Double VIN, Double value, Integer year, String make, String model, String bodyCondition, String mechCondition, String color, Double mileage, Date DatePutOnLot) {
+    public Vehicle(String VIN, Double value, Integer year, String make, String model, String bodyCondition, String mechCondition, String color, Double mileage, Date DatePutOnLot) {
         this.setVIN(VIN);
         this.setValue(value);
         this.setYear(year);
