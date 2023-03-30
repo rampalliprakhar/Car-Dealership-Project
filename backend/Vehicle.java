@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class Vehicle {
     
     // Data fields
-    private Double VIN;
+    private String VIN;
     private Integer year;
     private String make;
     private String model;
@@ -35,7 +35,7 @@ public class Vehicle {
     private final String[] listOfConditions = {"Very Bad/Broken", "Bad", "Average", "Good", "Like New"}; 
     
     public Vehicle() {
-        this.VIN = 000000000.00;
+        this.VIN = "No VIN Specified";
         this.year = 1901;
         this.make = "No Make Specified";
         this.model = "No Model Specified";
@@ -62,11 +62,11 @@ public class Vehicle {
         this.setDatePutOnLot(DatePutOnLot);
     } // parameterized constructor
     
-    public Double getVIN() {
+    public String getVIN() {
         return this.VIN;
     } // end getVIN
     
-    public boolean setVIN(double vin) {
+    public boolean setVIN(String vin) {
         this.VIN = vin;
         return true;
     } // end setVIN
