@@ -1,241 +1,224 @@
-package application;
-import java.io.IOException;
+/*---------------------------------------------------
+ *  Author: J. Alan Wallace, Triny Nguyen
+ *  Written: 1/25/2023
+ *  Last Updated: 3/17/2023
+ *  
+ *  Compilation: javac Vehicle.java
+ *  Execution: java Vehicle
+ *  
+ *  The Vehicle class for the car dealership project.
+ *  
+ *  Sample Output:
+ *---------------------------------------------------*/
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import backend.Vehicle;
+package backend;
 import java.util.Date;
-import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
 
-public class SetDiscountsController {
+public class Vehicle {
     
-    @FXML
-    private Button ReturnButton;
+    // Data fields
+    private String VIN;
+    private Integer year;
+    private String make;
+    private String model;
+    private Double value;
+    private Double discount; // Price = value - discount
+    private String bodyCondition;
+    private String mechCondition; // Mechanical Condition
+    private String color;
+    private Double mileage;
+    //private ArrayList<String> additionalFeatures;
+    private Long datePutOnLot;
     
-    private String previousPage = Main.getView();
+    // This is a list of all possible conditions for bodyCondition and mechCondition
+    private final String[] listOfConditions = {"Very Bad/Broken", "Bad", "Average", "Good", "Like New"};
     
-    @FXML
-    private AnchorPane discountPane;
-    @FXML
-    private TextField percentDiscount;
-    @FXML
-    private TextField regularPrice;
-    @FXML
-    private TextField newDiscountPrice;
-    @FXML
-    private Vehicle carForDiscount;
-    @FXML
-    private Button saveButton;
-    @FXML
-    private Button clearButton;
+    private final long MILLISECONDS_IN_DAY = 86400000;
     
-    private Vehicle testCar1 = new Vehicle("123456789", new Double(15000.00), new Integer(1996), "Ford", "Fiesta", "New", "Broken", "Grey", new Double(120000.00), new Date(System.currentTimeMillis()));
-    private Vehicle testCar2 = new Vehicle("987654321", new Double(17000.00), new Integer(2018), "Honda", "Acura", "New", "Broken", "Blue", new Double(1500.00), new Date(System.currentTimeMillis()));
-    private Vehicle testCar3 = new Vehicle();
+    public Vehicle() {
+        this.VIN = "No VIN Specified";
+        this.year = 1901;
+        this.make = "No Make Specified";
+        this.model = "No Model Specified";
+        this.value = 0.0;
+        this.discount = 0.0;
+        this.bodyCondition = "No Body Condition Specified";
+        this.mechCondition = "No Mechanical Condition Specified";
+        this.color = "No Color Specified";
+        this.mileage = 0.0;
+        //this.additionalFeatures = new ArrayList<String>();
+        this.datePutOnLot = System.currentTimeMillis();
+    } // default constructor
     
-    private Vehicle vehicle1 = null;
-    private Vehicle vehicle2 = null;
-    private Vehicle vehicle3 = null;
-    // Expand to 7
+    public Vehicle(String VIN, Double value, Integer year, String make, String model, String bodyCondition, String mechCondition, String color, Double mileage, Date DatePutOnLot) {
+        this.setVIN(VIN);
+        this.setValue(value);
+        this.setYear(year);
+        this.setMake(make);
+        this.setModel(model);
+        this.setBodyCondition(bodyCondition);
+        this.setMechCondition(mechCondition);
+        this.setColor(color);
+        this.setMileage(mileage);
+        this.setDatePutOnLot(DatePutOnLot);
+    } // parameterized constructor
     
-    @FXML
-    TabPane tabPane = new TabPane();
-    @FXML
-    Tab v1 = new Tab("Vehicle 1");
-    @FXML
-    Tab v2 = new Tab("Vehicle 2");
-    @FXML
-    Tab v3 = new Tab("Vehicle 3");
-     
-    @FXML
-    private TextField v1TimeLot;
-    @FXML
-    private TextField v1ValueField;
-    @FXML
-    private TextField v1VINField;
-    @FXML
-    private TextField v1YearField;
-    @FXML
-    private TextField v1Make;
-    @FXML
-    private TextField v1ModelField;
-    @FXML
-    private TextField v1MileageField;
-    @FXML
-    private TextField v1ColorField;
-    @FXML
-    private TextField v1BodyCon;
-    @FXML
-    private TextField v1MechCon;
-    @FXML
-    private Button v1Mark;
+    public String getVIN() {
+        return this.VIN;
+    } // end getVIN
     
-    @FXML
-    private TextField v1TimeLot1;
-    @FXML
-    private TextField v1ValueField1;
-    @FXML
-    private TextField v1VINField1;
-    @FXML
-    private TextField v1YearField1;
-    @FXML
-    private TextField v1Make1;
-    @FXML
-    private TextField v1ModelField1;
-    @FXML
-    private TextField v1MileageField1;
-    @FXML
-    private TextField v1ColorField1;
-    @FXML
-    private TextField v1BodyCon1;
-    @FXML
-    private TextField v1MechCon1;
-    @FXML
-    private Button v1Mark1;
+    public boolean setVIN(String vin) {
+        this.VIN = vin;
+        return true;
+    } // end setVIN
     
-    @FXML
-    private TextField v1TimeLot2;
-    @FXML
-    private TextField v1ValueField2;
-    @FXML
-    private TextField v1VINField2;
-    @FXML
-    private TextField v1YearField2;
-    @FXML
-    private TextField v1Make2;
-    @FXML
-    private TextField v1ModelField2;
-    @FXML
-    private TextField v1MileageField2;
-    @FXML
-    private TextField v1ColorField2;
-    @FXML
-    private TextField v1BodyCon2;
-    @FXML
-    private TextField v1MechCon2;
-    @FXML
-    private Button v1Mark2;
+    public Integer getYear() {
+        return this.year;
+    } // end getYear
     
-    // Once this is okayed, I'll expand to 7 vehicles
-    
-    @FXML
-    private void initialize() {
-        
-        discountPane.setVisible(false);
-        setVehicles();
-        
-        if (vehicle1 != null) {
-            v1TimeLot.setText(vehicle1.getTimeOnLot().toString());
-            v1ValueField.setText(vehicle1.getValue().toString());
-            v1VINField.setText(vehicle1.getVIN());
-            v1YearField.setText(vehicle1.getYear().toString());
-            v1Make.setText(vehicle1.getMake());
-            v1ModelField.setText(vehicle1.getModel());
-            v1MileageField.setText(vehicle1.getMileage().toString());
-            v1ColorField.setText(vehicle1.getColor());
-            v1BodyCon.setText(vehicle1.getBodyCondition());
-            v1MechCon.setText(vehicle1.getMechCondition());
+    public boolean setYear(Integer year) {
+        if (year < 2901 && year > 1901) {
+            this.year = year;
+            return true;
         }
+        else return false;
+    } // end setYear
+    
+    public String getMake() {
+        return this.make;
+    } // end getMake
+    
+    public boolean setMake (String make) {
+        this.make = make;
+        return true;
+    } // end setMake
+    
+    public String getModel() {
+        return this.model;
+    } // end getModel
+    
+    public boolean setModel(String model) {
+        this.model = model;
+        return true;
+    } // end setModel
+    
+    public Double getValue() {
+        return this.value;
+    } // end getValue
+    
+    public boolean setValue(Double value) {
+        if (value > Double.MAX_VALUE || value < Double.MIN_VALUE) return false;
+        if (value < 0) return false;
         
-        if (vehicle2 != null) {
-            v1TimeLot1.setText(vehicle2.getTimeOnLot().toString());
-            v1ValueField1.setText(vehicle2.getValue().toString());
-            v1VINField1.setText(vehicle2.getVIN());
-            v1YearField1.setText(vehicle2.getYear().toString());
-            v1Make1.setText(vehicle2.getMake());
-            v1ModelField1.setText(vehicle2.getModel());
-            v1MileageField1.setText(vehicle2.getMileage().toString());
-            v1ColorField1.setText(vehicle2.getColor());
-            v1BodyCon1.setText(vehicle2.getBodyCondition());
-            v1MechCon1.setText(vehicle2.getMechCondition());
+        this.value = value;
+        return true;
+    } // end setValue
+    
+    public Double getDiscount() {
+        return this.discount;
+    } // end getDiscount
+    
+    public void setDiscount(Double dollars) {
+        /* This version of the setDiscout method adjusts the discount based on
+         * a set dollar discount (e.g. $2000.00)*/
+        this.discount = dollars;
+    } // end setDiscount(dollar discount)
+    
+    public void setDiscount(Float percent) {
+        /* This version of the setDiscount method adjusts the discount based on
+         * a percentage discount (e.g. 33%)*/
+        this.discount = this.value - (this.value * percent);
+    } // end setDiscount(percent discount)
+    
+    public Double getPrice() {
+        /* The price is the total value minus any discounts.
+         * Price is a calculated value, not stored in any data fields.*/
+        return this.value - this.discount;
+    } // end getPrice
+    
+    public String getBodyCondition() {
+        return this.bodyCondition;
+    } // end getBodyCondition
+    
+    public void setBodyCondition(String bodyCon) {
+        this.bodyCondition = bodyCon;
+    } // end setBodyCondition
+    
+    public String getMechCondition() { 
+        return this.mechCondition;
+    } // end getMechCondition
+    
+    public void setMechCondition(String mechCon) {
+        this.mechCondition = mechCon;
+    } // end setMechCondition
+    
+    public String getColor() {
+        return this.color;
+    } // end getColor
+    
+    public boolean setColor(String color) {
+        this.color = color;
+        return true;
+    } // end setColor
+    
+    public Double getMileage() {
+        return this.mileage;
+    } // end getMileage
+    
+    public boolean setMileage(Double mileage) {
+        if (value > Double.MAX_VALUE || value < Double.MIN_VALUE) return false;
+        if (value < 0) return false;
+        
+        this.mileage = mileage;
+        return true;
+    } // end setMileage
+    
+//    public ArrayList<String> getAdditionalFeatures() {
+//        return this.additionalFeatures;
+//    } // end getAdditionalFeatures
+//    
+//    public boolean addAdditionalFeatures(String feature) {
+//        this.additionalFeatures.add(feature);
+//        return true;
+//    } // end addAdditionalFeatures
+    
+//    public boolean removeAdditionalFeatures(String feature) {
+//        if (this.additionalFeatures.contains(feature)) {
+//            this.additionalFeatures.remove(feature);
+//            return true;
+//        }
+//        else return false;
+//    } // end removeAdditionalFeatures
+    
+    public Date getDatePutOnLot() {
+        return new Date(this.datePutOnLot);
+    } // end getDatePutOnLot
+    
+    public boolean setDatePutOnLot(Date date) {
+        this.datePutOnLot = date.getTime();
+        return true;
+        } // end setDatePutOnLot
+    
+    public Long getTimeOnLot() {
+        /* TimeOnLot is a calculated value, not stored in any data fields.*/
+        if (this.datePutOnLot >= System.currentTimeMillis()) throw new InvalidTimeOnLotException();
+        
+        long timeOnLotInms = System.currentTimeMillis() - this.datePutOnLot;
+        long timeOnLotInDays = timeOnLotInms/this.MILLISECONDS_IN_DAY;
+        return timeOnLotInDays;
+        
+//        Date timeOnLot = new Date(System.currentTimeMillis() - this.datePutOnLot );
+//        return timeOnLot;
+    } // end getTimeOnLot
+    
+    private class InvalidTimeOnLotException extends RuntimeException {
+        /* This exception can be thrown in the getTimeOnLot method.
+         * It is usually triggered if the datePutOnLot is either an invalid date
+         * or is in the future.*/
+        private static final long serialVersionUID = 1L;
+
+        InvalidTimeOnLotException() {
+            super("The datePutOnLot is invalid.");
         }
-        
-        if (vehicle3 != null) {
-            v1TimeLot2.setText(vehicle3.getTimeOnLot().toString());
-            v1ValueField2.setText(vehicle3.getValue().toString());
-            v1VINField2.setText(vehicle3.getVIN());
-            v1YearField2.setText(vehicle3.getYear().toString());
-            v1Make2.setText(vehicle3.getMake());
-            v1ModelField2.setText(vehicle3.getModel());
-            v1MileageField2.setText(vehicle3.getMileage().toString());
-            v1ColorField2.setText(vehicle3.getColor());
-            v1BodyCon2.setText(vehicle3.getBodyCondition());
-            v1MechCon2.setText(vehicle3.getMechCondition());
-            
-        }
-       
-    }
-    
-    private void setVehicles() {
-        System.out.println(testCar1.getValue() + testCar1.getVIN() + testCar1.getYear() + testCar1.getMake() + testCar1.getModel() + testCar1.getMileage() + testCar1.getColor() + testCar1.getBodyCondition() + testCar1.getMechCondition());
-        
-        // DEBUG
-        this.vehicle1 = this.testCar1;
-        this.vehicle2 = this.testCar2;
-    }
-    
-    public void pageReturn(ActionEvent event) throws IOException {
-        
-        Main m = new Main();
-        m.changeScene(previousPage);
-        
-    } // end pageReturn
-    
-    public void v1Save(ActionEvent event) throws IOException {
-        tabPane.setVisible(false);
-        discountPane.setVisible(true);
-        this.regularPrice.setText(vehicle1.getValue().toString());
-        carForDiscount = this.vehicle1;
-    }
-    
-    public void v2Save(ActionEvent event) throws IOException {
-        tabPane.setVisible(false);
-        discountPane.setVisible(true);
-        this.regularPrice.setText(vehicle2.getValue().toString());
-        carForDiscount = this.vehicle2;
-    }
-    
-    public void v3Save(ActionEvent event) throws IOException {
-        tabPane.setVisible(false);
-        discountPane.setVisible(true);
-        this.regularPrice.setText(vehicle3.getValue().toString());
-        carForDiscount = this.vehicle3;
-    }
-    
-    public void discountSave(ActionEvent event) throws IOException {
-        if (percentDiscount.getText() != "") {
-            try {
-                Float percentDis = new Float(percentDiscount.getText());
-                this.carForDiscount.setDiscount(percentDis);
-                discountCancel(new ActionEvent());
-                return;
-            } catch (NumberFormatException e) {
-                System.out.println("Error in 1");
-                return;
-            }
-        }
-        
-        if (newDiscountPrice.getText() != "") {
-            try {
-                Double priceAfterFlatDis = new Double(newDiscountPrice.getText());
-                Double flatDis = carForDiscount.getValue() - priceAfterFlatDis;
-                this.carForDiscount.setDiscount(flatDis);
-                discountCancel(new ActionEvent());
-                return;
-            } catch (NumberFormatException e) {
-                System.out.println("Error in 2");
-                return;
-            }
-        }
-    }
-    
-    public void discountCancel(ActionEvent event) throws IOException {
-        this.percentDiscount.clear();
-        this.newDiscountPrice.clear();
-        this.regularPrice.clear();
-        
-        discountPane.setVisible(false);
-        tabPane.setVisible(true);
-    }
-}
+    } // end InvalidTimeOnLotException
+} // end Vehicle class
