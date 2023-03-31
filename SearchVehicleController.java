@@ -26,18 +26,14 @@ public class SearchVehicleController {
 	private Vehicle selectedVeh;
 	
 	@FXML
-	private ListView<Vehicle> listView;
+	private ListView<String> listView;
 	
     @FXML
-    private TextField yearField, modelField, colorField
-    
-    , VINField, mileageField, valueField, customerID, custFirstName, custLastName;// not needed?
-    
-    @FXML
-    private ComboBox<String> makeDropdown, bodyConDropdown, mechConDropdown;
+    private TextField yearField, modelField, colorField, VINField, mileageField, valueField, 
+    customerID, custFirstName, custLastName, tempYear, tempModel, tempVIN, tempValue;
     
     @FXML
-    private ChoiceBox<String> paymentMethod;
+    private ChoiceBox<String> paymentMethod, makeDropdown, bodyConDropdown, mechConDropdown, tempMake;
     
     @FXML
     private DatePicker salesDate;
@@ -48,7 +44,7 @@ public class SearchVehicleController {
     @FXML
     private Text vehInfo;
     
-    private String previousPage = Main.getView();
+//    private String previousPage = Main.getView();
     
     final private ObservableList<String> conditionList = FXCollections.observableArrayList("New", "Excellent", "Good", "Average", "Fair", "Poor", "Broken");
     final private ObservableList<String> makeList = FXCollections.observableArrayList("Acura", "Alfa Romeo", "Aston Martin", "Audi", "Bentley", "BMW", "Buick", 
@@ -119,9 +115,14 @@ public class SearchVehicleController {
     } // end clear
     
     public void pageReturn(ActionEvent event) throws IOException {
-        
-        Main m = new Main();
-        m.changeScene("RecordOfSaleUI.fxml");
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("RecordOfSaleUI.fxml"));
+    	Parent root = loader.load();
+    	
+    	RecordOfSaleController controller = loader.getController();
+    	controller.showInformation(custFirstName.getText(), custLastName.getText(), customerID.getText(), tempYear.getText(), tempMake.getValue(), tempModel.getText(), tempVIN.getText(), tempValue.getText(), paymentMethod.getValue(), salesDate.getValue());
+    	
+    	Main m = new Main();
+    	m.changeScene("RecordOfSaleUI.fxml", root);
 
     } // end pageReturn
     
@@ -129,6 +130,18 @@ public class SearchVehicleController {
 
     	// database needed
 
+    	
+    	
+    	
+    // test data
+      for (int i = 0; i < 4; i++) {
+      	listView.getItems().addAll(yearField.getText() + " " + makeDropdown.getValue() + " " + modelField.getText() + 
+      								"\nColor: " + colorField.getText()
+      								+ "\nPrice: " + "$100,000");
+      	
+      	
+      }
+      	
       } // not complete
         	
     public void openVehInfo(ActionEvent event) throws IOException{
@@ -161,14 +174,12 @@ public class SearchVehicleController {
 		   	Parent root = loader.load();
 		   	
 		   	RecordOfSaleController recSaleController = loader.getController();
-//		   	recSaleController.showInformation(makeDropdown.getValue(), modelField.getText(), 
-//		   			yearField.getText(),valueField.getText(), VINField.getText(), customerID.getText());
-		   	// not right, needs to be information of selected vehicle (selectedVeh)
+
+		   	// needs to be information of selected vehicle (selectedVeh)
 		   	// database needed
-		   	
 		   	// test data
 		   	recSaleController.showInformation(custFirstName.getText(), custLastName.getText(), customerID.getText(), "Nissan", "Sentra", 
-		   			"2019","$12345", "54324", paymentMethod.getValue(), salesDate.getValue());
+		   			"2019", "123FID4SA5", "54,324", paymentMethod.getValue(), salesDate.getValue());
 	    	
 		   	
 	    	Main m = new Main();
@@ -176,14 +187,14 @@ public class SearchVehicleController {
 		
 	} // not complete
 	
-	// recieves customer information from record of sale UI
-    public void showInformation(String cusID, String first, String last, String paymentMethod, LocalDate salesDate) {
-    	customerID.setText(cusID);
-    	custFirstName.setText(first);
-    	custLastName.setText(last);
-    	this.paymentMethod.setValue(paymentMethod);
-    	this.salesDate.setValue(salesDate);
-    }
+	// receives customer information from record of sale UI
+//    public void showInformation(String cusID, String first, String last, String paymentMethod, LocalDate salesDate) {
+//    	customerID.setText(cusID);
+//    	custFirstName.setText(first);
+//    	custLastName.setText(last);
+//    	this.paymentMethod.setValue(paymentMethod);
+//    	this.salesDate.setValue(salesDate);
+//    }
 
     // receives car information from vehicle information UI
     public void showInformation (String make, String model, String year, String color, String bodyCon, String mechCon) {
@@ -195,21 +206,27 @@ public class SearchVehicleController {
     	mechConDropdown.setValue(mechCon);
     }
     
+    // receives car information from record of sales UI
+    public void showInformation(String first, String last, String cusID, String year, String make, String model, String VIN, String price, String paymentMethod, LocalDate salesDate) {
+    	custFirstName.setText(first);
+    	custLastName.setText(last);
+    	customerID.setText(cusID);
+    	tempYear.setText(year);
+    	tempMake.setValue(make);
+    	tempModel.setText(model);
+    	tempVIN.setText(VIN);
+    	tempValue.setText(price);
+    	this.paymentMethod.setValue(paymentMethod);
+    	this.salesDate.setValue(salesDate);
+    } 
     
     
     
     
     
-    
-    
-    
-    
-    
-
-    
-
+// not correct, needs to get information of selected vehicle
     public void listViewSelectedVeh() {
-    	selectedVeh = listView.getSelectionModel().getSelectedItem();
+//    	selectedVeh = listView.getSelectionModel().getSelectedItem();
     	updateGUI();
     }
     
@@ -233,7 +250,4 @@ public class SearchVehicleController {
     			+ "	Price: $100,000\r\n"
     			+ "	VIN: 123456543");
     }
-    
-    
-    
 } // end RecordVehicleController
