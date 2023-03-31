@@ -37,20 +37,6 @@ public class RecordOfSaleController {
         paymentMethod.setValue("Select a Payment Method");
         paymentMethod.setItems(paymentList);
     }
-
-    public void showCusInformation(String firstName, String lastName, String cusID) {
-    	this.firstName.setText(firstName);
-    	this.lastName.setText(lastName);
-    	customerID.setText(cusID);
-    } // initializes page with these selected customer values if previous page was search customer
-    
-    public void showVehInformation(String make, String model, String year, String value, String VIN) {
-    	makeDropdown.setValue(make);
-    	modelField.setText(model);
-    	yearField.setText(year);
-    	valueField.setText(value);
-    	VINField.setText(VIN);
-    }
     
     // receives information from customer profile UI, vehicle information UI, or search vehicle UI
     public void showInformation(String firstName, String lastName, String cusID, String year, String make, String model, String VIN, String price, String paymentMethod, LocalDate salesDate) {
@@ -71,30 +57,27 @@ public class RecordOfSaleController {
     	Parent root = loader.load();
     	
     	SearchCustomerController controller = loader.getController();
-    	controller.showInformation(yearField.getText(), makeDropdown.getValue(), modelField.getText(), VINField.getText(), valueField.getText(), paymentMethod.getValue(), salesDate.getValue());
+    	controller.showInformation(firstName.getText(), lastName.getText(), customerID.getText(), yearField.getText(), makeDropdown.getValue(), modelField.getText(), VINField.getText(), valueField.getText(), paymentMethod.getValue(), salesDate.getValue());
 
     	Main m = new Main();
     	m.changeScene("SearchCustomerUI.fxml", root);    
-    }
-
+    }	// goes to Search Customer UI 
+    
     public void addVehToSale(ActionEvent event) throws IOException{
-    	
-    	
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("SearchVehicleUI.fxml"));
     	Parent root = loader.load();
     	
     	SearchVehicleController controller = loader.getController();
-    	controller.showInformation(customerID.getText(), firstName.getText(), lastName.getText(), paymentMethod.getValue(), salesDate.getValue());
+    	controller.showInformation(firstName.getText(), lastName.getText(), customerID.getText(), yearField.getText(), makeDropdown.getValue(), modelField.getText(), VINField.getText(), valueField.getText(), paymentMethod.getValue(), salesDate.getValue());
 
     	Main m = new Main();
     	m.changeScene("SearchVehicleUI.fxml", root);    	
-    	}
+    }	// goes to Search Vehicle UI 
     
     public void pageReturn(ActionEvent event) throws IOException{
     	Main m = new Main();
     	m.changeScene(previousPage);
-    	// goes to main menu
-    }
+    }	// goes to main menu
     
     public void clear(ActionEvent event) throws IOException{
     	valueField.clear();
@@ -107,15 +90,22 @@ public class RecordOfSaleController {
     	lastName.clear();
     	customerID.clear();
     	paymentMethod.setValue("Select a Payment Method");
-    }    
+    }   // clears all fields
     
     public void save(ActionEvent event) throws IOException{
     	
-    }
-    
-    public void requestApproval(ActionEvent event) throws IOException{
+    	
+    	
+    	
     	
     }
+    
+//    public void requestApproval(ActionEvent event) throws IOException{
+//    	
+//    	
+//    	
+//    	
+//    }
     
     // print method?
     
