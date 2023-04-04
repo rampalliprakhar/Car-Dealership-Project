@@ -1,11 +1,8 @@
 package application;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-
 import java.io.IOException;
-
 import javafx.event.ActionEvent;
 
 public class SalesPersonOfTheYearUIController {
@@ -21,7 +18,7 @@ public class SalesPersonOfTheYearUIController {
         //  goes back to the page.
        	if(event.getSource() == closeButton) {
        	    Main m = new Main();
-        //  m.changeScene("SetDiscountsUI.fxml");
+        //  m.changeScene(".fxml");
        	}	
     }
 	
@@ -36,4 +33,4 @@ public class SalesPersonOfTheYearUIController {
 		//  Calculates the salesperson of the year.
 		
 	}
-}
+    }
