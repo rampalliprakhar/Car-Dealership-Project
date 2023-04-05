@@ -40,9 +40,9 @@
             <Font name="Georgia" size="50.0" />
          </font>
       </Button>
-      <TextField fx:id="salespersonNameTF" alignment="CENTER" blendMode="DARKEN" layoutX="623.0" layoutY="425.0" onAction="#salespersonName" prefHeight="115.0" prefWidth="775.0" promptText="Salesperson Name">
+      <TextField fx:id="salespersonNameTF" alignment="CENTER" blendMode="DARKEN" layoutX="499.0" layoutY="426.0" onAction="#salespersonName" prefHeight="112.0" prefWidth="1025.0" promptText="Salesperson Name">
          <font>
-            <Font name="Georgia" size="48.0" />
+            <Font name="Georgia Bold Italic" size="64.0" />
          </font>
       </TextField>
       <Button fx:id="calculateButton" layoutX="998.0" layoutY="921.0" mnemonicParsing="false" onAction="#calculate" prefHeight="101.0" prefWidth="466.0" text="CALCULATE">
