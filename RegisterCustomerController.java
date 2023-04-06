@@ -41,17 +41,28 @@ public class RegisterCustomerController {
 
 		// change name requirements bc they can have numbers and symbols????
         	// is 40 a good length limit?
+	    
 		// only allows alphabetical characters, dash, and apostrophe of up to 40 characters
 		FirstNameField.setTextFormatter(new TextFormatter<> (change -> {
+			 // guarentees first letter is capital
+			if (change.getControlNewText().length() == 1) {
+		    	change.setText(change.getText().toUpperCase());
+			}
 			if ((change.getControlNewText().length() > 40) ||
 				(change.getText().matches("[^a-zA-Z'-]"))) {
 				return null;
 			}
 			return change;
 		}));
+	    
+	    
 		
 		// only allows alphabetical characters, dash, and apostrophe of up to 40 characters
 		LastNameField.setTextFormatter(new TextFormatter<> (change -> {
+			 // guarentees first letter is capital
+			if (change.getControlNewText().length() == 1) {
+		    	change.setText(change.getText().toUpperCase());
+			}
 			if ((change.getControlNewText().length() > 40) ||
 				(change.getText().matches("[^a-zA-Z'-]"))) {
 				return null;
@@ -61,21 +72,23 @@ public class RegisterCustomerController {
 		
 		// only allows numbers, parenthesis, and dashes
 		PhoneField.setTextFormatter(new TextFormatter<> (change -> {
-			if (change.getText().matches("[^0-9-()]")) {
+			if ((change.getControlNewText().length() > 10) ||
+				(change.getText().matches("[^0-9]"))) {
 				return null;
 			}
 			return change;
-		})); // not correct, add length limit
+		}));
 			
 			
-		// only allows numbers and uppercase characters up to 12
+		// only allows numbers and uppercase characters up to 16
 		DriversLicenseField.setTextFormatter(new TextFormatter<> (change -> {
-				if ((change.getControlNewText().length() > 12) ||
+				change.setText(change.getText().toUpperCase());					
+				if ((change.getControlNewText().length() > 16) ||
 				(change.getText().matches("[^A-Z1-9]"))) {
 				return null;
 			}
 			return change;
-		})); // change length limit NOWWWWW
+		})); // length limit correct?
 		
 		// only allows numbers and regular characters up to 40
 		AddressField.setTextFormatter(new TextFormatter<> (change -> {
