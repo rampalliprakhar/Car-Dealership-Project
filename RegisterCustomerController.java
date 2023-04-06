@@ -84,7 +84,7 @@ public class RegisterCustomerController {
 		DriversLicenseField.setTextFormatter(new TextFormatter<> (change -> {
 				change.setText(change.getText().toUpperCase());					
 				if ((change.getControlNewText().length() > 16) ||
-				(change.getText().matches("[^A-Z1-9]"))) {
+				(change.getText().matches("[^A-Z0-9]"))) {
 				return null;
 			}
 			return change;
@@ -93,7 +93,7 @@ public class RegisterCustomerController {
 		// only allows numbers and regular characters up to 40
 		AddressField.setTextFormatter(new TextFormatter<> (change -> {
 			if ((change.getControlNewText().length() > 40) ||
-			(change.getText().matches("[^A-Za-z1-9\\s]"))) {
+			(change.getText().matches("[^A-Za-z0-9\\s]"))) {
 			return null;
 		}
 		return change;
