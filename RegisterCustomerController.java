@@ -125,12 +125,22 @@ public class RegisterCustomerController {
         
         Address custAddress = new Address(AddressField.getText(), CityField.getText(), StateField.getText(), ZIPField.getText(), "");
         
+        custAddress.printAddress(); // DEBUG
+        
         String licenseAsString = DriversLicenseField.getText();
         Long licenseNum = null;
         if (licenseAsString != null && licenseAsString.length() > 0) licenseNum = Long.decode(licenseAsString);
         
         CustomerProfile customer = new CustomerProfile(licenseNum, FirstNameField.getText(), LastNameField.getText(), PhoneField.getText(), custAddress);
-        // Future code: Save customer to database.
+        CustomerDao dao = new CustomerDao();
+        
+        System.out.println(customer.toString());
+        
+        try {
+            dao.saveCustomer(customer);
+        } catch (Exception e) {
+            System.out.println("Error in RegisterCustomerController.java");
+        }
         
         Main m = new Main();
         m.changeScene(previousPage);
