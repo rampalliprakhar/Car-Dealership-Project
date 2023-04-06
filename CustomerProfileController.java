@@ -14,6 +14,8 @@ import javafx.scene.control.*;
 import javafx.scene.*;
 import java.time.LocalDate;
 
+
+
 public class CustomerProfileController {
 	
 	// customerID refers to the driver's license number
@@ -32,62 +34,80 @@ public class CustomerProfileController {
 	
 	@FXML
 	private Button addCusToSale, returnButton, updateProfile;
-	
+	    
 	@FXML
-	public void initialize() {
+	public void initialize() {  // is 40 a good length limit for the strings?
+		
+		// using giving customer ID, search database for the rest of the information 
+		
+		
+		
+		
 		// test data
-		// should get information from database from given Customer ID from searchCustomerController
 		firstName.setText("Triny");
 		lastName.setText("Nguyen");
-		phoneNumber.setText("803");
-		customerID.setText("675");
+		phoneNumber.setText("8038239936");
+//		customerID.setText("Y");
 		streetAddress.setText("502 Manchester Dr");
 		city.setText("Manning");
 		state.setText("SC");
 		zipCode.setText("29102");
+	    
+		// can names have numbers and special characters other than dashes and apostrophe????
 		
-		
-		// change name requirements bc they can have numbers and symbols????
 		// only allows alphabetical characters, dash, and apostrophe
 		firstName.setTextFormatter(new TextFormatter<> (change -> {
+			if (change.getControlNewText().length() == 1) {
+		    	change.setText(change.getText().toUpperCase());
+			}
 			if ((change.getControlNewText().length() > 40) ||
 				(change.getText().matches("[^a-zA-Z'-]"))) {
 				return null;
 			}
 			return change;
-		})); // change length limit?
+		}));
 		
 		// only allows alphabetical characters, dash, and apostrophe
 		lastName.setTextFormatter(new TextFormatter<> (change -> {
+			if (change.getControlNewText().length() == 1) {
+		    	change.setText(change.getText().toUpperCase());
+			}
 			if ((change.getControlNewText().length() > 40) ||
 				(change.getText().matches("[^a-zA-Z'-]"))) {
 				return null;
 			}
 			return change;
-		})); // change length limit?		
+		})); 	
 		
-		// only allows numbers, parenthesis, and dashes
+		// only allows numbers of up to 10 
 		phoneNumber.setTextFormatter(new TextFormatter<> (change -> {
-			if (change.getText().matches("[^0-9-()]")) {
+			if ((change.getControlNewText().length() > 10) ||
+				(change.getText().matches("[^0-9]"))) {
 				return null;
 			}
 			return change;
-		})); // not correct
+		})); // should we allow them to type dashes and parenthesis?, 
+			// if so then add input validation to make sure dashes are in correct spot and there are 2 of them
+			// add dashes automatically if none are typed
 			
 			
-		// only allows numbers and uppercase characters up to 12
+//		// only allows a capital letters or numbers of up to 16
 		customerID.setTextFormatter(new TextFormatter<> (change -> {
-				if ((change.getControlNewText().length() > 12) ||
-				(change.getText().matches("[^A-Z1-9]"))) {
+		    	change.setText(change.getText().toUpperCase());					
+			if ((change.getControlNewText().length() > 16) ||
+				(change.getText().matches("[^A-Z0-9]"))) {
+						
 				return null;
 			}
+					
 			return change;
-		})); // change length limit NOWWWWW
+		})); // change length limit?
+//			// automatically add dashes?
 		
 		// only allows numbers and regular characters up to 40
 		streetAddress.setTextFormatter(new TextFormatter<> (change -> {
 			if ((change.getControlNewText().length() > 40) ||
-			(change.getText().matches("[^A-Za-z1-9\\s]"))) {
+			(change.getText().matches("[^A-Za-z0-9\\s]"))) {
 			return null;
 		}
 		return change;
@@ -100,7 +120,7 @@ public class CustomerProfileController {
 				return null;
 			}
 			return change;
-		})); // add length limit
+		})); 
 		
 		// only allows alphabetical characters and up to 40 characters
 		state.setTextFormatter(new TextFormatter<> (change -> {
@@ -109,7 +129,7 @@ public class CustomerProfileController {
 				return null;
 			}
 			return change;
-		})); // add length limit, not correct
+		}));
 		
 		// only allows numbers and up to 5 digits
 		zipCode.setTextFormatter(new TextFormatter<> (change -> {
@@ -145,7 +165,8 @@ public class CustomerProfileController {
     	m.changeScene("RecordOfSaleUI.fxml", root);
     }
     
-    public void showInformation(String year, String make, String model, String VIN, String price, String paymentMethod, LocalDate salesDate) {
+    public void showInformation(String ID, String year, String make, String model, String VIN, String price, String paymentMethod, LocalDate salesDate) {
+    	customerID.setText(ID);
     	yearField.setText(year);
     	makeDropdown.setValue(make);
     	modelField.setText(model);
