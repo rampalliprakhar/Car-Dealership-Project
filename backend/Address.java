@@ -109,5 +109,6 @@ public class Address {
     }
 
     public void printAddress() {
+        System.out.println(this.street + " " + this.city + " " + this.state + " " + this.zipCode);
     }
 }
