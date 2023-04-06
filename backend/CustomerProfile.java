@@ -72,4 +72,9 @@ public class CustomerProfile {
     public void setAddress(Address address) {
         this.address = address;
     }   
+    
+    @Override
+    public String toString() {
+        return this.licenseNum + " " + this.firstName + " " + this.lastName + " " + this.phoneNum;
+    }
 }
