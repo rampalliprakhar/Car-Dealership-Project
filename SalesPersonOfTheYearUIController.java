@@ -12,6 +12,9 @@ public class SalesPersonOfTheYearUIController {
     private TextField salespersonNameTF;
     @FXML
     private Button calculateButton;
+    @FXML
+    private String SOTY = "No Salesperson Chosen";
+    // Default value is No Salesperson Chose, will be overwritten in calculate method
 
     @FXML
     public void close(ActionEvent event) throws IOException {
@@ -23,14 +26,11 @@ public class SalesPersonOfTheYearUIController {
     }
     
     @FXML
-    public void salespersonName(ActionEvent event) throws IOException {
-        //  Displays the salesperson name.
-        
-    }
-    
-    @FXML
     public void calculate(ActionEvent event) throws IOException {
-        //  Calculates the salesperson of the year.
+        // Code for calculating SOTY
+        // SOTY = that result
+        
+        this.salespersonNameTF.setText(SOTY);
         
     }
 }
