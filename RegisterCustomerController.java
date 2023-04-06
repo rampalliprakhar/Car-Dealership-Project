@@ -176,5 +176,11 @@ public class RegisterCustomerController {
         m.changeScene(previousPage);
         
     } // end pageReturn
+	
+    // receives information from the search customer UI
+    public void showInformation(String firstName, String lastName) {
+    	FirstNameField.setText(firstName);
+    	LastNameField.setText(lastName);
+    }
     
 }
