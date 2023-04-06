@@ -48,7 +48,7 @@ public class CreateOrderforManufacturerController implements Initializable {
 	protected String successPrompt = String.format("-fx-text-fill: GREEN;"); // correct input with green font
 	protected String failurePrompt = String.format("-fx-text-fill: RED;"); // incorrect input with red font
 
-	private String previousPage = "SampleSalesperson.fxml";
+	private String previousPage = Main.getView();
 
   	public static boolean YearValidator(String yearinput) {
         return yearinput.matches("^(19|20)[0-9][0-9]$"); // yearinput matches with regular expression
