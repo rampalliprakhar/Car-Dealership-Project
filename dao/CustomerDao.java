@@ -1,8 +1,8 @@
 package dao;
 
 import java.sql.*;
-import backend.*;
-
+import backend.CustomerProfile;
+import backend.Address;
 /*-------------------------------------------------
  * Author:          Carlot Team
  * Written:         03/31/2023
@@ -33,7 +33,6 @@ import backend.*;
  *    
  *    
  */
-
 public class CustomerDao {
     
     //Used to hold reference of JDBC connection. Allows for execution of SQL statements. 
@@ -86,7 +85,7 @@ public class CustomerDao {
     * 
     *
     */
-    void saveCustomer(CustomerProfile customerInformation)
+    public void saveCustomer(CustomerProfile customerInformation)
     {
         //Statement is an interface in the JDBC API that represents a SQL statement that
         //is sent to the database and executed. 
@@ -252,7 +251,7 @@ public class CustomerDao {
     * 
     *
     */
-    void updateCustomer(CustomerProfile customerInformation)
+    public void updateCustomer(CustomerProfile customerInformation)
     {
         //Statement is an interface in the JDBC API that represents a SQL statement that
         //is sent to the database and executed. 
@@ -308,7 +307,7 @@ public class CustomerDao {
         }
     }
     
-    void deleteCustomer(CustomerProfile customerInformation)
+    public void deleteCustomer(CustomerProfile customerInformation)
     {
         //Statement is an interface in the JDBC API that represents a SQL statement that
         //is sent to the database and executed. 
@@ -364,7 +363,7 @@ public class CustomerDao {
     * 
     *
     */
-    void close()
+    public void close()
     {
         //If conn does not equal null.
         if (conn != null)
