@@ -1,16 +1,13 @@
 package application;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.control.DatePicker;
-import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import java.io.IOException;
 import dao.CustomerDao;
 import backend.Address;
 import backend.CustomerProfile;
+import javafx.scene.control.TextFormatter;
 
 public class RegisterCustomerController {
     
