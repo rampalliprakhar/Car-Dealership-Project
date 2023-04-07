@@ -90,13 +90,14 @@ public class VehicleInformationController {
 		
 		ValueField.setTextFormatter(new TextFormatter<> (change -> {
 		if ((change.getControlNewText().length() > 20) ||
-			(change.getText().matches("[^0-9,]"))) {
+			(change.getText().matches("[^0-9,.]"))) {
 			return null;
 		}
 		return change;
 	})); // is WRONGGGGG
 		
 		VINField.setTextFormatter(new TextFormatter<> (change -> {
+	    	change.setText(change.getText().toUpperCase());
 			if ((change.getControlNewText().length() > 20) ||
 				(change.getText().matches("[^0-9A-Z]"))) {
 				return null;
@@ -106,7 +107,7 @@ public class VehicleInformationController {
 		
 		MileageField.setTextFormatter(new TextFormatter<> (change -> {
 			if ((change.getControlNewText().length() > 40) ||
-				(change.getText().matches("[^0-9]"))) {
+				(change.getText().matches("[^0-9,]"))) {
 				return null;
 			}
 			return change;
