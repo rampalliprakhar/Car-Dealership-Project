@@ -130,12 +130,14 @@ public class SearchVehicleController {
 
     	// database needed
 
-    	
-    	
+    	String make;
+    	if (makeDropdown.getValue().equals("Select a Make"))
+    		make = " ";
+    	else make = makeDropdown.getValue();
     	
     // test data
       for (int i = 0; i < 4; i++) {
-      	listView.getItems().addAll(yearField.getText() + " " + makeDropdown.getValue() + " " + modelField.getText() + 
+      	listView.getItems().addAll(yearField.getText() + " " + make + " " + modelField.getText() + 
       								"\nColor: " + colorField.getText()
       								+ "\nPrice: " + "$100,000");
       	
@@ -152,14 +154,14 @@ public class SearchVehicleController {
 //    	m.changeScene("VehicleInformationUI.fxml");
 
     	
-    	
-    	
+    	// test VIN
+		VINField.setText("IF72L91038"); // should get VIN of selected vehicle
     	
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("VehicleInformationUI.fxml"));
     	Parent root = loader.load();
     	
     	VehicleInformationController controller = loader.getController();
-    	controller.showInformation(custFirstName.getText(), custLastName.getText(), customerID.getText(), paymentMethod.getValue(), salesDate.getValue());
+    	controller.showInformation(VINField.getText(), custFirstName.getText(), custLastName.getText(), customerID.getText(), paymentMethod.getValue(), salesDate.getValue());
     	
     	Main m = new Main();
     	m.changeScene("VehicleInformationUI.fxml", root);
