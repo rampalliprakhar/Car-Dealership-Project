@@ -3,7 +3,6 @@
 package application;
 
 import java.time.LocalDate;
-import java.util.regex.Pattern;
 import java.io.IOException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,10 +13,10 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.text.Text;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-import java.util.regex.*;
-import javafx.beans.value.ObservableValue;
+
 
 public class VehicleInformationController {
 
@@ -25,7 +24,10 @@ public class VehicleInformationController {
     private TextField ValueField, VINField, YearField, ModelField, MileageField, ColorField, customerID, custFirstName, custLastName;
     
     @FXML
-    private Button returnButton, purchaseVehicle;
+    private Text nullError, updateSuccessful;
+    
+    @FXML
+    private Button returnButton, purchaseVehicle, saveChanges;
     
     @FXML
     private DatePicker datePutOnLot, salesDate; // time on lot calculated from date put on lot
@@ -47,6 +49,22 @@ public class VehicleInformationController {
     @FXML
     private void initialize() {
         
+		// using giving VIN, search database for the rest of the information 
+    	
+    	
+    	
+    	
+    	// test data
+    	ModelField.setText("model");
+    	YearField.setText("2019");
+    	ColorField.setText("White");
+    	MileageField.setText("1000");
+
+    	
+    	
+    	
+    	
+
         /* This method is called automatically, and initializes the dropdown
          * boxes with the values of the source ObservableLists*/
         
@@ -55,6 +73,7 @@ public class VehicleInformationController {
         MechConDropdown.setItems(conditionList);
         datePutOnLot.setValue(LocalDate.now());
 
+        // only allows alphabetical characters up to 40
         ModelField.setTextFormatter(new TextFormatter<> (change -> {
 			if ((change.getControlNewText().length() > 40) ||
 				(change.getText().matches("[^a-zA-Z]"))) {
@@ -63,7 +82,7 @@ public class VehicleInformationController {
         	return change;
         })); // add length limit
         
-        
+        // only allows alphabetical characters up to 40
 		ColorField.setTextFormatter(new TextFormatter<> (change -> {
 			if ((change.getControlNewText().length() > 40) ||
 				(change.getText().matches("[^a-zA-Z]"))) {
@@ -72,68 +91,42 @@ public class VehicleInformationController {
 			return change;
 		})); // add length limit
 
-		
+        // only allows numbers up to 4
 		YearField.setTextFormatter(new TextFormatter<> (change -> {
 			if ((change.getControlNewText().length() > 4) ||
 				(change.getText().matches("[^0-9]"))) {
 				return null;
 			}
 			return change;
-		})); // add only 4 digits
+		}));
 		
-//		ValueField.setTextFormatter(new TextFormatter<> (change -> {
-//			if (change.getText().matches("^\\\\$(\\\\d{1, 3}(\\\\, \\\\d{3})*|(\\\\d+))(\\\\.\\\\d{2})?$")) {
-//				return change;
-//			}
-//			return null;
-//		}));
-		
+        // only allows numbers and periods up to 20
 		ValueField.setTextFormatter(new TextFormatter<> (change -> {
-		if ((change.getControlNewText().length() > 20) ||
-			(change.getText().matches("[^0-9,.]"))) {
-			return null;
-		}
-		return change;
-	})); // is WRONGGGGG
+			if ((change.getControlNewText().length() > 20) ||
+				(change.getText().matches("[^0-9.]"))) {
+				return null;
+			}
+			return change;
+		}));
 		
+        // only allows alphabetical characters and numbers up to 17
 		VINField.setTextFormatter(new TextFormatter<> (change -> {
 	    	change.setText(change.getText().toUpperCase());
-			if ((change.getControlNewText().length() > 20) ||
+			if ((change.getControlNewText().length() > 17) ||
 				(change.getText().matches("[^0-9A-Z]"))) {
 				return null;
 			}
 			return change;
 		})); 
 		
+        // only allows numbers up to 20
 		MileageField.setTextFormatter(new TextFormatter<> (change -> {
-			if ((change.getControlNewText().length() > 40) ||
-				(change.getText().matches("[^0-9,]"))) {
+			if ((change.getControlNewText().length() > 20) ||
+				(change.getText().matches("[^0-9]"))) {
 				return null;
 			}
 			return change;
-		})); // add length limit?
-		
-		
-
-//        
-//        
-//        
-//        ValueField.textProperty().addListener(new ChangeListener<String>() {
-//            @Override
-//            public void changed(ObservableValue<? extends String> observable, String oldValue, 
-//                String newValue) {
-//                if (!newValue.matches("\\d*")) {
-//                    ValueField.setText(newValue.replaceAll("[^\\d]", ""));
-//                }
-//            }
-//        });
-
-
-//if (Pattern.matches("[a-zA-Z]*]", change.getText())) {
-
-
-        // get info from database
-
+		})); 
         
     } // end initialize method // NOT COMPLETE
     
@@ -153,28 +146,49 @@ public class VehicleInformationController {
     
         
     public void saveChanges(ActionEvent event) throws IOException {
-//    	if (isValid() == true) {
-//    		save changes
-//    	}
+    	
+    	// if any fields are emtpy
+    	if (ModelField.getText().length() == 0 || MakeDropdown.getValue() == null || YearField.getText().length() == 0 || 
+    			ColorField.getText().length() == 0 || VINField.getText().length() == 0 || ValueField.getText().length() == 0 || 
+    			MileageField.getText().length() == 0 || datePutOnLot.getValue() == null || 
+    			BodyConDropdown.getValue() == null || MechConDropdown.getValue() == null) {
+        	
+    		updateSuccessful.setText(null);
+    		nullError.setText("*Error: Please fill out all input fields*");
+    		return;
+    	}
+    		
+    		
+    	// if year is between current year and year when cars were invented
+    	else if (yearIsValid() == false) {
+        	updateSuccessful.setText(null);
+    		nullError.setText("*Error: Please input a valid year*");
+    		return;
+    	}
+    	
+    	if (!ValueField.getText().matches("^\\d+\\.\\d{0,2}$")) {
+        	updateSuccessful.setText(null);
+    		nullError.setText("*Error: Please input a valid price*");
+    		return;
+    	} // fix this to allow no decimals
+    	
+    	// validation for date
+    	
+    	
+    	
+    	
+    	
+//  	  update info in database
 
     	
-//	  change info in database
-//    if success print out success through updateSuccessful Text field
-//    if not, print out not successful
+    	
+    	nullError.setText(null);
+    	updateSuccessful.setText("Changes Saved");
     }
     
-//    public boolean isValid() {
-//    	if (ModelField.getText().length() > 20) {
-//		// print out error
-//    		return false;
-//	}
-//    	
-//    	
-//    	return true;
-//    }
-    
 	// receives customer information from search vehicle UI
-    public void showInformation(String cusID, String first, String last, String paymentMethod, LocalDate salesDate) {
+    public void showInformation(String VIN, String cusID, String first, String last, String paymentMethod, LocalDate salesDate) {
+    	VINField.setText(VIN);
     	customerID.setText(cusID);
     	custFirstName.setText(first);
     	custLastName.setText(last);
@@ -186,12 +200,18 @@ public class VehicleInformationController {
 	// sends customer information to record of sale UI
 	public void purchaseVeh(ActionEvent event) throws IOException {		
 		
+		
+		// send error if changes were made and it wasn't saved
+		
+		
+		
+		
+		
 		    FXMLLoader loader = new FXMLLoader(getClass().getResource("RecordOfSaleUI.fxml"));
 		   	Parent root = loader.load();
 		   	
 		   	RecordOfSaleController recSaleController = loader.getController();
 
-		   	// need to ensure they save before sending info to record of sale
 		   	recSaleController.showInformation(custFirstName.getText(), custLastName.getText(), customerID.getText(), YearField.getText(), MakeDropdown.getValue(), ModelField.getText(), 
 		   			VINField.getText(), ValueField.getText(), paymentMethod.getValue(), salesDate.getValue());
 		   	
@@ -199,6 +219,12 @@ public class VehicleInformationController {
 	    	m.changeScene("RecordOfSaleUI.fxml", root);
 		
 	} // not complete
-    
-    
+	
+	public boolean yearIsValid() {
+		int year = Integer.valueOf(YearField.getText());
+		if (year > LocalDate.now().getYear() || year < 1889)
+			return false;
+		
+		else return true;
+	}
 }
