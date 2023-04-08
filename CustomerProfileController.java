@@ -1,15 +1,9 @@
 package application;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.text.Text;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 import javafx.scene.control.*;
 import javafx.scene.*;
 import java.time.LocalDate;
@@ -30,7 +24,7 @@ public class CustomerProfileController {
     private DatePicker salesDate;
 	
 	@FXML
-	private Text updateSuccessful;
+	private Text updateSuccessful, nullError;
 	
 	@FXML
 	private Button addCusToSale, returnButton, updateProfile;
@@ -47,13 +41,15 @@ public class CustomerProfileController {
 		firstName.setText("Triny");
 		lastName.setText("Nguyen");
 		phoneNumber.setText("8038239936");
-//		customerID.setText("Y");
 		streetAddress.setText("502 Manchester Dr");
 		city.setText("Manning");
 		state.setText("SC");
 		zipCode.setText("29102");
 	    
-		// can names have numbers and special characters other than dashes and apostrophe????
+		
+		
+		
+		// note: customer ID length limit might be incorrect
 		
 		// only allows alphabetical characters, dash, and apostrophe
 		firstName.setTextFormatter(new TextFormatter<> (change -> {
@@ -86,12 +82,9 @@ public class CustomerProfileController {
 				return null;
 			}
 			return change;
-		})); // should we allow them to type dashes and parenthesis?, 
-			// if so then add input validation to make sure dashes are in correct spot and there are 2 of them
-			// add dashes automatically if none are typed
+		}));	
 			
-			
-//		// only allows a capital letters or numbers of up to 16
+		// only allows a capital letters or numbers of up to 16
 		customerID.setTextFormatter(new TextFormatter<> (change -> {
 		    	change.setText(change.getText().toUpperCase());					
 			if ((change.getControlNewText().length() > 16) ||
@@ -101,8 +94,7 @@ public class CustomerProfileController {
 			}
 					
 			return change;
-		})); // change length limit?
-//			// automatically add dashes?
+		}));
 		
 		// only allows numbers and regular characters up to 40
 		streetAddress.setTextFormatter(new TextFormatter<> (change -> {
@@ -111,7 +103,7 @@ public class CustomerProfileController {
 			return null;
 		}
 		return change;
-	})); // change length limit?
+	}));
 		
 		// only allows alphabetical characters and up to 40 characters
 		city.setTextFormatter(new TextFormatter<> (change -> {
@@ -165,6 +157,7 @@ public class CustomerProfileController {
     	m.changeScene("RecordOfSaleUI.fxml", root);
     }
     
+    // receives information from search customer UI
     public void showInformation(String ID, String year, String make, String model, String VIN, String price, String paymentMethod, LocalDate salesDate) {
     	customerID.setText(ID);
     	yearField.setText(year);
@@ -177,8 +170,42 @@ public class CustomerProfileController {
     }
     
     public void updateProfile(ActionEvent event) throws IOException {
-//    change info in database
-//    if success print out success through updateSuccessful Text field
-//    if not, print out not successful
+    	
+    	// if any fields are empty return and print out error message
+    	if (customerID.getText().length() == 0 || firstName.getText().length() == 0 || 
+    			lastName.getText().length() == 0 || phoneNumber.getText().length() == 0 || 
+    			streetAddress.getText().length() == 0 || city.getText().length() == 0 || 
+    			state.getText().length() == 0 || zipCode.getText().length() == 0) {
+        	
+    		updateSuccessful.setText(null);
+    		nullError.setText("*Error: Please fill out all input fields*");
+    		return;
+    	}
+    	
+    	// if zip is less than 5 digits
+    	if (zipCode.getText().length() < 5) {
+    		updateSuccessful.setText(null);
+    		nullError.setText("*Error: Please input a valid zip code*");
+    		return;	
+    	}
+    	
+    	// validate city, state, address, zip?
+    	
+    	
+    	if (phoneNumber.getText().length() < 10) {
+    		updateSuccessful.setText(null);
+    		nullError.setText("*Error: Please input a valid phone number*");
+    		return;	
+    	}
+    	
+//      update info in database
+
+    	
+    	
+    	
+    	
+    	
+		nullError.setText(null);
+		updateSuccessful.setText("Changes Saved");
     }
 }
