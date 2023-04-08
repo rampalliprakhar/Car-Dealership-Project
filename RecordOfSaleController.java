@@ -7,6 +7,8 @@ import javafx.event.ActionEvent;
 import javafx.collections.*;
 import java.io.IOException;
 import java.time.LocalDate;
+import javafx.scene.text.Text;
+
 
 public class RecordOfSaleController {
 	    
@@ -15,6 +17,9 @@ public class RecordOfSaleController {
     
     @FXML
     private ChoiceBox<String> makeDropdown, paymentMethod;
+    
+    @FXML
+    private Text updateSuccessful, nullError;
     
     @FXML
     private DatePicker salesDate;
@@ -94,20 +99,25 @@ public class RecordOfSaleController {
     
     public void save(ActionEvent event) throws IOException{
     	
+    	// if any fields are empty return and print out error message
+    	if (valueField.getText().length() == 0 || makeDropdown.getValue() == null || yearField.getText().length() == 0 || 
+    			paymentMethod.getValue() == null || VINField.getText().length() == 0 || salesDate.getValue() == null || 
+    			firstName.getText().length() == 0 || lastName.getText().length() == 0 || 
+    			customerID.getText().length() == 0 || valueField.getText().length() == 0) {
+        	
+    		updateSuccessful.setText(null);
+    		nullError.setText("*Error: Please fill out all input fields*");
+    		return;
+    	}
+    	
+    	// validation on date?
+    	
+    	// database needed
     	
     	
     	
     	
+	nullError.setText(null);
+    	updateSuccessful.setText("Save Succesful");
     }
-    
-//    public void requestApproval(ActionEvent event) throws IOException{
-//    	
-//    	
-//    	
-//    	
-//    }
-    
-    // print method?
-    
-    // request approval method??
 }
