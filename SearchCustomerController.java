@@ -2,9 +2,6 @@ package application;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,8 +9,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.control.*;
 import javafx.scene.*;
 import javafx.fxml.FXMLLoader;
-import javafx.stage.Stage;
-import javafx.application.Application;
 
 public class SearchCustomerController {
     @FXML
@@ -33,9 +28,6 @@ public class SearchCustomerController {
     
 //    private String previousPage = Main.getView();
 
-    
-//    @FXML
-//    private MenuItem selectButton;
     
     @FXML
     private ListView<String> listView;
@@ -78,6 +70,9 @@ public class SearchCustomerController {
     } // end clear
     
     public void pageReturn(ActionEvent event) throws IOException {
+    	
+        /* This method returns to the record of sale UI while retaining the information of the data filled.*/
+
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("RecordOfSaleUI.fxml"));
     	Parent root = loader.load();
     	
@@ -115,8 +110,11 @@ public class SearchCustomerController {
 
     
 	@FXML
-    // sends vehicle information to customer profile UI
+	// sends any inputed data in record of sale to customer profile UI
     public void openCusProfile(MouseEvent event) throws IOException{
+		
+        /* This method opens the customer profile page of the selected customer.*/
+
 		// test data
 		realCusID.setText("123456789"); // should get id of selected customer
 		
