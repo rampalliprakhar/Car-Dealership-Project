@@ -63,7 +63,7 @@
                   <Font name="System Bold" size="24.0" />
                </font>
             </Button>
-            <Button layoutX="1585.0" layoutY="691.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="218.0" text="Save Changes">
+            <Button fx:id="updateProfile" layoutX="1585.0" layoutY="691.0" mnemonicParsing="false" onAction="#updateProfile" prefHeight="51.0" prefWidth="218.0" text="Save Changes">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
@@ -144,7 +144,6 @@
                   <Font size="34.0" />
                </font>
             </Text>
-            <Text fx:id="updateSuccessful" layoutX="1398.0" layoutY="768.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="404.7999267578125" />
             <TextField fx:id="yearField" disable="true" editable="false" layoutX="16.0" layoutY="985.0" opacity="0.0" prefHeight="51.0" prefWidth="400.0" visible="false">
                <font>
                   <Font size="24.0" />
@@ -156,13 +155,7 @@
                   <Font size="24.0" />
                </font>
             </TextField>
-            <ChoiceBox fx:id="makeDropdown1" layoutX="141.0" layoutY="704.0" opacity="0.0" prefWidth="150.0" visible="false" />
             <TextField fx:id="modelField" editable="false" layoutX="73.0" layoutY="793.0" prefHeight="51.0" prefWidth="400.0" promptText="model" visible="false">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="yearField1" editable="false" layoutX="73.0" layoutY="858.0" prefHeight="51.0" prefWidth="400.0" promptText="year" visible="false">
                <font>
                   <Font size="24.0" />
                </font>
@@ -181,6 +174,16 @@
                <effect>
                   <InnerShadow radius="5.905" width="4.62" />
                </effect>
+            </Text>
+            <Text fx:id="updateSuccessful" layoutX="1398.0" layoutY="673.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="404.7999267578125">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <Text fx:id="nullError" fill="RED" layoutX="1516.0" layoutY="774.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="286.9365234375">
+               <font>
+                  <Font size="14.0" />
+               </font>
             </Text>
          </children>
       </AnchorPane>
