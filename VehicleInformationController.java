@@ -30,7 +30,7 @@ public class VehicleInformationController {
     private Button returnButton, purchaseVehicle, saveChanges;
     
     @FXML
-    private DatePicker datePutOnLot, salesDate; // time on lot calculated from date put on lot
+    private DatePicker datePutOnLot, salesDate; // time on lot calculated from date put on lot 
 
     @FXML
     private ChoiceBox<String> MakeDropdown, BodyConDropdown, MechConDropdown, paymentMethod;
@@ -146,8 +146,9 @@ public class VehicleInformationController {
     
         
     public void saveChanges(ActionEvent event) throws IOException {
+    	// input validation
     	
-    	// if any fields are emtpy
+    	// if any fields are empty print out error message
     	if (ModelField.getText().length() == 0 || MakeDropdown.getValue() == null || YearField.getText().length() == 0 || 
     			ColorField.getText().length() == 0 || VINField.getText().length() == 0 || ValueField.getText().length() == 0 || 
     			MileageField.getText().length() == 0 || datePutOnLot.getValue() == null || 
@@ -159,20 +160,23 @@ public class VehicleInformationController {
     	}
     		
     		
-    	// if year is between current year and year when cars were invented
+    	// if year is not between current year and year when cars were invented print out error message
     	else if (yearIsValid() == false) {
         	updateSuccessful.setText(null);
     		nullError.setText("*Error: Please input a valid year*");
     		return;
     	}
     	
-    	if (!ValueField.getText().matches("^\\d+\\.\\d{0,2}$")) {
+    	// if price has more than 2 decimal places print out error message
+    	if (!ValueField.getText().matches("^\\d+\\.\\d{0,2}$") && !ValueField.getText().matches("[0-9]*$")) {
         	updateSuccessful.setText(null);
     		nullError.setText("*Error: Please input a valid price*");
     		return;
-    	} // fix this to allow no decimals
+    	}
     	
     	// validation for date
+    	
+    	// end input validation
     	
     	
     	
@@ -182,9 +186,12 @@ public class VehicleInformationController {
 
     	
     	
+    	
+    	
+    	// confirmation message
     	nullError.setText(null);
     	updateSuccessful.setText("Changes Saved");
-    }
+    } // not complete
     
 	// receives customer information from search vehicle UI
     public void showInformation(String VIN, String cusID, String first, String last, String paymentMethod, LocalDate salesDate) {
@@ -197,7 +204,7 @@ public class VehicleInformationController {
     }
     
 	@FXML
-	// sends customer information to record of sale UI
+	// sends customer information to record of sale UI and switches to record of sale page
 	public void purchaseVeh(ActionEvent event) throws IOException {		
 		
 		
@@ -220,6 +227,7 @@ public class VehicleInformationController {
 		
 	} // not complete
 	
+	// returns true if year is greater than 1889 (year cars were invented)
 	public boolean yearIsValid() {
 		int year = Integer.valueOf(YearField.getText());
 		if (year > LocalDate.now().getYear() || year < 1889)
