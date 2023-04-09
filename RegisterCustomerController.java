@@ -8,6 +8,7 @@ import dao.CustomerDao;
 import backend.Address;
 import backend.CustomerProfile;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.text.Text;
 
 public class RegisterCustomerController {
     
@@ -33,18 +34,19 @@ public class RegisterCustomerController {
     private Button ClearButton;
     @FXML
     private Button ReturnButton;
+	@FXML
+	private Text updateSuccessful, nullError;
     
     private String previousPage = Main.getView();
     
-        @FXML
-    public void intitialize() {
-
+	@FXML
+    public void initialize() {
+    	
 		// change name requirements bc they can have numbers and symbols????
-        	// is 40 a good length limit?
+        // is 40 a good length limit?
 	    
-		// only allows alphabetical characters, dash, and apostrophe of up to 40 characters
+		// only allows alphabetical characters, dash, and apostrophe
 		FirstNameField.setTextFormatter(new TextFormatter<> (change -> {
-			 // guarentees first letter is capital
 			if (change.getControlNewText().length() == 1) {
 		    	change.setText(change.getText().toUpperCase());
 			}
@@ -53,9 +55,7 @@ public class RegisterCustomerController {
 				return null;
 			}
 			return change;
-		}));
-	    
-	    
+		})); 
 		
 		// only allows alphabetical characters, dash, and apostrophe of up to 40 characters
 		LastNameField.setTextFormatter(new TextFormatter<> (change -> {
@@ -78,8 +78,7 @@ public class RegisterCustomerController {
 			}
 			return change;
 		}));
-			
-			
+				
 		// only allows numbers and uppercase characters up to 16
 		DriversLicenseField.setTextFormatter(new TextFormatter<> (change -> {
 				change.setText(change.getText().toUpperCase());					
@@ -132,7 +131,36 @@ public class RegisterCustomerController {
         
         /* This method will also need to save all of the inputs to the
          * newly created Customer object.*/
-        
+    	
+    	// input validation
+    	
+    	// if any fields are empty return and print out error message
+    	if (DriversLicenseField.getText().length() == 0 || FirstNameField.getText().length() == 0 || 
+    			LastNameField.getText().length() == 0 || PhoneField.getText().length() == 0 || 
+    			AddressField.getText().length() == 0 || CityField.getText().length() == 0 || 
+    			StateField.getText().length() == 0 || ZIPField.getText().length() == 0) {
+        	
+    		updateSuccessful.setText(null);
+    		nullError.setText("*Error: Please fill out all input fields*");
+    		return;
+    	}
+    	
+    	// if zip is less than 5 digits print out error message
+    	if (ZIPField.getText().length() < 5) {
+    		updateSuccessful.setText(null);
+    		nullError.setText("*Error: Please input a valid zip code*");
+    		return;	
+    	}
+
+    	// if phone number is less than 10 or a series of a repeating number print out error message
+    	if (PhoneField.getText().length() < 10 || validPhoneNum() == false) {
+    		updateSuccessful.setText(null);
+    		nullError.setText("*Error: Please input a valid phone number*");
+    		return;	
+    	}
+    	    	
+    	// end input validation
+    	        
         Address custAddress = new Address(AddressField.getText(), CityField.getText(), StateField.getText(), ZIPField.getText(), "");
         
         custAddress.printAddress(); // DEBUG
@@ -181,6 +209,16 @@ public class RegisterCustomerController {
     public void showInformation(String firstName, String lastName) {
     	FirstNameField.setText(firstName);
     	LastNameField.setText(lastName);
+    }
+    
+    // input validation: returns false if phone number is series of repeating number
+    public boolean validPhoneNum() {
+    	char a = PhoneField.getText().charAt(0);
+    	for (int i = 1; i < PhoneField.getText().length(); i++) {
+    	if (PhoneField.getText().charAt(i) != a)
+    		return true;
+    	}
+    	return false;
     }
     
 }
