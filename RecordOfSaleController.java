@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import javafx.scene.text.Text;
 
-
 public class RecordOfSaleController {
 	    
     @FXML
@@ -23,11 +22,9 @@ public class RecordOfSaleController {
     
     @FXML
     private DatePicker salesDate;
-//    is sales date needed or will it just be the day the order on the UI was made
     
 	@FXML
 	private TextField firstName, lastName, customerID;
-//	employeeID, employeeFirstName, employeeLastName, commissionValue;
     
     @FXML
     private Button saveButton, clearButton, returnButton, addCusToSale, addVehToSale; 
@@ -57,6 +54,7 @@ public class RecordOfSaleController {
     	this.salesDate.setValue(salesDate);
     }
     
+    // sends any filled information to the search customer UI
     public void addCusTOSale(ActionEvent event) throws IOException{
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("SearchCustomerUI.fxml"));
     	Parent root = loader.load();
@@ -68,6 +66,7 @@ public class RecordOfSaleController {
     	m.changeScene("SearchCustomerUI.fxml", root);    
     }	// goes to Search Customer UI 
     
+    // sends any filled information to the search vehicle UI
     public void addVehToSale(ActionEvent event) throws IOException{
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("SearchVehicleUI.fxml"));
     	Parent root = loader.load();
@@ -98,7 +97,7 @@ public class RecordOfSaleController {
     }   // clears all fields
     
     public void save(ActionEvent event) throws IOException{
-    	
+    	// input validation
     	// if any fields are empty return and print out error message
     	if (valueField.getText().length() == 0 || makeDropdown.getValue() == null || yearField.getText().length() == 0 || 
     			paymentMethod.getValue() == null || VINField.getText().length() == 0 || salesDate.getValue() == null || 
@@ -111,13 +110,21 @@ public class RecordOfSaleController {
     	}
     	
     	// validation on date?
+
+    	// end input validation 
+    	    	
+    	
+    	
     	
     	// database needed
     	
     	
     	
     	
-	nullError.setText(null);
+    	
+    	
+    	// confirmation message
+		nullError.setText(null);
     	updateSuccessful.setText("Save Succesful");
     }
 }
