@@ -11,7 +11,7 @@
  *  Sample Output:
  *---------------------------------------------------*/
 
-package backend;
+
 import java.util.Date;
 
 public class Vehicle {
@@ -26,7 +26,7 @@ public class Vehicle {
     private String bodyCondition;
     private String mechCondition; // Mechanical Condition
     private String color;
-    private Double mileage;
+    private int mileage;
     //private ArrayList<String> additionalFeatures;
     private Long datePutOnLot;
     
@@ -45,12 +45,12 @@ public class Vehicle {
         this.bodyCondition = "No Body Condition Specified";
         this.mechCondition = "No Mechanical Condition Specified";
         this.color = "No Color Specified";
-        this.mileage = 0.0;
+        this.mileage = 0;
         //this.additionalFeatures = new ArrayList<String>();
         this.datePutOnLot = System.currentTimeMillis();
     } // default constructor
     
-    public Vehicle(String VIN, Double value, Integer year, String make, String model, String bodyCondition, String mechCondition, String color, Double mileage, Date DatePutOnLot) {
+    public Vehicle(String VIN, Double value, Integer year, String make, String model, String bodyCondition, String mechCondition, String color, int mileage, Date DatePutOnLot) {
         this.setVIN(VIN);
         this.setValue(value);
         this.setYear(year);
@@ -161,12 +161,12 @@ public class Vehicle {
         return true;
     } // end setColor
     
-    public Double getMileage() {
+    public int getMileage() {
         return this.mileage;
     } // end getMileage
     
-    public boolean setMileage(Double mileage) {
-        if (value > Double.MAX_VALUE || value < Double.MIN_VALUE) return false;
+    public boolean setMileage(int mileage) {
+        if (value > Integer.MAX_VALUE || value < Integer.MIN_VALUE) return false;
         if (value < 0) return false;
         
         this.mileage = mileage;
@@ -194,10 +194,22 @@ public class Vehicle {
         return new Date(this.datePutOnLot);
     } // end getDatePutOnLot
     
+    //Used for the DAO class for retrieve date. 
+    public long getDateUpdate() {
+    	return this.datePutOnLot;
+    }
+    
     public boolean setDatePutOnLot(Date date) {
         this.datePutOnLot = date.getTime();
         return true;
         } // end setDatePutOnLot
+    
+    //Use for DAO class to set date. 
+    public boolean setDateFromDatabase(long date) {
+    	this.datePutOnLot = date;
+    	return true;
+    	
+    }
     
     public Long getTimeOnLot() {
         /* TimeOnLot is a calculated value, not stored in any data fields.*/
@@ -221,4 +233,8 @@ public class Vehicle {
             super("The datePutOnLot is invalid.");
         }
     } // end InvalidTimeOnLotException
+    
+    public String toString() {
+        return " " + VIN +  " "  + year + " " + make + " " + model + " "+ value + " " + discount + " " + bodyCondition + " " + mechCondition + " " + color +  " " + mileage + " " + datePutOnLot;
+      }
 } // end Vehicle class
