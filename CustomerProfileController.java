@@ -37,6 +37,11 @@ public class CustomerProfileController {
 		
 		
 		
+		
+		
+		
+		
+		
 		// test data
 		firstName.setText("Triny");
 		lastName.setText("Nguyen");
@@ -51,11 +56,13 @@ public class CustomerProfileController {
 		
 		// note: customer ID length limit might be incorrect
 		
+		// input validation through text formatters
+		
 		// only allows alphabetical characters, dash, and apostrophe
 		firstName.setTextFormatter(new TextFormatter<> (change -> {
 			if (change.getControlNewText().length() == 1) {
 		    	change.setText(change.getText().toUpperCase());
-			}
+			} // automatically turns first character into upper case
 			if ((change.getControlNewText().length() > 40) ||
 				(change.getText().matches("[^a-zA-Z'-]"))) {
 				return null;
@@ -67,7 +74,7 @@ public class CustomerProfileController {
 		lastName.setTextFormatter(new TextFormatter<> (change -> {
 			if (change.getControlNewText().length() == 1) {
 		    	change.setText(change.getText().toUpperCase());
-			}
+			} // automatically turns first character into upper case
 			if ((change.getControlNewText().length() > 40) ||
 				(change.getText().matches("[^a-zA-Z'-]"))) {
 				return null;
@@ -133,6 +140,7 @@ public class CustomerProfileController {
 		}));
 	}
 	
+	// switches and passes first and last name to search customer UI
     public void pageReturn(ActionEvent event) throws IOException {
         
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("SearchCustomerUI.fxml"));
@@ -146,16 +154,18 @@ public class CustomerProfileController {
         
     } // end pageReturn	
     
+    // switches and passes information to record of sale UI 
     public void addCusToSale(ActionEvent event) throws IOException{
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("RecordOfSaleUI.fxml"));
     	Parent root = loader.load();
     	
     	RecordOfSaleController recSaleController = loader.getController();
-    	recSaleController.showInformation(firstName.getText(), lastName.getText(), customerID.getText(), yearField.getText(), makeDropdown.getValue(), modelField.getText(), VINField.getText(), valueField.getText(), paymentMethod.getValue(), salesDate.getValue());
+    	recSaleController.showInformation(firstName.getText(), lastName.getText(), customerID.getText(), yearField.getText(), makeDropdown.getValue(), 
+    	modelField.getText(), VINField.getText(), valueField.getText(), paymentMethod.getValue(), salesDate.getValue());
 
     	Main m = new Main();
     	m.changeScene("RecordOfSaleUI.fxml", root);
-    }
+    } 
     
     // receives information from search customer UI
     public void showInformation(String ID, String year, String make, String model, String VIN, String price, String paymentMethod, LocalDate salesDate) {
@@ -171,6 +181,8 @@ public class CustomerProfileController {
     
     public void updateProfile(ActionEvent event) throws IOException {
     	
+    	// input validation
+    	
     	// if any fields are empty return and print out error message
     	if (customerID.getText().length() == 0 || firstName.getText().length() == 0 || 
     			lastName.getText().length() == 0 || phoneNumber.getText().length() == 0 || 
@@ -182,21 +194,28 @@ public class CustomerProfileController {
     		return;
     	}
     	
-    	// if zip is less than 5 digits
+    	// if zip is less than 5 digits print out error message
     	if (zipCode.getText().length() < 5) {
     		updateSuccessful.setText(null);
     		nullError.setText("*Error: Please input a valid zip code*");
     		return;	
     	}
-    	
-    	// validate city, state, address, zip?
-    	
-    	
-    	if (phoneNumber.getText().length() < 10) {
+
+    	// if phone number is less than 10 or a series of a repeating number print out error message
+    	if (phoneNumber.getText().length() < 10 || validPhoneNum() == false) {
     		updateSuccessful.setText(null);
     		nullError.setText("*Error: Please input a valid phone number*");
     		return;	
     	}
+    	
+    	
+    	// validate city, state, address? 
+    	
+    	// end input validation
+    	
+    	
+    	
+    	
     	
 //      update info in database
 
@@ -205,7 +224,19 @@ public class CustomerProfileController {
     	
     	
     	
+    	
+    	// confirmation message
 		nullError.setText(null);
 		updateSuccessful.setText("Changes Saved");
+    }
+    
+    // input validation: returns false if phone number is series of repeating number
+    public boolean validPhoneNum() {
+    	char a = phoneNumber.getText().charAt(0);
+    	for (int i = 1; i < phoneNumber.getText().length(); i++) {
+    	if (phoneNumber.getText().charAt(i) != a)
+    		return true;
+    	}
+    	return false;
     }
 }
