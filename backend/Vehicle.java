@@ -1,3 +1,5 @@
+package backend;
+
 /*---------------------------------------------------
  *  Author: J. Alan Wallace, Triny Nguyen
  *  Written: 1/25/2023
@@ -10,7 +12,7 @@
  *  
  *  Sample Output:
  *---------------------------------------------------*/
-package backend;
+
 
 import java.util.Date;
 
@@ -26,7 +28,7 @@ public class Vehicle {
     private String bodyCondition;
     private String mechCondition; // Mechanical Condition
     private String color;
-    private int mileage;
+    private Integer mileage;
     //private ArrayList<String> additionalFeatures;
     private Long datePutOnLot;
     
@@ -161,11 +163,11 @@ public class Vehicle {
         return true;
     } // end setColor
     
-    public int getMileage() {
+    public Integer getMileage() {
         return this.mileage;
     } // end getMileage
     
-    public boolean setMileage(int mileage) {
+    public boolean setMileage(Integer mileage) {
         if (value > Integer.MAX_VALUE || value < Integer.MIN_VALUE) return false;
         if (value < 0) return false;
         
