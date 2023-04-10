@@ -62,69 +62,12 @@ public class RecordVehicleController {
         MechConDropdown.setValue("Select a Condition");
         MechConDropdown.setItems(conditionList);
         
-        
-         // text formatters
-        // only allows alphabetical characters up to 40
-        ModelField.setTextFormatter(new TextFormatter<> (change -> {
-			if ((change.getControlNewText().length() > 40) ||
-				(change.getText().matches("[^a-zA-Z]"))) {
-        		return null;
-        	}
-        	return change;
-        }));
-        
-        // only allows alphabetical characters up to 40
-		ColorField.setTextFormatter(new TextFormatter<> (change -> {
-			if ((change.getControlNewText().length() > 40) ||
-				(change.getText().matches("[^a-zA-Z]"))) {
-				return null;
-			}
-			return change;
-		}));
-
-        // only allows numbers up to 4
-		YearField.setTextFormatter(new TextFormatter<> (change -> {
-			if ((change.getControlNewText().length() > 4) ||
-				(change.getText().matches("[^0-9]"))) {
-				return null;
-			}
-			return change;
-		}));
-		
-        // only allows numbers and periods up to 20
-		ValueField.setTextFormatter(new TextFormatter<> (change -> {
-			if ((change.getControlNewText().length() > 20) ||
-				(change.getText().matches("[^0-9.]"))) {
-				return null;
-			}
-			return change;
-		}));
-		
-        // only allows alphabetical characters and numbers up to 17
-		VINField.setTextFormatter(new TextFormatter<> (change -> {
-	    	change.setText(change.getText().toUpperCase());
-			if ((change.getControlNewText().length() > 17) ||
-				(change.getText().matches("[^0-9A-Z]"))) {
-				return null;
-			}
-			return change;
-		})); 
-		
-        // only allows numbers up to 20
-		MileageField.setTextFormatter(new TextFormatter<> (change -> {
-			if ((change.getControlNewText().length() > 20) ||
-				(change.getText().matches("[^0-9]"))) {
-				return null;
-			}
-			return change;
-		})); 
-        
     } // end initialize method
     
     public void save(ActionEvent event) throws IOException {
         
         Vehicle vehicle = new Vehicle(VINField.getText(), new Double(ValueField.getText()), new Integer(YearField.getText()), MakeDropdown.getValue(),
-                ModelField.getText(), BodyConDropdown.getValue(), MechConDropdown.getValue(), ColorField.getText(), new Double(MileageField.getText()), new Date());
+                ModelField.getText(), BodyConDropdown.getValue(), MechConDropdown.getValue(), ColorField.getText(), new Integer(MileageField.getText()), new Date());
         
         // Debug statement to test the save method
         System.out.println(vehicle.getVIN() + " " + vehicle.getValue() + " " + vehicle.getYear() + " " + vehicle.getMake() + " " + vehicle.getModel() + " " +vehicle.getBodyCondition() + " " + vehicle.getMechCondition() + " " + vehicle.getColor() +
