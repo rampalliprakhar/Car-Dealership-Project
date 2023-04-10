@@ -30,8 +30,8 @@ public class SetDiscountsController {
     @FXML
     private Button clearButton;
     
-    private Vehicle testCar1 = new Vehicle("123456789", new Double(15000.00), new Integer(1996), "Ford", "Fiesta", "New", "Broken", "Grey", new Double(120000.00), new Date(System.currentTimeMillis()));
-    private Vehicle testCar2 = new Vehicle("987654321", new Double(17000.00), new Integer(2018), "Honda", "Acura", "New", "Broken", "Blue", new Double(1500.00), new Date(System.currentTimeMillis()));
+    private Vehicle testCar1 = new Vehicle("123456789", new Double(15000.00), new Integer(1996), "Ford", "Fiesta", "New", "Broken", "Grey", 120000, new Date(System.currentTimeMillis()));
+    private Vehicle testCar2 = new Vehicle("987654321", new Double(17000), new Integer(2018), "Honda", "Acura", "New", "Broken", "Blue", 1500, new Date(System.currentTimeMillis()));
     private Vehicle testCar3 = new Vehicle();
     
     private Vehicle vehicle1 = null;
