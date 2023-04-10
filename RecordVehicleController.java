@@ -9,7 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.collections.*;
 import java.io.IOException;
 import java.util.Date;
-
+import dao.VehicleDao;
 import backend.Vehicle;
 
 public class RecordVehicleController {
@@ -68,12 +68,17 @@ public class RecordVehicleController {
         
         Vehicle vehicle = new Vehicle(VINField.getText(), new Double(ValueField.getText()), new Integer(YearField.getText()), MakeDropdown.getValue(),
                 ModelField.getText(), BodyConDropdown.getValue(), MechConDropdown.getValue(), ColorField.getText(), new Integer(MileageField.getText()), new Date());
+        VehicleDao dao = new VehicleDao();
         
         // Debug statement to test the save method
         System.out.println(vehicle.getVIN() + " " + vehicle.getValue() + " " + vehicle.getYear() + " " + vehicle.getMake() + " " + vehicle.getModel() + " " +vehicle.getBodyCondition() + " " + vehicle.getMechCondition() + " " + vehicle.getColor() +
         " " + vehicle.getMileage() + " " + vehicle.getDatePutOnLot());
         
-        /* Insert code to save the newly created vehicle to the database*/
+        try {
+            dao.saveVehicle(vehicle);
+        } catch (Exception e) {
+            System.out.println("Error in RecordVehicleController.java");
+        }
         
         Main m = new Main();
         m.changeScene(Main.getView());
