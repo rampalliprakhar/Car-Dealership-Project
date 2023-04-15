@@ -1,18 +1,11 @@
 package application;
-//import javafx.fxml.FXMLLoader;
-//import javafx.scene.Parent;
-//import javafx.scene.*;
-//import javafx.stage.Stage;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.collections.*;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
-public class CreateOrderforManufacturerController implements Initializable {
+public class CreateOrderforManufacturerController {
 
 	@FXML
 	private ChoiceBox<String> MakeCar;
@@ -51,9 +44,13 @@ public class CreateOrderforManufacturerController implements Initializable {
 	private String previousPage = Main.getView();
 
   	public static boolean YearValidator(String yearinput) {
-        return yearinput.matches("^(19|20)[0-9][0-9]$"); // yearinput matches with regular expression
-	}
-	
+  		return yearinput.matches("^(19|20)[0-9][0-9]$"); // yearinput matches with regular expression
+  	}
+
+	public void initialize() throws IOException {
+		MakeCar.setValue("Select a Make");
+        MakeCar.getItems().addAll(makeList);
+	}	
 	public void clear(ActionEvent event) {
 		// checks the functionality of the button and resets the input field
 		 OrderID.clear();
@@ -64,60 +61,54 @@ public class CreateOrderforManufacturerController implements Initializable {
 	}
 	 
 	public void send(ActionEvent event) throws IOException {
-		// send the filled information to the VerifyTradeInUI
 		String order = OrderID.getText();
 		String year = Year.getText();
 		String model = ModelCar.getText();
 		String color = Color.getText();
-		if(order.isBlank() && year.isBlank() && model.isBlank() && color.isBlank()) {
-			invalidInput.setText("Login fields required!");
+		// checks to see if any field is blank/empty
+		if(order.isBlank() || year.isBlank() || model.isBlank() || color.isBlank()) {
+			invalidInput.setText("Input fields required!");
 			OrderID.setStyle(failurePrompt);
 			Year.setStyle(failurePrompt);
 			ModelCar.setStyle(failurePrompt);
 			Color.setStyle(failurePrompt);
 		}
 		else 
-		{   // if orderNumber is blank
-			if(order.isBlank()) 
-			{
-				OrderID.setStyle(failurePrompt);
-				invalidInput.setText("Password required!");
-				OrderID.setStyle(successPrompt);
+		{   
+			// checks to see if everthing is true and matches the pattern
+			if(YearValidator(year) == true && model.matches("^[a-zA-Z]{0,40}$") && order.matches("^[0-9]{4}$") && color.matches("^[A-Za-z]{0,40}$")) {
+				Main m = new Main();
+				m.changeScene(Main.getView());
 			}
-			else 
-			{
-				if(model.isBlank()) {
-					ModelCar.setStyle(failurePrompt);
-					invalidInput.setText("Model required!");
-				}
-				if(YearValidator(year) == true) {
+			else {
+				if(YearValidator(year) != true) {
 	 		 	    if(year.length() > 4){ // checks whether the input is greater than 4
 	 		 	        invalidInput.setText("Year not greater than 4 digits!");
 	 		 	    	Year.setStyle(failurePrompt);
 	 		 	    }
-	 			}		
-		 		if(!color.matches("^[a-zA-Z]$") && !order.matches("^[0-9]{4}$")){
-		 			invalidInput.setStyle(failurePrompt);
-		 			invalidInput.setText("Wrong input");
+	 			}
+				// Accepts alphabetical characters upto 40 characters allowed
+		 		if(!color.matches("^[A-Za-z]{0,40}$")){
+		 			Color.setStyle(failurePrompt);
+		 			Color.clear();
 		 		}
-		 		if(!model.matches("^[a-zA-z0-9]$")) {
-		 			invalidInput.setText("Wrong input");
+		 		// Accepts numbers between 0 to 9 and 4 digits length only
+		 		if(!order.matches("^[0-9]{4}$")) {
+		 			OrderID.setStyle(failurePrompt);
+		 			OrderID.clear();
 		 		}
-		    }
-			Main m = new Main();
-			m.changeScene(Main.getView());
+		 		// Accepts alphabetical characters upto 40 characters allowed
+		 		if(!model.matches("^[a-zA-Z]{0,40}$")){
+		 			ModelCar.setStyle(failurePrompt);
+		 			ModelCar.clear();
+		 		}
+			}
 		}
 	}
-	 
+	
 	public void returnPage(ActionEvent event) throws IOException {
 	 // returns back to the main page
 		Main m = new Main();
 	 	m.changeScene(previousPage);
-	}
-
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-        MakeCar.setValue("Select a Make");
-        MakeCar.getItems().addAll(makeList);
 	}
 }
