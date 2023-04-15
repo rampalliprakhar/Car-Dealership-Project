@@ -1,13 +1,12 @@
 package application;
 import javafx.fxml.FXML;
-//import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.collections.*;
 import java.io.IOException;
 public class CreateOrderforDealershipController {
 
-	private String previousPage = "Main.getView()";
+	private String previousPage = Main.getView();
 	@FXML
 	private Button ClearButton;
 	@FXML
@@ -56,14 +55,14 @@ public class CreateOrderforDealershipController {
 	 
  	@FXML
     private void initialize() {
-        MakeCar.setValue("Select a Make");
+ 		MakeCar.setValue("Select a Make");
         MakeCar.getItems().addAll(makeList);
         
         bodyCondition.setValue("Select condition");
         bodyCondition.getItems().addAll(bodyconditionList);
         
         mechCondition.setValue("Select condition");
-        mechCondition.getItems().addAll(mechconditionList);       
+        mechCondition.getItems().addAll(mechconditionList);   
     } // end initialize method
  	
   	public static boolean YearValidator(String yearinput) {
@@ -73,75 +72,71 @@ public class CreateOrderforDealershipController {
         return yearinput.matches("^(19|20)[0-9][0-9]$"); // yearinput matches with regular expression
 	}
 	public void clear(ActionEvent event) {
-		 dealershipEntry.clear();
-		 orderNumber.clear();
-		 Year.clear();
-		 Color.clear();
-		 mileageText.clear();
-	 	 MakeCar.setValue("Select a Make");
-	     ModelCar.clear();
-	     bodyCondition.setValue("Select condition");
-	     mechCondition.setValue("Select condition");
+		dealershipEntry.clear();
+		orderNumber.clear();
+		Year.clear();
+		Color.clear();
+		mileageText.clear();
+	 	MakeCar.setValue("Select a Make");
+	    ModelCar.clear();
+	    bodyCondition.setValue("Select condition");
+	    mechCondition.setValue("Select condition");
 	}
 	
 	public void send(ActionEvent event) throws IOException {
-		 String dealership = dealershipEntry.getText();
-		 String order = orderNumber.getText();
-		 String mileage = mileageText.getText();
-		 String year = Year.getText();
-		 String model = ModelCar.getText();
-		 String color = Color.getText();
-		// After filling information, it goes to the next page,
-		// where different information are filled
-		if(dealership.isBlank() && order.isBlank() && mileage.isBlank() && year.isBlank() && model.isBlank() && color.isBlank()) 
-		 {
-			 invalidPrompt.setText("Login fields required");
-			 dealershipEntry.setStyle(failurePrompt);
-			 orderNumber.setStyle(failurePrompt);
-			 mileageText.setStyle(failurePrompt);
-			 Year.setStyle(failurePrompt);
-			 ModelCar.setStyle(failurePrompt);
-			 Color.setStyle(failurePrompt);
-		 }
-		 else 
-		 {   // if dealershipEntry is blank
-			 if(dealership.isBlank())
-			 {
-				 dealershipEntry.setStyle(failurePrompt);
-				 invalidPrompt.setText("Username required!");
-				 dealershipEntry.setStyle(successPrompt);
-			 }
-			 else 
-			 {	 // if orderNumber is blank
-				 if(order.isBlank()) 
-				 {
-					 orderNumber.setStyle(failurePrompt);
-					 invalidPrompt.setText("Password required!");
-					 orderNumber.setStyle(successPrompt);
-				 }
-				 else 
-				 {
-			 		if(YearValidator(year) == true) {
-		 				Main m = new Main();
-		 				m.changeScene(Main.getView());
-		 			}		
-			 		if(!model.matches("^[a-zA-z0-9]$")) {
-			 			invalidPrompt.setText("Wrong input");
-			 		}
-			 		if(!color.matches("^[a-zA-Z]$") && !dealership.matches("^[a-zA-Z]$")){
-			 			invalidPrompt.setText("Wrong input");
-			 		}
-			 		if(!mileage.matches("^[0-9]{6}$")) {
-			 			invalidPrompt.setText("Wrong input");
-			 			mileageText.setStyle(failurePrompt);
-			 			if(mileage.length() > 6) {
-				 			invalidPrompt.setText("Number should be 6 digits long");
-				 			mileageText.setStyle(failurePrompt);
-			 			}
-			 		}
-			 		
-			     }
-			}
+		String dealership = dealershipEntry.getText();
+		String order = orderNumber.getText();
+		String mileage = mileageText.getText();
+		String year = Year.getText();
+		String model = ModelCar.getText();
+		String color = Color.getText();
+		// checks to see if any field is blank/empty
+		if(dealership.isBlank() || order.isBlank() || mileage.isBlank() || year.isBlank() || model.isBlank() || color.isBlank()) 
+		{
+			invalidPrompt.setText("Input fields required");
+			dealershipEntry.setStyle(failurePrompt);
+			orderNumber.setStyle(failurePrompt);
+			mileageText.setStyle(failurePrompt);
+			Year.setStyle(failurePrompt);
+			ModelCar.setStyle(failurePrompt);
+			Color.setStyle(failurePrompt);
+		}
+		else 
+		{
+			// checks to see if everthing is true and matches the pattern
+	 		if(YearValidator(year) == true && model.matches("^[a-zA-Z]{0,40}$") && color.matches("^[A-Za-z]{0,40}$") && dealership.matches("^[A-Za-z]{0,40}$") && order.matches("^[0-9]{4}$") && mileage.matches("^[0-9]{0,8}$")) {
+	 			Main m = new Main();
+	 			m.changeScene(Main.getView());
+			}	
+	 		// Accepts alphabetical characters upto 40 characters allowed
+	 		if(!dealership.matches("^[A-Za-z]{0,40}$")) {
+	 			dealershipEntry.setStyle(failurePrompt);
+	 			dealershipEntry.clear();
+	 		}
+	 		//
+	 		if(YearValidator(year) == false) {
+	 			Year.setStyle(failurePrompt);
+	 		}
+	 		// Accepts alphabetical characters upto 40 characters allowed
+	 		if(!model.matches("^[a-zA-Z]{0,40}$")) { //"^[a-zA-Z]{0,40}$"
+	 			ModelCar.setStyle(failurePrompt);
+	 			ModelCar.clear();
+	 		}
+	 		// Accepts numbers between 0 to 9 and digits length between 0 to 8 only
+	 		if(!mileage.matches("^[0-9]{0,8}$")) {
+	 			mileageText.setStyle(failurePrompt);
+	 			mileageText.clear();
+	 		}
+	 		// Accepts alphabetical characters upto 40 characters allowed
+	 		if(!color.matches("^[A-Za-z]{0,40}$")) {
+	 			Color.setStyle(failurePrompt);
+	 			Color.clear();
+	 		}
+	 		// Accepts numbers between 0 to 9 and 4 digits length only
+	 		if(!order.matches("^[0-9]{4}$")) {
+	 			orderNumber.setStyle(failurePrompt);
+	 			orderNumber.clear();
+	 		}
 		}
 	}
 	 
