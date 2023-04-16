@@ -11,19 +11,14 @@
  *  Sample Output:
  *---------------------------------------------------*/
 
-package backend;
-
 
 public class Employee {
         
     private String firstName;
     private String lastName;
     private boolean hasManagerRights;
-    
     private Integer employeeID; // This attribute can only be set by Google Database Authentication
-    
     private String password;
-    
     private Double comPercentage; 
     // Stands for commission percentage, I abbreviated it because it was tough to type, haha
         
@@ -72,29 +67,46 @@ public class Employee {
         return firstName;
     }
     
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+    
     public String getLastName() {
         return lastName;
+    }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public int getEmployeeID() {
         return employeeID;
     }
+    public void setEmployeeID(Integer employeeID) {
+        this.employeeID = employeeID;
+    }
 
     public boolean hasManagerRights() {
         return hasManagerRights;
+    }
+    public void setHasManagerRights(boolean hasRights) {
+        this.hasManagerRights = hasRights;
     }
 
     public String getPassword() {
         return password;
     }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public Double getComPercentage() {
         return comPercentage;
     }
-
     public void setComPercentage(Double comPercentage) {
         this.comPercentage = comPercentage;
     }
-    
+    public String toString() {
+        return " " + firstName +  " "  + lastName + " " + hasManagerRights + " " + employeeID + " "+ password + " " + comPercentage;
+      }
     
 }
