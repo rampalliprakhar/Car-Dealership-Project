@@ -1,6 +1,6 @@
 package application;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+//import java.util.regex.Matcher;
+//import java.util.regex.Pattern;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 //import javafx.scene.control.Label;
@@ -9,6 +9,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import javafx.event.ActionEvent;
 import java.io.IOException;
+import backend.Employee;
+import dao.EmployeeDao;
 
 public class CarLoginController {
 	@FXML
@@ -39,7 +41,7 @@ public class CarLoginController {
             System.out.println("Invalid password"); // print invalid password
         }
         // input size between 0-11, all alphabets small and capital, numbers allowed
-        String password = "^[a-zA-Z0-9][^!&]{0,11}$"; 
+        String password = "^[a-zA-Z0-9][^!&]{5,11}$"; 
         return passkey.matches(password);
     }
 	
@@ -75,8 +77,14 @@ public class CarLoginController {
 				 // check to see if login attempts is less than 3 and both username and 
 				 // password matches the given key
 				 if(login_attempt < 3 && isValidUsername(userEntry) == true && isValidPassword(password) == true) {
+					 Employee employee = new Employee();
+					 //password = emp.getPassword();
+					 if(employee.hasManagerRights()) {
+						 Main m = new Main();
+						 m.changeScene("ManagerViewUISample.fxml");
+					 }
 					 Main m = new Main();
-					 m.changeScene("ManagerViewUISample.fxml");
+					 m.changeScene("SampleSalesperson.fxml");
 				 }
 				 // if either username or password is incorrect, it denies and shows the login attempts made
 				 else if(login_attempt == 4 && !isValidUsername(userEntry) == true || !isValidPassword(password) == true){
