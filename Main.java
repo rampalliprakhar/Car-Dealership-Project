@@ -1,6 +1,7 @@
-/*  Author: Team 3 Car Dealership
+/* --------------------------------------------------- 
+ *  Author: Team 3 Car Dealership
  *  Written: 2/15/23
- *  Last Updated: 4/17/2023
+ *  Last Updated: 4/18/2023
  *  
  *  Compilation: javac Main.java
  *  Execution: java Main
@@ -8,7 +9,7 @@
  *  This is the main class for JavaFX. Is called at the application start.
  *  Has the methods: main, start, changeScene, getView, setView, and
  *  getGoogleCloudDBConnection
- */
+ ---------------------------------------------------*/
 
 package application;
 	
@@ -18,22 +19,23 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.fxml.FXMLLoader;
-
 
 public class Main extends Application {
 	
     private static Stage stg;
+    
     private static String view = "SampleSalesperson.fxml";
     // This variable will either be SalespersonView.fxml or ManagerView.fxml
     
-    
     @Override
 	public void start(Stage primaryStage) {
+        /* This method triggers when the application is loaded.
+         * It attempts to log in to the first screen which is specified in line 37
+         */
 		try {
 		    stg = primaryStage;
-			Parent root = FXMLLoader.load(getClass().getResource("CarLogin.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("CarLogin.fxml")); // Page application tries to load into
 			Scene scene = new Scene(root,1920,1080);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
@@ -44,6 +46,7 @@ public class Main extends Application {
 	}
 	
     public void changeScene(String fxml) throws IOException {
+        // Method for changing the scene without using a root
         Parent root = FXMLLoader.load(getClass().getResource(fxml));
         stg.getScene().setRoot(root);
     }
@@ -53,8 +56,12 @@ public class Main extends Application {
     } // method helps with carrying over textfield info from one UI to the other
     
 	public static void main(String[] args) throws Exception {
-		System.out.println(getGoogleCloudDBConnection());
-		launch(args);
+	    /* Main method: Connects to the database (printing the trace) 
+	     * and launches the fxml application.
+	     */
+	    
+	    System.out.println(getGoogleCloudDBConnection());
+	    launch(args);
 	}
 	
 	public static String getView() {
@@ -82,7 +89,8 @@ public class Main extends Application {
             String user = "teamaccount";
             //Assigned password to username
             String pass = "475843aoa!!";
-            //The getConnection() method is provided by the DriverManager class, which is responsible for managing and creating database connections.
+            //The getConnection() method is provided by the DriverManager class, 
+            //which is responsible for managing and creating database connections.
             conn = DriverManager.getConnection(url, user, pass);
             System.out.println("connected");
 
@@ -93,8 +101,7 @@ public class Main extends Application {
             System.out.println("SQLState: " + ex.getSQLState());
             System.out.println("VendorError: " + ex.getErrorCode());
         }
-
         return conn;
-    }
+    } // end getGoogleCloudDBConnection
 	
 }
