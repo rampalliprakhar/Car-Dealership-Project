@@ -77,7 +77,17 @@ public class CarLoginController {
 				 // check to see if login attempts is less than 3 and both username and 
 				 // password matches the given key
 				 if(login_attempt < 3 && isValidUsername(userEntry) == true && isValidPassword(password) == true) {
-					 Employee employee = new Employee();
+					
+					 // Retrieving employee from database
+				     	Employee employee = new Employee();
+					 EmployeeDao dao = new EmployeeDao();
+					 
+					 try {
+					     employee = dao.retriveEmployee(password);
+					 } catch (Exception e) {
+					     
+					 }
+
 					 //password = emp.getPassword();
 					 if(employee.hasManagerRights()) {
 						 Main m = new Main();
