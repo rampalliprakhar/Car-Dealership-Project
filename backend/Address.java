@@ -1,23 +1,40 @@
-
+/* --------------------------------------------------- 
+ * Author: Team 3 Car Dealership
+ *  Written: 2/15/23
+ *  Last Updated: 4/17/2023
+ *  
+ *  Compilation: javac Address.java
+ *  Execution: java Address
+ *  
+ *  Backend class to store customer addresses.
+ ---------------------------------------------------*/
 
 package backend;
 
 public class Address {
+    
+    // Basic data fields
     private String street;
     private String city;
     private String state;
     private String zipCode;
     
+    // Fields for special addresses
     private String unit;
     private String building;
     private String addressType;
     
+    // The customer that the address belongs to.
     private String customerID;
     
     
     // default constructor
     public Address() {
-        
+        this.street = "No Street Specified";
+        this.city = "No City Specified";
+        this.state = "No State Specified";
+        this.zipCode = "No Zip Code Specified";
+        this.customerID = "No customerID specified";
     }
     
     
@@ -30,20 +47,9 @@ public class Address {
         this.zipCode = zipCode;
         this.customerID = customerID;
     }
-    
-    
-    
-    // make diff constructor for if unit and etc is given
-    
-    
-    
-    
-    
-    
+   
 
     // getters and setters
-    
-
     public String getStreet() {
         return street;
     }
@@ -108,6 +114,7 @@ public class Address {
         this.customerID = customerID;
     }
 
+    // Prints the address out. Useful for debugging
     public void printAddress() {
         System.out.println(this.street + " " + this.city + " " + this.state + " " + this.zipCode);
     }
