@@ -1,7 +1,19 @@
+/* --------------------------------------------------- 
+ *  Author: Team 3 Car Dealership
+ *  Written: 2/15/23
+ *  Last Updated: 4/17/2023
+ *  
+ *  Compilation: javac CustomerProfile.java
+ *  Execution: java CustomerProfile
+ *  
+ *  Backed class to store customers
+ ---------------------------------------------------*/
+
 package backend;
 
 public class CustomerProfile {
     
+    // Identifying info
     private Long licenseNum;
     
     private String firstName;
@@ -73,6 +85,8 @@ public class CustomerProfile {
         this.address = address;
     }   
     
+    
+    // Overrides toString, useful for debugging
     @Override
     public String toString() {
         return this.licenseNum + " " + this.firstName + " " + this.lastName + " " + this.phoneNum;
