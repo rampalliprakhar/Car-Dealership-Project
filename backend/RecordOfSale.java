@@ -1,10 +1,24 @@
+/* --------------------------------------------------- 
+ *  Author: Team 3 Car Dealership
+ *  Written: 2/13/23
+ *  Last Updated: 4/17/2023
+ *  
+ *  Compilation: javac RecordOfSale.java
+ *  Execution: java RecordOfSale
+ *  
+ *  Backend class for storing the record of sale for a transaction
+ *  Also called the recipet or bill of sale.
+ ---------------------------------------------------*/
+
 package backend;
 
 public class RecordOfSale {
     
+    // Data fields for the vehicle
     private Vehicle soldVehicle;
     private Long dateOfSale;
     
+    // Data fields for the customer
     private Employee employee;
     private CustomerProfile customer;
     
@@ -19,13 +33,7 @@ public class RecordOfSale {
     private static final Double DEALERSHIP_FEE = 200.00;
     private static final Double SALES_TAX_RATE = 0.08;
     private static final Double TAG_FEE = 75.00;
- 
-    
-    // default constructor
-    public RecordOfSale() {
-        
-    }
-    
+  
     // constructor
     public RecordOfSale(Vehicle soldVehicle, Employee employee, CustomerProfile customer) {
         
@@ -75,7 +83,9 @@ public class RecordOfSale {
         return dateOfSale;
     }
 
-    // No setter for dateOfSale
+    public void setDateOfSale(Long date) {
+        this.dateOfSale = date;
+    }
     
     public CustomerProfile getCustomer() {
         return customer;
