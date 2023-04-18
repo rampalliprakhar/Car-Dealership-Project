@@ -1,9 +1,20 @@
+/* --------------------------------------------------- 
+ *  Author: Team 3 Car Dealership
+ *  Written: 2/08/23
+ *  Last Updated: 4/18/2023
+ *  
+ *  Compilation: javac CarLoginController.java
+ *  Execution: java CarLoginController
+ *  
+ *  Handles the log in process, including input validation
+ *  and communicating with the DB to check credentials
+ *  Corresponding fxml file: CarLogin.fxml
+ ---------------------------------------------------*/
+
 package application;
-//import java.util.regex.Matcher;
-//import java.util.regex.Pattern;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-//import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
@@ -13,7 +24,9 @@ import backend.Employee;
 import dao.EmployeeDao;
 
 public class CarLoginController {
-	@FXML
+	
+    // Declaration of Fields
+    @FXML
 	private TextField EmployeeField;
 	
 	@FXML
@@ -24,7 +37,6 @@ public class CarLoginController {
 	
 	@FXML
 	private Label invalidInformation; // label keeping track of wrong input
-	
 	protected String successPrompt = String.format("-fx-text-fill: GREEN;"); // correct input with green font
 	protected String failurePrompt = String.format("-fx-text-fill: RED;"); // incorrect input with red font
 	
@@ -78,17 +90,23 @@ public class CarLoginController {
 				 // password matches the given key
 				 if(login_attempt < 3 && isValidUsername(userEntry) == true && isValidPassword(password) == true) {
 					
-					 // Retrieving employee from database
-				     	Employee employee = new Employee();
-					 EmployeeDao dao = new EmployeeDao();
+					 /* Retrieves the employee from the database.
+					  * Instantiates a new DAO and a holder for the employee object,
+					  * then tries to connect to the DB and retrieve using the methods in the dao class.
+					  */
+				     Employee employee = new Employee();
+				     EmployeeDao dao = new EmployeeDao();
 					 
 					 try {
 					     employee = dao.retriveEmployee(password);
 					 } catch (Exception e) {
 					     
 					 }
-
-					 //password = emp.getPassword();
+					 
+					 /* Depending on if the employee is a manager
+					  * or a salesperson, they will be taken to the
+					  * corresponding main menu screen.
+					  */
 					 if(employee.hasManagerRights()) {
 						 Main m = new Main();
 						 m.changeScene("ManagerViewUISample.fxml");
