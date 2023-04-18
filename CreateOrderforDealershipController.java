@@ -1,12 +1,28 @@
+/* --------------------------------------------------- 
+ *  Author: Team 3 Car Dealership
+ *  Written: 2/08/23
+ *  Last Updated: 4/18/2023
+ *  
+ *  Compilation: javac CreateOrderforDealershipController.java
+ *  Execution: java CreateOrderforDealershipController
+ *  
+ *  Handles creating an order for another dealership
+ *  Corresponding fxml file is CreateOrderforOtherDealership.fxml
+ ---------------------------------------------------*/
+
 package application;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.collections.*;
 import java.io.IOException;
-public class CreateOrderforDealershipController {
 
-private String previousPage = Main.getView();
+public class CreateOrderforDealershipController {
+    
+    // Declare UI Fields
+    
+    private String previousPage = Main.getView();
     @FXML
     private Button ClearButton;
     @FXML
@@ -15,7 +31,8 @@ private String previousPage = Main.getView();
     private Button ReturnButton;
     @FXML
     private ChoiceBox<String> MakeCar;
-
+    
+    // List of all possible makes
 	final private ObservableList<String> makeList = FXCollections.observableArrayList("Acura", "Alfa Romeo", "Aston Martin", "Audi", "Bentley", "BMW", "Buick", 
            "Cadillac", "Chevrolet", "Chrysler", "Dodge", "Ferrari", "Fiat", "Ford", "Genesis", "GMC", "Honda", "Hyundai", "Infiniti", "Jaguar", "Jeep", "Kia", 
            "Lamborghini", "Land Rover", "Lexus", "Lincoln", "Maserati", "Mazda", "McLaren", "Mercedes-Benz", "Mini", "Mitsubishi", "Nissan", "Porsche", "Ram", 
@@ -26,11 +43,15 @@ private String previousPage = Main.getView();
 	 
     @FXML
     private ChoiceBox<String> bodyCondition;
-    	final private ObservableList<String> bodyconditionList = FXCollections.observableArrayList("New", "Excellent", "Good", "Average", "Fair", "Poor", "Broken");
+    
+    // List of all possible body conditions
+    final private ObservableList<String> bodyconditionList = FXCollections.observableArrayList("New", "Excellent", "Good", "Average", "Fair", "Poor", "Broken");
 	 
     @FXML
     private ChoiceBox<String> mechCondition;
-        final private ObservableList<String> mechconditionList = FXCollections.observableArrayList("New", "Excellent", "Good", "Average", "Fair", "Poor", "Broken");
+    
+    // List of all possible mechanical conditions
+    final private ObservableList<String> mechconditionList = FXCollections.observableArrayList("New", "Excellent", "Good", "Average", "Fair", "Poor", "Broken");
 	 
     @FXML
     private TextField dealershipEntry;
@@ -55,7 +76,8 @@ private String previousPage = Main.getView();
 	 
     @FXML
     private void initialize() {
- 	MakeCar.setValue("Select a Make");
+        // Triggers when the screen is loaded
+        MakeCar.setValue("Select a Make");
         MakeCar.getItems().addAll(makeList);
         
         bodyCondition.setValue("Select condition");
