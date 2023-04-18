@@ -1,4 +1,17 @@
+/* --------------------------------------------------- 
+ *  Author: Team 3 Car Dealership
+ *  Written: 2/08/23
+ *  Last Updated: 4/18/2023
+ *  
+ *  Compilation: javac CreateOrderforManufacturerController.java
+ *  Execution: java CreateOrderforManufacturerController
+ *  
+ *  Handles creating an order for the manufacturer.
+ *  Corresponding fxml file is CreateOrderforManufacturer.fxml
+ ---------------------------------------------------*/
+
 package application;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
@@ -6,7 +19,10 @@ import javafx.collections.*;
 import java.io.IOException;
 
 public class CreateOrderforManufacturerController {
-
+    
+    // Initialize UI Fields
+    
+    // Initialize the Make field with all possible values.
     @FXML
     private ChoiceBox<String> MakeCar;
 	final private ObservableList<String> makeList = FXCollections.observableArrayList("Acura", "Alfa Romeo", "Aston Martin", "Audi", "Bentley", "BMW", "Buick", 
@@ -48,6 +64,7 @@ public class CreateOrderforManufacturerController {
     }
 
     public void initialize() throws IOException {
+        // Triggers when the screen starts
         MakeCar.setValue("Select a Make");
         MakeCar.getItems().addAll(makeList);
     }	
