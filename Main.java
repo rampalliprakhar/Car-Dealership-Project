@@ -1,3 +1,15 @@
+/*  Author: Team 3 Car Dealership
+ *  Written: 2/15/23
+ *  Last Updated: 4/17/2023
+ *  
+ *  Compilation: javac Main.java
+ *  Execution: java Main
+ *  
+ *  This is the main class for JavaFX. Is called at the application start.
+ *  Has the methods: main, start, changeScene, getView, setView, and
+ *  getGoogleCloudDBConnection
+ */
+
 package application;
 	
 import java.sql.*;
