@@ -1,10 +1,19 @@
+/* --------------------------------------------------- 
+ *  Author: Team 3 Car Dealership
+ *  Written: 1/25/23
+ *  Last Updated: 4/18/2023
+ *  
+ *  Compilation: javac RecordVehicleController.java
+ *  Execution: java RecordVehicleController
+ *  
+ *  Handles recording new vehicles, both new and used.
+ *  Corresponds to fxml file: RecordVehicleUI.fxml
+ ---------------------------------------------------*/
+
 package application;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.collections.*;
 import java.io.IOException;
@@ -13,6 +22,8 @@ import dao.VehicleDao;
 import backend.Vehicle;
 
 public class RecordVehicleController {
+    
+    // Declare UI Fields
     
     @FXML
     private TextField ValueField;
@@ -39,7 +50,9 @@ public class RecordVehicleController {
     @FXML
     private Button ReturnButton;
     
+    // List of all possible conditions
     final private ObservableList<String> conditionList = FXCollections.observableArrayList("New", "Excellent", "Good", "Average", "Fair", "Poor", "Broken");
+    // List of all possible makes
     final private ObservableList<String> makeList = FXCollections.observableArrayList("Acura", "Alfa Romeo", "Aston Martin", "Audi", "Bentley", "BMW", "Buick", 
             "Cadillac", "Chevrolet", "Chrysler", "Dodge", "Ferrari", "Fiat", "Ford", "Genesis", "GMC", "Honda", "Hyundai", "Infiniti", "Jaguar", "Jeep", "Kia", 
             "Lamborghini", "Land Rover", "Lexus", "Lincoln", "Maserati", "Mazda", "McLaren", "Mercedes-Benz", "Mini", "Mitsubishi", "Nissan", "Porsche", "Ram", 
@@ -66,11 +79,13 @@ public class RecordVehicleController {
     
     public void save(ActionEvent event) throws IOException {
         
+        /* Saves the vehicle to the database. Creates a vehicle with the values inputted by the user,
+         * then creates a DAO instance to save it to database.
+         */
         Vehicle vehicle = new Vehicle(VINField.getText(), new Double(ValueField.getText()), new Integer(YearField.getText()), MakeDropdown.getValue(),
                 ModelField.getText(), BodyConDropdown.getValue(), MechConDropdown.getValue(), ColorField.getText(), new Integer(MileageField.getText()), new Date());
         VehicleDao dao = new VehicleDao();
         
-        // Debug statement to test the save method
         System.out.println(vehicle.getVIN() + " " + vehicle.getValue() + " " + vehicle.getYear() + " " + vehicle.getMake() + " " + vehicle.getModel() + " " +vehicle.getBodyCondition() + " " + vehicle.getMechCondition() + " " + vehicle.getColor() +
         " " + vehicle.getMileage() + " " + vehicle.getDatePutOnLot());
         
@@ -102,6 +117,8 @@ public class RecordVehicleController {
     } // end clear
     
     public void pageReturn(ActionEvent event) throws IOException {
+        // Returns to the previous page
+        
         
         Main m = new Main();
         m.changeScene(previousPage);
