@@ -1,15 +1,30 @@
-package application;
-import java.io.IOException;
+/* --------------------------------------------------- 
+ *  Author: Team 3 Car Dealership
+ *  Written: 3/2/23
+ *  Last Updated: 4/18/2023
+ *  
+ *  Compilation: javac SetDiscountsController.java
+ *  Execution: java SetDiscountsController
+ *  
+ *  Allows the manager to set discounts on vehicles.
+ *  Corresponding fxml file: SetDiscountsUI.fxml
+ ---------------------------------------------------*/
 
+package application;
+
+import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import backend.Vehicle;
 import java.util.Date;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import dao.VehicleDao;
 
 public class SetDiscountsController {
     
+    
+    // Declare UI Fields
     @FXML
     private Button ReturnButton;
     
@@ -30,10 +45,12 @@ public class SetDiscountsController {
     @FXML
     private Button clearButton;
     
+    // Test data to populate the fields.
     private Vehicle testCar1 = new Vehicle("123456789", new Double(15000.00), new Integer(1996), "Ford", "Fiesta", "New", "Broken", "Grey", new Integer(120000), new Date(System.currentTimeMillis()));
     private Vehicle testCar2 = new Vehicle("987654321", new Double(17000), new Integer(2018), "Honda", "Acura", "New", "Broken", "Blue", new Integer(1500), new Date(System.currentTimeMillis()));
     private Vehicle testCar3 = new Vehicle();
     
+    // 7 vehicles that will be filled by a database call
     private Vehicle vehicle1 = null;
     private Vehicle vehicle2 = null;
     private Vehicle vehicle3 = null;
@@ -58,7 +75,8 @@ public class SetDiscountsController {
     Tab v6 = new Tab("Vehicle 6");
     @FXML
     Tab v7 = new Tab("Vehicle 7");
-     
+    
+    // UI Fields for Vehicle 1
     @FXML
     private TextField v1TimeLot;
     @FXML
@@ -82,6 +100,7 @@ public class SetDiscountsController {
     @FXML
     private Button v1Mark;
     
+    // UI Fields for Vehicle 2
     @FXML
     private TextField v1TimeLot1;
     @FXML
@@ -105,6 +124,7 @@ public class SetDiscountsController {
     @FXML
     private Button v1Mark1;
     
+    // UI Fields for Vehicle 3
     @FXML
     private TextField v1TimeLot2;
     @FXML
@@ -128,6 +148,7 @@ public class SetDiscountsController {
     @FXML
     private Button v1Mark2;
     
+    // UI Fields for Vehicle 4
     @FXML
     private TextField v1TimeLot3;
     @FXML
@@ -151,6 +172,7 @@ public class SetDiscountsController {
     @FXML
     private Button v1Mark3;
     
+    // UI Fields for Vehicle 5
     @FXML
     private TextField v1TimeLot4;
     @FXML
@@ -174,6 +196,7 @@ public class SetDiscountsController {
     @FXML
     private Button v1Mark4;
     
+    // UI Fields for Vehicle 6
     @FXML
     private TextField v1TimeLot5;
     @FXML
@@ -197,6 +220,7 @@ public class SetDiscountsController {
     @FXML
     private Button v1Mark5;
     
+    // UI Fields for Vehicle 7
     @FXML
     private TextField v1TimeLot6;
     @FXML
@@ -224,9 +248,14 @@ public class SetDiscountsController {
     @FXML
     private void initialize() {
         
-        discountPane.setVisible(false);
-        setVehicles();
+        /* This method is called automatically when the page is loaded. 
+         * For each vehicle, if it is not null, the fields are populated with the vehicle's data
+         */
         
+        discountPane.setVisible(false); // Discount pane is hidden by default
+        setVehicles(); // calls method to get the vehicles from the database
+        
+        // Populate Vehicle 1
         if (vehicle1 != null) {
             v1TimeLot.setText(vehicle1.getTimeOnLot().toString());
             v1ValueField.setText(vehicle1.getValue().toString());
@@ -240,6 +269,7 @@ public class SetDiscountsController {
             v1MechCon.setText(vehicle1.getMechCondition());
         }
         
+        // Populate Vehicle 2
         if (vehicle2 != null) {
             v1TimeLot1.setText(vehicle2.getTimeOnLot().toString());
             v1ValueField1.setText(vehicle2.getValue().toString());
@@ -253,6 +283,7 @@ public class SetDiscountsController {
             v1MechCon1.setText(vehicle2.getMechCondition());
         }
         
+        // Populate Vehicle 3
         if (vehicle3 != null) {
             v1TimeLot2.setText(vehicle3.getTimeOnLot().toString());
             v1ValueField2.setText(vehicle3.getValue().toString());
@@ -267,6 +298,7 @@ public class SetDiscountsController {
             
         }
         
+        // Populate Vehicle 4
         if (vehicle4 != null) {
             v1TimeLot3.setText(vehicle4.getTimeOnLot().toString());
             v1ValueField3.setText(vehicle4.getValue().toString());
@@ -281,6 +313,7 @@ public class SetDiscountsController {
             
         }
        
+        // Populate Vehicle 5
         if (vehicle5 != null) {
             v1TimeLot4.setText(vehicle5.getTimeOnLot().toString());
             v1ValueField4.setText(vehicle5.getValue().toString());
@@ -294,6 +327,7 @@ public class SetDiscountsController {
             v1MechCon4.setText(vehicle5.getMechCondition());
         }
         
+        // Populate Vehicle 6
         if (vehicle6 != null) {
             v1TimeLot5.setText(vehicle6.getTimeOnLot().toString());
             v1ValueField5.setText(vehicle6.getValue().toString());
@@ -307,6 +341,7 @@ public class SetDiscountsController {
             v1MechCon5.setText(vehicle6.getMechCondition());
         }
         
+        // Populate Vehicle 7
         if (vehicle7 != null) {
             v1TimeLot6.setText(vehicle7.getTimeOnLot().toString());
             v1ValueField6.setText(vehicle7.getValue().toString());
@@ -322,14 +357,26 @@ public class SetDiscountsController {
     }
     
     private void setVehicles() {
-        System.out.println(testCar1.getValue() + testCar1.getVIN() + testCar1.getYear() + testCar1.getMake() + testCar1.getModel() + testCar1.getMileage() + testCar1.getColor() + testCar1.getBodyCondition() + testCar1.getMechCondition());
         
-        // DEBUG
-        this.vehicle1 = this.testCar1;
-        this.vehicle2 = this.testCar2;
+        /* Retrieves the 7 cars with the highest time on lot.
+         * This is stored as an array of 7 Vehicles
+         * Then the method sets the data fields to the 7 Vehicles.
+         */
+        VehicleDao dao = new VehicleDao();
+        Vehicle[] vehicleList = dao.retrieveSevenVehicles();
+        
+        this.vehicle1 = vehicleList[0];
+        this.vehicle2 = vehicleList[1];
+        this.vehicle3 = vehicleList[2];
+        this.vehicle4 = vehicleList[3];
+        this.vehicle5 = vehicleList[4];
+        this.vehicle6 = vehicleList[5];
+        this.vehicle7 = vehicleList[6];
+        
     }
     
     public void pageReturn(ActionEvent event) throws IOException {
+        // Takes user back to the previous page
         
         Main m = new Main();
         m.changeScene(previousPage);
@@ -337,6 +384,8 @@ public class SetDiscountsController {
     } // end pageReturn
     
     public void v1Save(ActionEvent event) throws IOException {
+        // Opens the Discount pane with vehicle 1
+        
         tabPane.setVisible(false);
         discountPane.setVisible(true);
         this.regularPrice.setText(vehicle1.getValue().toString());
@@ -344,6 +393,8 @@ public class SetDiscountsController {
     }
     
     public void v2Save(ActionEvent event) throws IOException {
+        // Opens the Discount pane with vehicle 2
+        
         tabPane.setVisible(false);
         discountPane.setVisible(true);
         this.regularPrice.setText(vehicle2.getValue().toString());
@@ -351,6 +402,8 @@ public class SetDiscountsController {
     }
     
     public void v3Save(ActionEvent event) throws IOException {
+        // Opens the Discount pane with vehicle 3
+        
         tabPane.setVisible(false);
         discountPane.setVisible(true);
         this.regularPrice.setText(vehicle3.getValue().toString());
@@ -358,6 +411,8 @@ public class SetDiscountsController {
     }
     
     public void v4Save(ActionEvent event) throws IOException {
+        // Opens the Discount pane with vehicle 4
+        
         tabPane.setVisible(false);
         discountPane.setVisible(true);
         this.regularPrice.setText(vehicle4.getValue().toString());
@@ -365,6 +420,8 @@ public class SetDiscountsController {
     }
 
     public void v5Save(ActionEvent event) throws IOException {
+        // Opens the Discount pane with vehicle 5
+        
         tabPane.setVisible(false);
         discountPane.setVisible(true);
         this.regularPrice.setText(vehicle5.getValue().toString());
@@ -373,6 +430,8 @@ public class SetDiscountsController {
 
     
     public void v6Save(ActionEvent event) throws IOException {
+        // Opens the Discount pane with vehicle 6
+        
         tabPane.setVisible(false);
         discountPane.setVisible(true);
         this.regularPrice.setText(vehicle6.getValue().toString());
@@ -380,6 +439,8 @@ public class SetDiscountsController {
     }
 
     public void v7Save(ActionEvent event) throws IOException {
+        // Opens the Discount pane with vehicle 7
+        
         tabPane.setVisible(false);
         discountPane.setVisible(true);
         this.regularPrice.setText(vehicle7.getValue().toString());
@@ -415,6 +476,10 @@ public class SetDiscountsController {
     }
     
     public void discountCancel(ActionEvent event) throws IOException {
+        /* This method clears the fields in the discount pane and
+         * hides the pane. It then makes the car panes visible again.
+         */
+        
         this.percentDiscount.clear();
         this.newDiscountPrice.clear();
         this.regularPrice.clear();
@@ -423,6 +488,4 @@ public class SetDiscountsController {
         tabPane.setVisible(true);
     }
     
-    
-    
-}
+} // end class
