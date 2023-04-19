@@ -14,7 +14,7 @@ package backend;
 public class CustomerProfile {
     
     // Identifying info
-    private Long licenseNum;
+    private String licenseNum;
     
     private String firstName;
     private String lastName;
@@ -29,7 +29,7 @@ public class CustomerProfile {
     }
 
     // constructor
-    public CustomerProfile(Long licenseNum, String firstName, String lastName, String phoneNum, Address address) {
+    public CustomerProfile(String licenseNum, String firstName, String lastName, String phoneNum, Address address) {
 
         this.licenseNum = licenseNum;
         this.firstName = firstName;
@@ -41,11 +41,11 @@ public class CustomerProfile {
     
     // getters and setters
     
-    public Long getLicenseNum() {
+    public String getLicenseNum() {
         return this.licenseNum;
     }
     
-    public void setLicenseNum(Long licenseNum) {
+    public void setLicenseNum(String licenseNum) {
         this.licenseNum = licenseNum;
     }
     
