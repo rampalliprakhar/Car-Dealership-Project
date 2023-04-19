@@ -1,7 +1,18 @@
+/* --------------------------------------------------- 
+ *  Author: Team 3 Car Dealership
+ *  Written: 3/10/23
+ *  Last Updated: 4/18/2023
+ *  
+ *  Compilation: javac VerifyTradeInController.java
+ *  Execution: java VerifyTradeInController
+ *  
+ *  Retrieves the value of a given trade in
+ *  Corresponding fxml file: VerifyTradeInUI.fxml
+ ---------------------------------------------------*/
+
 package application;
 
 import java.io.IOException;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,6 +23,7 @@ import javafx.scene.control.TextField;
 
 public class VerifyTradeInController {
 
+    // Declare UI Fields
     @FXML
     private TextField YearField;
     @FXML
@@ -35,7 +47,9 @@ public class VerifyTradeInController {
     @FXML
     private TextField ValueField;
     
+    // List of all possible conditions
     final private ObservableList<String> conditionList = FXCollections.observableArrayList("New", "Excellent", "Good", "Average", "Fair", "Poor", "Broken");
+    // List of all possible makes
     final private ObservableList<String> makeList = FXCollections.observableArrayList("Acura", "Alfa Romeo", "Aston Martin", "Audi", "Bentley", "BMW", "Buick", 
             "Cadillac", "Chevrolet", "Chrysler", "Dodge", "Ferrari", "Fiat", "Ford", "Genesis", "GMC", "Honda", "Hyundai", "Infiniti", "Jaguar", "Jeep", "Kia", 
             "Lamborghini", "Land Rover", "Lexus", "Lincoln", "Maserati", "Mazda", "McLaren", "Mercedes-Benz", "Mini", "Mitsubishi", "Nissan", "Porsche", "Ram", 
@@ -79,6 +93,8 @@ public class VerifyTradeInController {
     
     public void clear(ActionEvent event) {
         
+        // Clears and resets all the UI fields
+        
         YearField.clear();
         MakeDropdown.setValue("Select a Make");
         ModelField.clear();
@@ -92,6 +108,7 @@ public class VerifyTradeInController {
     
     public void pageReturn(ActionEvent event) throws IOException {
             
+        // Takes the user back to the previous page.
         Main m = new Main();
         m.changeScene(previousPage);
             
