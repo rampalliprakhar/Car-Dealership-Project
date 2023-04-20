@@ -74,6 +74,62 @@ public class RecordVehicleController {
         BodyConDropdown.setItems(conditionList);
         MechConDropdown.setValue("Select a Condition");
         MechConDropdown.setItems(conditionList);
+     
+     
+      // start input validation
+
+     // only allows alphabetical characters up to 40
+     ModelField.setTextFormatter(new TextFormatter<> (change -> {
+      if ((change.getControlNewText().length() > 40) || (change.getText().matches("[^a-zA-Z]"))) {
+        		return null;
+        	}
+        	return change;
+     })); 
+        
+     // only allows alphabetical characters up to 40
+		   ColorField.setTextFormatter(new TextFormatter<> (change -> {
+      if ((change.getControlNewText().length() > 40) || (change.getText().matches("[^a-zA-Z]"))) {
+         return null;
+			      }
+			      return change;
+	    	}));
+
+		      // only allows numbers up to 4
+		   YearField.setTextFormatter(new TextFormatter<> (change -> {
+			    if ((change.getControlNewText().length() > 4) || (change.getText().matches("[^0-9]"))) {
+				    return null;
+			     }
+		     	return change;
+		    }));
+		
+     // only allows numbers and periods up to 20
+		   ValueField.setTextFormatter(new TextFormatter<> (change -> {
+      if ((change.getControlNewText().length() > 20) ||	(change.getText().matches("[^0-9.]"))) {
+       return null;
+			    }
+			     return change;
+	  	}));
+		
+     // only allows alphabetical characters and numbers up to 17
+		  VINField.setTextFormatter(new TextFormatter<> (change -> {
+     change.setText(change.getText().toUpperCase());
+     if ((change.getControlNewText().length() > 17) || (change.getText().matches("[^0-9A-Z]"))) {
+      return null;
+      }
+			   return change;
+		 })); 
+		
+     // only allows numbers up to 20
+		  MileageField.setTextFormatter(new TextFormatter<> (change -> {
+			  if ((change.getControlNewText().length() > 20) ||	(change.getText().matches("[^0-9]"))) {
+			  	return null;
+	  		}
+	  		return change;
+	  	})); 
+     
+     // end input validation
+     
+     
         
     } // end initialize method
     
