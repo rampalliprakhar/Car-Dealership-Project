@@ -16,10 +16,13 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.text.Text;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-
+import backend.Vehicle;
+import dao.VehicleDao;
 
 public class VehicleInformationController {
 
+	Vehicle veh = new Vehicle();
+	
     @FXML
     private TextField ValueField, VINField, YearField, ModelField, MileageField, ColorField, customerID, custFirstName, custLastName;
     
@@ -43,35 +46,37 @@ public class VehicleInformationController {
             "Cadillac", "Chevrolet", "Chrysler", "Dodge", "Ferrari", "Fiat", "Ford", "Genesis", "GMC", "Honda", "Hyundai", "Infiniti", "Jaguar", "Jeep", "Kia", 
             "Lamborghini", "Land Rover", "Lexus", "Lincoln", "Maserati", "Mazda", "McLaren", "Mercedes-Benz", "Mini", "Mitsubishi", "Nissan", "Porsche", "Ram", 
             "Rolls-Royce", "Subaru", "Tesla", "Toyota", "Volkswagen", "Volvo");
-    
-//    private String previousPage = Main.getView();
-    
+        
     @FXML
     private void initialize() {
+            	
+        try {
         
-		// using giving VIN, search database for the rest of the information 
-    	
-    	
-    	
-    	
-    	// test data
-    	ModelField.setText("model");
-    	YearField.setText("2019");
-    	ColorField.setText("White");
-    	MileageField.setText("1000");
+        // using VIN given from Search Vehicle UI, search database
+            VehicleDao dao = new VehicleDao();
+            this.veh = dao.retriveVehicle(VINField.getText());
 
-    	
-    	
-    	
-    	
+        // initialize vehicle information with searched vehicle
+        	YearField.setText(veh.getYear().toString());
+        	MakeDropdown.setValue(veh.getMake());
+        	BodyConDropdown.setValue(veh.getBodyCondition());
+        	MechConDropdown.setValue(veh.getMechCondition());
+        	MileageField.setText(veh.getMileage().toString());
+        	ColorField.setText(veh.getColor());
+        	ValueField.setText(veh.getValue().toString());
 
+        } catch (Exception e) {
+            System.out.println("Error in VehicleInformationController.java");
+        }
+        
         /* This method is called automatically, and initializes the dropdown
          * boxes with the values of the source ObservableLists*/
         
         MakeDropdown.setItems(makeList);
         BodyConDropdown.setItems(conditionList);
         MechConDropdown.setItems(conditionList);
-        datePutOnLot.setValue(LocalDate.now());
+        
+        // input validation start
 
         // only allows alphabetical characters up to 40
         ModelField.setTextFormatter(new TextFormatter<> (change -> {
@@ -127,8 +132,10 @@ public class VehicleInformationController {
 			}
 			return change;
 		})); 
+		
+		// input validation end
         
-    } // end initialize method // NOT COMPLETE
+    } // end initialize method // NOT COMPLETE, NEEDS TESTING
     
     public void pageReturn(ActionEvent event) throws IOException {
         
@@ -136,8 +143,7 @@ public class VehicleInformationController {
     	Parent root = loader.load();
     	
     	SearchVehicleController searchVehController = loader.getController();
-    	searchVehController.showInformation(MakeDropdown.getValue(), ModelField.getText(), YearField.getText(), ColorField.getText(), 
-    	BodyConDropdown.getValue(), MechConDropdown.getValue());
+    	searchVehController.showInformation(VINField.getText());
     	
     	Main m = new Main();
     	m.changeScene("SearchVehicleUI.fxml", root);
@@ -146,20 +152,20 @@ public class VehicleInformationController {
     
         
     public void saveChanges(ActionEvent event) throws IOException {
+    	
     	// input validation
     	
     	// if any fields are empty print out error message
-    	if (ModelField.getText().length() == 0 || MakeDropdown.getValue() == null || YearField.getText().length() == 0 || 
-    			ColorField.getText().length() == 0 || VINField.getText().length() == 0 || ValueField.getText().length() == 0 || 
-    			MileageField.getText().length() == 0 || datePutOnLot.getValue() == null || 
+    	if (ModelField.getText().isBlank() || MakeDropdown.getValue() == null || YearField.getText().isBlank() || 
+    			ColorField.getText().isBlank() || VINField.getText().isBlank() || ValueField.getText().isBlank() || 
+    			MileageField.getText().isBlank() || datePutOnLot.getValue() == null || 
     			BodyConDropdown.getValue() == null || MechConDropdown.getValue() == null) {
         	
     		updateSuccessful.setText(null);
     		nullError.setText("*Error: Please fill out all input fields*");
     		return;
     	}
-    		
-    		
+    			
     	// if year is not between current year and year when cars were invented print out error message
     	else if (yearIsValid() == false) {
         	updateSuccessful.setText(null);
@@ -173,32 +179,32 @@ public class VehicleInformationController {
     		nullError.setText("*Error: Please input a valid price*");
     		return;
     	}
-    	
-    	// validation for date
-    	
     	// end input validation
     	
     	
-    	
-    	
-    	
-//  	  update info in database
-
-    	
-    	
-    	
-    	
-    	// confirmation message
-    	nullError.setText(null);
-    	updateSuccessful.setText("Changes Saved");
-    } // not complete
+    	// update vehicle information
+        try {
+            Vehicle vehicle = new Vehicle(VINField.getText(), Double.valueOf(ValueField.getText()), Integer.valueOf(YearField.getText()), MakeDropdown.getValue(), 
+            		ModelField.getText(), BodyConDropdown.getValue(), MechConDropdown.getValue(), ColorField.getText(), Integer.parseInt(MileageField.getText()), 
+            		java.sql.Date.valueOf(datePutOnLot.getValue()));
+            VehicleDao dao = new VehicleDao();
+            dao.updateVehicle(vehicle);
+            
+        	// confirmation message
+    		nullError.setText(null);
+    		updateSuccessful.setText("Changes Saved");
+        } catch (Exception e) {
+            System.out.println("Error in VehicleInformationController.java");
+        }        
+        
+    } // needs testing
     
 	// receives customer information from search vehicle UI
-    public void showInformation(String VIN, String cusID, String first, String last, String paymentMethod, LocalDate salesDate) {
+    public void showInformation(String VIN, String first, String last, String cusID, String paymentMethod, LocalDate salesDate) {
     	VINField.setText(VIN);
-    	customerID.setText(cusID);
     	custFirstName.setText(first);
     	custLastName.setText(last);
+    	customerID.setText(cusID);
     	this.paymentMethod.setValue(paymentMethod);
     	this.salesDate.setValue(salesDate);
     }
@@ -206,26 +212,41 @@ public class VehicleInformationController {
 	@FXML
 	// sends customer information to record of sale UI and switches to record of sale page
 	public void purchaseVeh(ActionEvent event) throws IOException {		
-		
-		
 		// send error if changes were made and it wasn't saved
-		
-		
-		
-		
-		
-		    FXMLLoader loader = new FXMLLoader(getClass().getResource("RecordOfSaleUI.fxml"));
-		   	Parent root = loader.load();
-		   	
-		   	RecordOfSaleController recSaleController = loader.getController();
+        try {
+            // check to see if any changes were made
+            if (veh.getVIN().equals(VINField.getText()) &&
+            	veh.getValue().toString().equals(ValueField.getText()) &&
+            	veh.getModel().equals(ModelField.getText()) &&
+            	veh.getMake().equals(MakeDropdown.getValue()) &&
+           		veh.getMileage().toString().equals(MileageField.getText()) &&
+           		veh.getYear().toString().equals(YearField.getText()) &&
+           		veh.getColor().equals(ColorField.getText()) &&
+           		veh.getMechCondition().equals(MechConDropdown.getValue()) &&
+           		veh.getBodyCondition().equals(BodyConDropdown.getValue()) &&
+				veh.getDatePutOnLot().equals(java.sql.Date.valueOf(datePutOnLot.getValue())))
+            {
+    		    FXMLLoader loader = new FXMLLoader(getClass().getResource("RecordOfSaleUI.fxml"));
+    		   	Parent root = loader.load();
+    		   	
+    		   	RecordOfSaleController recSaleController = loader.getController();
 
-		   	recSaleController.showInformation(custFirstName.getText(), custLastName.getText(), customerID.getText(), YearField.getText(), MakeDropdown.getValue(), ModelField.getText(), 
-		   			VINField.getText(), ValueField.getText(), paymentMethod.getValue(), salesDate.getValue());
-		   	
-	    	Main m = new Main();
-	    	m.changeScene("RecordOfSaleUI.fxml", root);
+    		   	recSaleController.showInformation(custFirstName.getText(), custLastName.getText(), customerID.getText(), YearField.getText(), MakeDropdown.getValue(), ModelField.getText(), 
+    		   			VINField.getText(), ValueField.getText(), paymentMethod.getValue(), salesDate.getValue());
+    		   	
+    	    	Main m = new Main();
+    	    	m.changeScene("RecordOfSaleUI.fxml", root);
+            }
+            else {
+                // print out error saying please save changes 
+            	nullError.setText("Please Save Changes");
+            }
+                        
+        } catch (Exception e) {
+            System.out.println("Error in VehicleInformationController.java");
+        }
 		
-	} // not complete
+	} // needs testing
 	
 	// returns true if year is greater than 1889 (year cars were invented)
 	public boolean yearIsValid() {
