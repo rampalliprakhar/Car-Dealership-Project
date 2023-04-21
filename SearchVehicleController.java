@@ -1,40 +1,29 @@
 package application;
 
 import java.io.IOException;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import java.util.ResourceBundle;
-import java.net.URL;
 import java.time.LocalDate;
-
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
-
-import java.util.regex.*;
+import backend.Vehicle;
+import dao.VehicleDao;
 
 
 public class SearchVehicleController {
 	
-	private Vehicle selectedVeh;
-	
-	@FXML
-	private ListView<String> listView;
+	// searched vehicle
+	private Vehicle veh;
 	
     @FXML
-    private TextField yearField, modelField, colorField, VINField, mileageField, valueField, 
+    private TextField VINField, mileageField, valueField, 
     customerID, custFirstName, custLastName, tempYear, tempModel, tempVIN, tempValue;
     
     @FXML
     private ChoiceBox<String> paymentMethod, makeDropdown, bodyConDropdown, mechConDropdown, tempMake;
-    
+	
     @FXML
     private DatePicker salesDate;
     
@@ -44,74 +33,27 @@ public class SearchVehicleController {
     @FXML
     private Text vehInfo;
     
-//    private String previousPage = Main.getView();
-    
-    final private ObservableList<String> conditionList = FXCollections.observableArrayList("New", "Excellent", "Good", "Average", "Fair", "Poor", "Broken");
-    final private ObservableList<String> makeList = FXCollections.observableArrayList("Acura", "Alfa Romeo", "Aston Martin", "Audi", "Bentley", "BMW", "Buick", 
-            "Cadillac", "Chevrolet", "Chrysler", "Dodge", "Ferrari", "Fiat", "Ford", "Genesis", "GMC", "Honda", "Hyundai", "Infiniti", "Jaguar", "Jeep", "Kia", 
-            "Lamborghini", "Land Rover", "Lexus", "Lincoln", "Maserati", "Mazda", "McLaren", "Mercedes-Benz", "Mini", "Mitsubishi", "Nissan", "Porsche", "Ram", 
-            "Rolls-Royce", "Subaru", "Tesla", "Toyota", "Volkswagen", "Volvo");
-        
     @FXML
     private void initialize() {
         
         /* This method is called automatically, and initializes the dropdown
          * boxes with the values of the source ObservableLists*/
-        
-        makeDropdown.setValue("Select a Make");
-        makeDropdown.setItems(makeList);
-        
-        bodyConDropdown.setValue("Select a Condition");
-        bodyConDropdown.setItems(conditionList);
-        mechConDropdown.setValue("Select a Condition");
-        mechConDropdown.setItems(conditionList);
-        
-        modelField.setTextFormatter(new TextFormatter<> (change -> {
-			if ((change.getControlNewText().length() > 40) ||
-				(change.getText().matches("[^a-zA-Z]"))) {
-        		return null;
-        	}
-        	return change;
-        })); // change length limit?
-        
-
-		colorField.setTextFormatter(new TextFormatter<> (change -> {
-			if ((change.getControlNewText().length() > 40) ||
-				(change.getText().matches("[^a-zA-Z]"))) {
+    	
+        // only allows alphabetical characters and numbers up to 17
+    	VINField.setTextFormatter(new TextFormatter<> (change -> {
+	    	change.setText(change.getText().toUpperCase());
+			if ((change.getControlNewText().length() > 17) ||
+				(change.getText().matches("[^0-9A-Z]"))) {
 				return null;
 			}
 			return change;
-		})); // change length limit?
-
-		
-		yearField.setTextFormatter(new TextFormatter<> (change -> {
-			if ((change.getControlNewText().length() > 4) ||
-			   (change.getText().matches("[^0-9]"))) {
-				return null;
-			}
-			return change;
-		}));
-		
-      
-      // test data
-//      ObservableList<String> list = FXCollections.observableArrayList("Dodge Charger"); 
-//    	listView.setItems(list);
-        
-        
+		})); 
     } // end initialize method
     
    
     public void clear(ActionEvent event) {
-        
         /* This method clears all of the fields.*/
-        
-        colorField.clear();
-        makeDropdown.setValue("Select a Make");
-        bodyConDropdown.setValue("Select a Condition");
-        mechConDropdown.setValue("Select a Condition");
-        yearField.clear();
-        modelField.clear();
-        
+    	VINField.clear();
     } // end clear
     
     public void pageReturn(ActionEvent event) throws IOException {
@@ -127,85 +69,81 @@ public class SearchVehicleController {
     } // end pageReturn
     
     public void searchVehicle(ActionEvent event) throws IOException {
-
-    	// database needed
-
-    	String make;
-    	if (makeDropdown.getValue().equals("Select a Make"))
-    		make = " ";
-    	else make = makeDropdown.getValue();
     	
-    // test data
-      for (int i = 0; i < 4; i++) {
-      	listView.getItems().addAll(yearField.getText() + " " + make + " " + modelField.getText() + 
-      								"\nColor: " + colorField.getText()
-      								+ "\nPrice: " + "$100,000");
-      	
-      	
-      }
-      	
+    	// if input field is empty return nd print out error message
+    	if (VINField.getText().isBlank()) {
+    		vehInfo.setText("*Please input a VIN Number*");
+    		return;
+    	}
+    	
+        try {
+        
+        // search database for vehicle with inputed VIN
+            VehicleDao dao = new VehicleDao();
+            this.veh = dao.retriveVehicle(VINField.getText());
+            
+        // prints information of the searched vehicle
+        	vehInfo.setText("	\r\n"
+        			+ veh.getYear() + " "
+        			+ veh.getMake() + " "
+        			+ veh.getModel() + " "
+                	+ "\r\nColor: "
+        			+ veh.getColor()
+        			+ "\r\nBody Condition: "
+        			+ veh.getBodyCondition()
+        			+ "\r\nMechanical Condition: "
+        			+ veh.getMechCondition() 
+        			+ "\r\nMileage: "
+        			+ veh.getMileage()
+        			+ "\r\nPrice: $"
+        			+ veh.getValue()
+        			+ "\r\nVIN: "
+        			+ veh.getVIN());
+            
+        } catch (Exception e) {
+    		vehInfo.setText("No Vehicle Found");
+        	return;
+        }
       } // not complete
         	
-    public void openVehInfo(ActionEvent event) throws IOException{
-		
-		// database needed // 		selectedVeh
-//		
-//    	Main m = new Main();    	
-//    	m.changeScene("VehicleInformationUI.fxml");
-
-    	
-    	// test VIN
-		VINField.setText("IF72L91038"); // should get VIN of selected vehicle
-    	
+    // only accessible for managers
+    public void openVehInfo(ActionEvent event) throws IOException{    	
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("VehicleInformationUI.fxml"));
     	Parent root = loader.load();
     	
+    	// passes searched vehicle VIN to the vehicle information UI
     	VehicleInformationController controller = loader.getController();
-    	controller.showInformation(VINField.getText(), custFirstName.getText(), custLastName.getText(), customerID.getText(), paymentMethod.getValue(), salesDate.getValue());
+    	controller.showInformation(veh.getVIN(), custFirstName.getText(), custLastName.getText(), customerID.getText(), paymentMethod.getValue(), salesDate.getValue());
     	
     	Main m = new Main();
     	m.changeScene("VehicleInformationUI.fxml", root);
     	
-	} // not complete
+	} // not complete/tested
 	
 	@FXML
-	// sends customer information to record of sale UI
+	// switches scene to record of sales UI
 	public void purchaseVeh(ActionEvent event) throws IOException {		
-		
+		try {
+			
 		    FXMLLoader loader = new FXMLLoader(getClass().getResource("RecordOfSaleUI.fxml"));
 		   	Parent root = loader.load();
-		   	
 		   	RecordOfSaleController recSaleController = loader.getController();
-
-		   	// needs to be information of selected vehicle (selectedVeh)
-		   	// database needed
-		   	// test data
-		   	recSaleController.showInformation(custFirstName.getText(), custLastName.getText(), customerID.getText(), "Nissan", "Sentra", 
-		   			"2019", "123FID4SA5", "54,324", paymentMethod.getValue(), salesDate.getValue());
-	    	
 		   	
+			// sends searched vehicle information as well as customer information to record of sale UI
+		   	recSaleController.showInformation(custFirstName.getText(), custLastName.getText(), customerID.getText(), veh.getMake(), veh.getModel(), 
+		   			veh.getYear().toString(), veh.getVIN(), veh.getValue().toString(), paymentMethod.getValue(), salesDate.getValue());
+	    	
 	    	Main m = new Main();
 	    	m.changeScene("RecordOfSaleUI.fxml", root);
-		
-	} // not complete
+        } catch (Exception e) {
+        	System.out.println("Error in SearchVehicleController.java");
+        	return;
+        }		
+	} // testing needed
 	
-	// receives customer information from record of sale UI
-//    public void showInformation(String cusID, String first, String last, String paymentMethod, LocalDate salesDate) {
-//    	customerID.setText(cusID);
-//    	custFirstName.setText(first);
-//    	custLastName.setText(last);
-//    	this.paymentMethod.setValue(paymentMethod);
-//    	this.salesDate.setValue(salesDate);
-//    }
-
-    // receives car information from vehicle information UI
-    public void showInformation (String make, String model, String year, String color, String bodyCon, String mechCon) {
-    	makeDropdown.setValue(make);
-    	modelField.setText(model);
-    	yearField.setText(year);
-    	colorField.setText(color);
-    	bodyConDropdown.setValue(bodyCon);
-    	mechConDropdown.setValue(mechCon);
+	// receives information from vehicle information UI
+    public void showInformation (String VIN) {
+    	VINField.setText(VIN);
     }
     
     // receives car information from record of sales UI
@@ -221,35 +159,4 @@ public class SearchVehicleController {
     	this.paymentMethod.setValue(paymentMethod);
     	this.salesDate.setValue(salesDate);
     } 
-    
-    
-    
-    
-    
-// not correct, needs to get information of selected vehicle
-    public void listViewSelectedVeh() {
-//    	selectedVeh = listView.getSelectionModel().getSelectedItem();
-    	updateGUI();
-    }
-    
-    
-    public void selectedVeh(Vehicle veh) {
-    	selectedVeh = veh;
-//    	listView.getItems().addAll( array list of vehicles );
-// 		database needed
-    	updateGUI();
-    }
-    
-    public void updateGUI() {
-//    	imageView.setImage(selectedVeh.getImage());
-//    	vehInfo.setText(selectedVeh.toString());
-    	vehInfo.setText("	\r\n"
-    			+ "	2019 Dodge Charger\r\n"
-    			+ "	Color: White\r\n"
-    			+ "	Body Condition: New\r\n"
-    			+ "	Mechanical Condition: New\r\n"
-    			+ "	Mileage: 0\r\n"
-    			+ "	Price: $100,000\r\n"
-    			+ "	VIN: 123456543");
-    }
 } // end RecordVehicleController
