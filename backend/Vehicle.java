@@ -123,13 +123,14 @@ public class Vehicle {
     public void setDiscount(Double dollars) {
         /* This version of the setDiscout method adjusts the discount based on
          * a set dollar discount (e.g. $2000.00)*/
-        this.discount = dollars;
+        this.discount = (double)(Math.round(dollars*100.00)/100.00);
     } // end setDiscount(dollar discount)
     
     public void setDiscount(Float percent) {
         /* This version of the setDiscount method adjusts the discount based on
          * a percentage discount (e.g. 33%)*/
-        this.discount = this.value - (this.value * percent);
+    	double num = this.value - (this.value * (1 - percent));
+        this.discount = (double)(Math.round(num*100.00)/100.00);
     } // end setDiscount(percent discount)
     
     public Double getPrice() {
