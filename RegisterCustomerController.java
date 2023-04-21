@@ -21,6 +21,7 @@ import dao.CustomerDao;
 import backend.Address;
 import backend.CustomerProfile;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.text.Text;
 
 public class RegisterCustomerController {
     
@@ -48,6 +49,9 @@ public class RegisterCustomerController {
     private Button ClearButton;
     @FXML
     private Button ReturnButton;
+
+    @FXML
+    private Text updateSuccessful, nullError;
     
     private String previousPage = Main.getView();
     
@@ -134,6 +138,35 @@ public class RegisterCustomerController {
         
         /* This method will also need to save all of the inputs to the
          * newly created Customer object.*/
+	    
+	// input validation
+    	
+    	// if any fields are empty return and print out error message
+    	if (DriversLicenseField.getText().isBlank() || FirstNameField.getText().isBlank() || 
+    			LastNameField.getText().isBlank() || PhoneField.getText().isBlank() || 
+    			AddressField.getText().isBlank() || CityField.getText().isBlank() || 
+    			StateField.getText().isBlank() || ZIPField.getText().isBlank()) {
+        	
+    		updateSuccessful.setText(null);
+    		nullError.setText("*Error: Please fill out all input fields*");
+    		return;
+    	}
+    	
+    	// if zip is less than 5 digits print out error message
+    	if (ZIPField.getText().length() < 5) {
+    		updateSuccessful.setText(null);
+    		nullError.setText("*Error: Please input a valid zip code*");
+    		return;	
+    	}
+
+    	// if phone number is less than 10 or a series of a repeating number print out error message
+    	if (PhoneField.getText().length() < 10 || phoneNumIsRepeating() == false) {
+    		updateSuccessful.setText(null);
+    		nullError.setText("*Error: Please input a valid phone number*");
+    		return;	
+    	}
+    	    	
+    	// end input validation
         
         Address custAddress = new Address(AddressField.getText(), CityField.getText(), StateField.getText(), ZIPField.getText(), "");
         
