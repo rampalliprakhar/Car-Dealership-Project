@@ -2,16 +2,12 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -20,44 +16,26 @@
    <content>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1921.0" style="-fx-background-color: #9DD0D1;">
          <children>
-            <TextField fx:id="firstName" layoutX="308.0" layoutY="275.0" prefHeight="51.0" prefWidth="378.0" promptText="First Name">
+            <TextField fx:id="customerID" layoutX="416.0" layoutY="275.0" prefHeight="51.0" prefWidth="472.0" promptText="Driver's License Number">
                <font>
                   <Font size="24.0" />
                </font>
             </TextField>
-            <TextField fx:id="lastName" layoutX="308.0" layoutY="358.0" prefHeight="51.0" prefWidth="378.0" promptText="Last Name">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </TextField>
-            <Button fx:id="clearButton" layoutX="122.0" layoutY="454.0" mnemonicParsing="false" onAction="#clear" prefHeight="51.0" prefWidth="132.0" text="Clear">
+            <Button fx:id="clearButton" layoutX="36.0" layoutY="390.0" mnemonicParsing="false" onAction="#clear" prefHeight="51.0" prefWidth="132.0" text="Clear">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Button>
-            <Button fx:id="searchButton" layoutX="548.0" layoutY="454.0" mnemonicParsing="false" onAction="#searchCus" prefHeight="51.0" prefWidth="132.0" text="Search">
+            <Button fx:id="searchButton" layoutX="756.0" layoutY="390.0" mnemonicParsing="false" onAction="#searchCus" prefHeight="51.0" prefWidth="132.0" text="Search">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Button>
-            <Button fx:id="registerNewCustomer" layoutX="166.0" layoutY="724.0" mnemonicParsing="false" onAction="#registerNewCus" prefHeight="51.0" prefWidth="482.0" text="Register New Customer">
+            <Button fx:id="registerNewCustomer" layoutX="210.0" layoutY="724.0" mnemonicParsing="false" onAction="#registerNewCus" prefHeight="51.0" prefWidth="482.0" text="Register New Customer">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Button>
-            <HBox layoutX="848.0" layoutY="80.0" prefHeight="966.0" prefWidth="1074.0">
-               <children>
-                  <ListView fx:id="listView" fixedCellSize="57.0" onMouseClicked="#openCusProfile" prefHeight="624.0" prefWidth="1099.0">
-                     <contextMenu>
-                        <ContextMenu>
-                           <items>
-                              <MenuItem fx:id="selectButton" mnemonicParsing="false" onAction="#openCusProfile" text="Select" />
-                           </items>
-                        </ContextMenu>
-                     </contextMenu>
-                  </ListView>
-               </children>
-            </HBox>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="80.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: #00AA83;" width="1920.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="34.0" layoutY="1046.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: #00AA83;" width="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1045.6" />
             <Text layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tucker's Cars,LLC">
@@ -70,12 +48,7 @@
                   <Image url="@Assets/OriginalCarArt.png" />
                </image>
             </ImageView>
-            <Text layoutX="122.0" layoutY="398.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name">
-               <font>
-                  <Font size="34.0" />
-               </font>
-            </Text>
-            <Text layoutX="121.0" layoutY="314.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name">
+            <Text layoutX="36.0" layoutY="313.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Driver's License Number">
                <font>
                   <Font size="34.0" />
                </font>
@@ -85,17 +58,17 @@
                   <Font name="System Bold" size="36.0" />
                </font>
             </Text>
-            <Button fx:id="returnButton" layoutX="749.0" layoutY="80.0" mnemonicParsing="false" onAction="#pageReturn" prefHeight="100.0" prefWidth="100.0">
+            <Button fx:id="returnButton" layoutX="1823.0" layoutY="80.0" mnemonicParsing="false" onAction="#pageReturn" prefHeight="100.0" prefWidth="100.0">
                <font>
                   <Font name="MV Boli" size="48.0" />
                </font>
             </Button>
-            <ImageView disable="true" fitHeight="100.0" fitWidth="100.0" layoutX="750.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView disable="true" fitHeight="100.0" fitWidth="100.0" layoutX="1824.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../images/Assets/ReturnIcon.png" />
                </image>
             </ImageView>
-            <Text layoutX="754.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RETURN" textAlignment="CENTER">
+            <Text layoutX="1828.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RETURN" textAlignment="CENTER">
                <font>
                   <Font name="MV Boli" size="22.0" />
                </font>
@@ -139,6 +112,7 @@
                   <Font size="24.0" />
                </font>
             </TextField>
+            <Text fx:id="errorText" layoutX="416.0" layoutY="253.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="380.53668212890625" />
          </children>
       </AnchorPane>
    </content>
