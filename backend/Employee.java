@@ -11,7 +11,7 @@
  *  Sample Output:
  *---------------------------------------------------*/
 
-
+package backend;
 public class Employee {
         
     private String firstName;
@@ -24,9 +24,9 @@ public class Employee {
         
     
     /* These constants are the ranges for sales commissions.
-     * From $0 - $100,000, the commission is 5%
-     * From $100,000 - $200,000, the commission is 3%
-     * Above $100,000, the commission is %10
+     * From below $100,000, the commission is 5%
+     * From $100,000 - $200,000, the commission is 7%
+     * Above $200,000, the commission is %10
      */
     private static final Integer SALES_RANK_ONE = 100_000;
     private static final Integer SALES_RANK_TWO = 200_000;
@@ -55,7 +55,7 @@ public class Employee {
         
         if (currentSalesTotal != null) {
             if (currentSalesTotal < SALES_RANK_ONE) this.comPercentage = COM_RANK_ONE;
-            if (currentSalesTotal >= SALES_RANK_ONE && currentSalesTotal < SALES_RANK_TWO) this.comPercentage =  COM_RANK_TWO;
+            if (currentSalesTotal >= SALES_RANK_ONE && currentSalesTotal <= SALES_RANK_TWO) this.comPercentage =  COM_RANK_TWO;
             if (currentSalesTotal > SALES_RANK_TWO) this.comPercentage = COM_RANK_THREE;
         }
         
