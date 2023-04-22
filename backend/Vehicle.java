@@ -136,6 +136,9 @@ public class Vehicle {
     public Double getPrice() {
         /* The price is the total value minus any discounts.
          * Price is a calculated value, not stored in any data fields.*/
+    	if (this.discount == null)
+    		return this.value;
+    	
         return this.value - this.discount;
     } // end getPrice
     
