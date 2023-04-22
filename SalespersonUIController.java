@@ -64,7 +64,7 @@ public class SalespersonUIController {
         // goes to Enter Purchase page.
        	if(event.getSource() == EnterPurchase) {
        	    Main m = new Main();
-       	    m.changeScene("PurchaseVehicle1.fxml");
+       	    m.changeScene("RecordOfSaleUI.fxml");
        	}
        	
     }
