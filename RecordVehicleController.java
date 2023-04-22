@@ -180,5 +180,10 @@ public class RecordVehicleController {
         m.changeScene(previousPage);
         
     } // end pageReturn
+	
+    // receives information from search vehicle UI
+    public void showInformation(String VIN) {
+    	VINField.setText(VIN);
+    } // end showInformation
     
 } // end RecordVehicleController
