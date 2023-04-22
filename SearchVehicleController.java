@@ -119,10 +119,6 @@ public class SearchVehicleController {
     // goes to the register vehicle UI
     public void registerVeh(ActionEvent event) throws IOException {
     	
-    	// if no VIN inputed
-    	if (VINField.getText().isBlank())
-    		return;
-    	
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("RecordVehicleUI.fxml"));
     	Parent root = loader.load();
     	
