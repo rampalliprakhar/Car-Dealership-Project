@@ -2,7 +2,9 @@
 
 package application;
 
+import java.time.ZoneId;
 import java.time.LocalDate;
+import java.util.Date;
 import java.io.IOException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,6 +19,7 @@ import javafx.scene.text.Text;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import backend.Vehicle;
+import dao.CustomerDao;
 import dao.VehicleDao;
 
 public class VehicleInformationController {
@@ -49,25 +52,6 @@ public class VehicleInformationController {
         
     @FXML
     private void initialize() {
-            	
-        try {
-        
-        // using VIN given from Search Vehicle UI, search database
-            VehicleDao dao = new VehicleDao();
-            this.veh = dao.retriveVehicle(VINField.getText());
-
-        // initialize vehicle information with searched vehicle
-        	YearField.setText(veh.getYear().toString());
-        	MakeDropdown.setValue(veh.getMake());
-        	BodyConDropdown.setValue(veh.getBodyCondition());
-        	MechConDropdown.setValue(veh.getMechCondition());
-        	MileageField.setText(veh.getMileage().toString());
-        	ColorField.setText(veh.getColor());
-        	ValueField.setText(veh.getValue().toString());
-
-        } catch (Exception e) {
-            System.out.println("Error in VehicleInformationController.java");
-        }
         
         /* This method is called automatically, and initializes the dropdown
          * boxes with the values of the source ObservableLists*/
@@ -200,8 +184,18 @@ public class VehicleInformationController {
     } // needs testing
     
 	// receives customer information from search vehicle UI
-    public void showInformation(String VIN, String first, String last, String cusID, String paymentMethod, LocalDate salesDate) {
+    public void showInformation(String VIN, Integer year, String make, String model, String body, String mech, Integer mileage, String color, Double price, Date date, String first, String last, String cusID, String paymentMethod, LocalDate salesDate) {
     	VINField.setText(VIN);
+    	YearField.setText(year.toString());
+    	MakeDropdown.setValue(make);
+    	ModelField.setText(model);
+    	BodyConDropdown.setValue(body);
+    	MechConDropdown.setValue(mech);
+    	MileageField.setText(mileage.toString());
+    	ColorField.setText(color);
+    	ValueField.setText(price.toString());
+    	LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    	datePutOnLot.setValue(localDate);
     	custFirstName.setText(first);
     	custLastName.setText(last);
     	customerID.setText(cusID);
@@ -211,9 +205,14 @@ public class VehicleInformationController {
     
 	@FXML
 	// sends customer information to record of sale UI and switches to record of sale page
-	public void purchaseVeh(ActionEvent event) throws IOException {		
+	public void purchaseVeh(ActionEvent event) throws IOException {	
+		 
 		// send error if changes were made and it wasn't saved
         try {
+        	
+        	VehicleDao vehicle = new VehicleDao();
+        	this.veh = vehicle.retriveVehicle(VINField.getText());
+
             // check to see if any changes were made
             if (veh.getVIN().equals(VINField.getText()) &&
             	veh.getValue().toString().equals(ValueField.getText()) &&
@@ -240,6 +239,7 @@ public class VehicleInformationController {
             else {
                 // print out error saying please save changes 
             	nullError.setText("Please Save Changes");
+            	updateSuccessful.setText(null);
             }
                         
         } catch (Exception e) {
