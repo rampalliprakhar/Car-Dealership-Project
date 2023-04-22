@@ -95,7 +95,7 @@ class VehicleAutomatedTest {
 		// new price should be 945.244 rounded
 		assertEquals(Double.valueOf(945.24),veh.getPrice());
 		
-		// new discount value should be 342.63
+		// new discount value should be 54.76
 		assertEquals(Double.valueOf(54.76),veh.getDiscount());
 		
 		// 38.1608% discount for $1000 vehicle
