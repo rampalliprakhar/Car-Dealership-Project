@@ -24,17 +24,17 @@
                   <Font size="24.0" />
                </font>
             </TextField>
-            <Button fx:id="clearButton" layoutX="98.0" layoutY="472.0" mnemonicParsing="false" onAction="#clear" prefHeight="51.0" prefWidth="132.0" text="Clear">
+            <Button fx:id="clearButton" layoutX="83.0" layoutY="472.0" mnemonicParsing="false" onAction="#clear" prefHeight="51.0" prefWidth="132.0" text="Clear">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Button>
-            <Button fx:id="searchButton" layoutX="609.0" layoutY="472.0" mnemonicParsing="false" onAction="#searchVehicle" prefHeight="51.0" prefWidth="132.0" text="Search">
+            <Button fx:id="searchButton" layoutX="607.0" layoutY="472.0" mnemonicParsing="false" onAction="#searchVehicle" prefHeight="51.0" prefWidth="132.0" text="Search">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Button>
-            <Button fx:id="purchaseVehButton" alignment="TOP_LEFT" layoutX="881.0" layoutY="725.0" mnemonicParsing="false" onAction="#purchaseVeh" prefHeight="51.0" prefWidth="392.0" text="Add Selected Vehicle To Sale&#10;&#10;&#10;&#10;">
+            <Button fx:id="purchaseVehButton" alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="215.0" layoutY="653.0" mnemonicParsing="false" onAction="#purchaseVeh" prefHeight="51.0" prefWidth="391.0" text="Add Vehicle To Sale&#10;&#10;&#10;&#10;" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
@@ -87,17 +87,7 @@
             <TextField fx:id="custLastName" editable="false" layoutX="691.0" layoutY="813.0" visible="false" />
             <DatePicker fx:id="salesDate" editable="false" layoutX="856.0" layoutY="826.0" visible="false" />
             <ChoiceBox fx:id="paymentMethod" layoutX="811.0" layoutY="932.0" opacity="0.0" prefWidth="150.0" visible="false" />
-            <ImageView fitHeight="75.0" fitWidth="158.0" layoutX="1832.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@Assets/OriginalCarArt.png" />
-               </image>
-            </ImageView>
-            <ImageView disable="true" fitHeight="100.0" fitWidth="100.0" layoutX="1832.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../images/Assets/ReturnIcon.png" />
-               </image>
-            </ImageView>
-            <ImageView disable="true" fitHeight="100.0" fitWidth="100.0" layoutX="1822.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView disable="true" fitHeight="100.0" fitWidth="100.0" layoutX="1822.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../images/Assets/ReturnIcon.png" />
                </image>
@@ -107,7 +97,7 @@
                   <Font name="MV Boli" size="22.0" />
                </font>
             </Text>
-            <Text disable="true" layoutX="1227.0" layoutY="767.0" strokeType="OUTSIDE" strokeWidth="0.0" text="+" wrappingWidth="56.2091064453125">
+            <Text disable="true" layoutX="537.0" layoutY="696.0" strokeType="OUTSIDE" strokeWidth="0.0" text="+" wrappingWidth="56.2091064453125">
                <font>
                   <Font name="System Bold" size="60.0" />
                </font>
@@ -120,7 +110,12 @@
             <TextField fx:id="tempModel" editable="false" layoutX="721.0" layoutY="843.0" visible="false" />
             <ChoiceBox fx:id="tempMake" layoutX="821.0" layoutY="942.0" opacity="0.0" prefWidth="150.0" visible="false" />
             <TextField fx:id="tempVIN" editable="false" layoutX="731.0" layoutY="853.0" visible="false" />
-            <Button fx:id="openVehInfo" alignment="TOP_CENTER" layoutX="1394.0" layoutY="725.0" mnemonicParsing="false" onAction="#openVehInfo" prefHeight="51.0" prefWidth="392.0" text="Update Vehicle Information&#10;&#10;&#10;">
+            <Button fx:id="openVehInfo" alignment="TOP_CENTER" layoutX="215.0" layoutY="843.0" mnemonicParsing="false" onAction="#openVehInfo" prefHeight="51.0" prefWidth="392.0" text="Update Vehicle Information&#10;&#10;&#10;">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Button>
+            <Button fx:id="registerVeh" alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="215.0" layoutY="748.0" mnemonicParsing="false" onAction="#registerVeh" prefHeight="51.0" prefWidth="392.0" text="Register New Vehicle&#10;&#10;">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
