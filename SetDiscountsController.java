@@ -449,29 +449,48 @@ public class SetDiscountsController {
 
     
     public void discountSave(ActionEvent event) throws IOException {
+        
+        // Applies a percentage discount
         if (percentDiscount.getText() != "") {
             try {
+                
                 Float percentDis = new Float(percentDiscount.getText());
-                this.carForDiscount.setDiscount(percentDis);
+                this.carForDiscount.setDiscount(percentDis);              
                 discountCancel(new ActionEvent());
                 return;
+                
             } catch (NumberFormatException e) {
                 System.out.println("Error in 1");
                 return;
             }
         }
         
+        // Applies a flat discount
         if (newDiscountPrice.getText() != "") {
             try {
+                
+                /* Since percent in the Vehicle class has to be a Float value,
+                 * passes the regular value of the car divided by the price after discount
+                 */
                 Double priceAfterFlatDis = new Double(newDiscountPrice.getText());
-                Double flatDis = carForDiscount.getValue() - priceAfterFlatDis;
-                this.carForDiscount.setDiscount(flatDis);
+                Double flatDisAsFloat = this.carForDiscount.getValue() / priceAfterFlatDis;
+                
+                this.carForDiscount.setDiscount(flatDisAsFloat);
                 discountCancel(new ActionEvent());
                 return;
+                
             } catch (NumberFormatException e) {
                 System.out.println("Error in 2");
                 return;
             }
+        }
+        
+        // Code to update the database with changes
+        try {
+            VehicleDao dao = new VehicleDao();
+            dao.updateVehicle(carForDiscount);
+        } catch (Exception e) {
+            return;
         }
     }
     
