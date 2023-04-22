@@ -263,7 +263,7 @@ public class VehicleDao {
             stmt = conn.createStatement();
             //Executes the given SQL statement, which returns a single ResultSet object.
             //The statement is to return ALL *.
-            getVehicle = stmt.executeQuery(""SELECT * FROM Vehicle ORDER BY datePutOnLot"");
+            getVehicle = stmt.executeQuery("SELECT * FROM Vehicle ORDER BY datePutOnLot");
             //If has next then set values for 7 vehicles
             for (int i = 0; i < vehicleList.length; i++) {
                 if (getVehicle.next()) {
