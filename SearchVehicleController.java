@@ -71,7 +71,7 @@ public class SearchVehicleController {
     public void searchVehicle(ActionEvent event) throws IOException {
     	
     	// if input field is empty return nd print out error message
-    	if (VINField.getText().isBlank()) {
+    	if (VINField.getText().isBlank()){
     		vehInfo.setText("*Please input a VIN Number*");
     		return;
     	}
@@ -82,27 +82,28 @@ public class SearchVehicleController {
             VehicleDao dao = new VehicleDao();
             this.veh = dao.retriveVehicle(VINField.getText());
             
-            if (veh.getVIN() != null) {
-        // prints information of the searched vehicle
-        	vehInfo.setText("	\r\n"
-        			+ veh.getYear() + " "
-        			+ veh.getMake() + " "
-        			+ veh.getModel() + " "
-                	+ "\r\nColor: "
-        			+ veh.getColor()
-        			+ "\r\nBody Condition: "
-        			+ veh.getBodyCondition()
-        			+ "\r\nMechanical Condition: "
-        			+ veh.getMechCondition() 
-        			+ "\r\nMileage: "
-        			+ veh.getMileage()
-        			+ "\r\nPrice: $"
-        			+ veh.getValue()
-        			+ "\r\nVIN: "
-        			+ veh.getVIN());
+        // if VIN is null, print message
+            if (veh.getVIN() == null || veh.getVIN().equals("No VIN Specified")) {
+        		vehInfo.setText("No Vehicle Found");
             }
             else {
-        		vehInfo.setText("No Vehicle Found");
+                // prints information of the searched vehicle
+            	vehInfo.setText("	\r\n"
+            			+ veh.getYear() + " "
+            			+ veh.getMake() + " "
+            			+ veh.getModel() + " "
+                    	+ "\r\nColor: "
+            			+ veh.getColor()
+            			+ "\r\nBody Condition: "
+            			+ veh.getBodyCondition()
+            			+ "\r\nMechanical Condition: "
+            			+ veh.getMechCondition() 
+            			+ "\r\nMileage: "
+            			+ veh.getMileage()
+            			+ "\r\nPrice: $"
+            			+ String.format("%,.2f", veh.getValue())
+            			+ "\r\nVIN: "
+            			+ veh.getVIN());
             }
         } catch (Exception e) {
         	System.out.println("Error in SearchVehicleController.java");
