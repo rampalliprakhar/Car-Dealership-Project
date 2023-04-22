@@ -46,8 +46,8 @@ class EmployeeAutomatedTest {
 		emp1.setPassword("05Hn18s");
 		assertEquals("05Hn18s",emp1.getPassword());
 				
-		emp1.setEmployeeID(73219);
-		assertEquals(73219,emp1.getEmployeeID());
+		emp1.setEmployeeID(7321879);
+		assertEquals(7321879,emp1.getEmployeeID());
 
 		
 		// constructor and getters tests
@@ -56,8 +56,8 @@ class EmployeeAutomatedTest {
 		assertEquals(false,emp2.hasManagerRights());
 		assertEquals("HJohn123",emp2.getPassword());
 		
-		emp2.setEmployeeID(43289);
-		assertEquals(43289,emp2.getEmployeeID());
+		emp2.setEmployeeID(4328789);
+		assertEquals(4328789,emp2.getEmployeeID());
 		
 		emp2.setHasManagerRights(true);
 		assertEquals(true,emp2.hasManagerRights());
