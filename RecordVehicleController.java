@@ -147,9 +147,10 @@ public class RecordVehicleController {
    	// input validation
     	
     	// if any fields are empty print out error message
-    	if (ModelField.getText().isBlank() || MakeDropdown.getValue() == null || YearField.getText().isBlank() || 
-    			ColorField.getText().isBlank() || VINField.getText().isBlank() || ValueField.getText().isBlank() || 
-    			MileageField.getText().isBlank() || BodyConDropdown.getValue() == null || MechConDropdown.getValue() == null) {
+    	if (ModelField.getText().isBlank() || MakeDropdown.getValue() == null ||  MakeDropdown.getValue() == "Select a Make" || YearField.getText().isBlank() || 
+    			ColorField.getText().isBlank() || VINField.getText().isBlank() || ValueField.getText().isBlank() || MileageField.getText().isBlank() || 
+    			BodyConDropdown.getValue() == null || BodyConDropdown.getValue() == "Select a Condition" || MechConDropdown.getValue() == null || 
+    			MechConDropdown.getValue() == "Select a Condition") {
         	
     		nullError.setText("*Error: Please fill out all input fields*");
     		return;
@@ -170,15 +171,21 @@ public class RecordVehicleController {
     	
     	
         try {
-
+        	Vehicle veh = new Vehicle();
+            VehicleDao dao = new VehicleDao();
+            veh = dao.retriveVehicle(VINField.getText());
+        	if (veh.getVIN().equals(VINField.getText())) {
+        		nullError.setText("Vehicle Already Registered Under Inputed VIN");
+        		return;
+        	}
+        	
         Vehicle vehicle = new Vehicle(VINField.getText(), Double.valueOf(ValueField.getText()), Integer.valueOf(YearField.getText()), MakeDropdown.getValue(),
                 ModelField.getText(), BodyConDropdown.getValue(), MechConDropdown.getValue(), ColorField.getText(), Integer.valueOf(MileageField.getText()), new Date());
-        VehicleDao dao = new VehicleDao();
         
         System.out.println(vehicle.getVIN() + " " + vehicle.getValue() + " " + vehicle.getYear() + " " + vehicle.getMake() + " " + vehicle.getModel() + " " +vehicle.getBodyCondition() + " " + vehicle.getMechCondition() + " " + vehicle.getColor() +
         " " + vehicle.getMileage() + " " + vehicle.getDatePutOnLot());
-        
             dao.saveVehicle(vehicle);
+
         } catch (Exception e) {
             System.out.println("Error in RecordVehicleController.java");
         }
