@@ -7,12 +7,16 @@ import javafx.scene.text.Text;
 import javafx.scene.control.*;
 import javafx.scene.*;
 import java.time.LocalDate;
-
+import dao.CustomerDao;
+import backend.Address;
+import backend.CustomerProfile;
 
 
 public class CustomerProfileController {
 	
 	// customerID refers to the driver's license number
+	
+	CustomerProfile customer = new CustomerProfile();
 	
 	@FXML
 	private TextField firstName, lastName, phoneNumber, customerID, streetAddress, city, state, zipCode, VINField, yearField, modelField, valueField;
@@ -31,28 +35,6 @@ public class CustomerProfileController {
 	    
 	@FXML
 	public void initialize() {  // is 40 a good length limit for the strings?
-		
-		// using giving customer ID, search database for the rest of the information 
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		// test data
-		firstName.setText("Triny");
-		lastName.setText("Nguyen");
-		phoneNumber.setText("8038239936");
-		streetAddress.setText("502 Manchester Dr");
-		city.setText("Manning");
-		state.setText("SC");
-		zipCode.setText("29102");
-	    
-		
-		
 		
 		// note: customer ID length limit might be incorrect
 		
@@ -147,7 +129,7 @@ public class CustomerProfileController {
     	Parent root = loader.load();
     	
     	SearchCustomerController searchCusController = loader.getController();
-    	searchCusController.showInformation(firstName.getText(), lastName.getText());
+    	searchCusController.showInformation(customerID.getText());
 
     	Main m = new Main();
     	m.changeScene("SearchCustomerUI.fxml", root);
@@ -156,20 +138,73 @@ public class CustomerProfileController {
     
     // switches and passes information to record of sale UI 
     public void addCusToSale(ActionEvent event) throws IOException{
-    	FXMLLoader loader = new FXMLLoader(getClass().getResource("RecordOfSaleUI.fxml"));
-    	Parent root = loader.load();
     	
-    	RecordOfSaleController recSaleController = loader.getController();
-    	recSaleController.showInformation(firstName.getText(), lastName.getText(), customerID.getText(), yearField.getText(), makeDropdown.getValue(), 
-    	modelField.getText(), VINField.getText(), valueField.getText(), paymentMethod.getValue(), salesDate.getValue());
+        try {
+        	
+        	CustomerDao cus = new CustomerDao();
+        	this.customer = cus.retriveCustomer(customerID.getText());
+        	
+//            // check to see if any changes were made
+            if (customer.getFirstName().equals(firstName.getText()) &&
+                	customer.getLastName().equals(lastName.getText()) &&
+                	customer.getPhoneNum().equals(phoneNumber.getText()) &&
+                	customer.getAddress().getStreet().equals(streetAddress.getText()) &&
+                  customer.getAddress().getCity().equals(city.getText()) &&
+                customer.getAddress().getCountry().equals(state.getText()) &&
+              customer.getAddress().getZipCode().equals(zipCode.getText())
 
-    	Main m = new Main();
-    	m.changeScene("RecordOfSaleUI.fxml", root);
+
+
+
+            		
+            		
+            		
+            		
+            		
+            		
+            		
+            		) 
+            		
+//            	customer.getLastName().equals(lastName.getText()) &&
+////            	customer.getLicenseNum().equals(customerID.getText()) &&
+//            	customer.getPhoneNum().equals(phoneNumber.getText()) &&
+//            	customer.getAddress().getStreet().equals(streetAddress.getText()) &&
+//                customer.getAddress().getCity().equals(city.getText()) &&
+//                customer.getAddress().getCountry().equals(state.getText()) &&
+//                customer.getAddress().getZipCode().equals(city.getText()))
+            {
+            	FXMLLoader loader = new FXMLLoader(getClass().getResource("RecordOfSaleUI.fxml"));
+            	Parent root = loader.load();
+            	
+            	RecordOfSaleController recSaleController = loader.getController();
+            	recSaleController.showInformation(firstName.getText(), lastName.getText(), customerID.getText(), yearField.getText(), makeDropdown.getValue(), 
+            	modelField.getText(), VINField.getText(), valueField.getText(), paymentMethod.getValue(), salesDate.getValue());
+
+            	Main m = new Main();
+            	m.changeScene("RecordOfSaleUI.fxml", root);
+            }
+            else {
+                // print out error saying please save changes 
+            	nullError.setText("Please Save Changes");
+            	updateSuccessful.setText(null);
+            }
+                        
+        } catch (Exception e) {
+            System.out.println("Error in CustomerProfileController.java");
+        }
     } 
     
     // receives information from search customer UI
-    public void showInformation(String ID, String year, String make, String model, String VIN, String price, String paymentMethod, LocalDate salesDate) {
+    public void showInformation(String first, String last, String ID, String phone, String street, String city, String state, 
+    		String zip, String year, String make, String model, String VIN, String price, String paymentMethod, LocalDate salesDate) {
+    	firstName.setText(first);
+    	lastName.setText(last);
     	customerID.setText(ID);
+    	phoneNumber.setText(phone);
+    	streetAddress.setText(street);
+    	this.city.setText(city);
+    	this.state.setText(state);
+    	zipCode.setText(zip);
     	yearField.setText(year);
     	makeDropdown.setValue(make);
     	modelField.setText(model);
@@ -184,10 +219,10 @@ public class CustomerProfileController {
     	// input validation
     	
     	// if any fields are empty return and print out error message
-    	if (customerID.getText().length() == 0 || firstName.getText().length() == 0 || 
-    			lastName.getText().length() == 0 || phoneNumber.getText().length() == 0 || 
-    			streetAddress.getText().length() == 0 || city.getText().length() == 0 || 
-    			state.getText().length() == 0 || zipCode.getText().length() == 0) {
+    	if (customerID.getText().isBlank() || firstName.getText().isBlank() || 
+    			lastName.getText().isBlank() || phoneNumber.getText().isBlank() || 
+    			streetAddress.getText().isBlank() || city.getText().isBlank() || 
+    			state.getText().isBlank() || zipCode.getText().isBlank()) {
         	
     		updateSuccessful.setText(null);
     		nullError.setText("*Error: Please fill out all input fields*");
@@ -212,22 +247,19 @@ public class CustomerProfileController {
     	// validate city, state, address? 
     	
     	// end input validation
-    	
-    	
-    	
-    	
-    	
-//      update info in database
-
-    	
-    	
-    	
-    	
-    	
-    	
-    	// confirmation message
-		nullError.setText(null);
-		updateSuccessful.setText("Changes Saved");
+   
+        try {
+        	Address custAddress = new Address(streetAddress.getText(), city.getText(), state.getText(), zipCode.getText(), "");
+            CustomerProfile customer = new CustomerProfile(customerID.getText(), firstName.getText(), lastName.getText(), phoneNumber.getText(), custAddress);
+            CustomerDao dao = new CustomerDao();
+            dao.updateCustomer(customer);
+            
+        	// confirmation message
+    		nullError.setText(null);
+    		updateSuccessful.setText("Changes Saved");
+        } catch (Exception e) {
+            System.out.println("Error in CustomerProfileController.java");
+        }
     }
     
     // input validation: returns false if phone number is series of repeating number
