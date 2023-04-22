@@ -28,7 +28,7 @@ public class SearchVehicleController {
     private DatePicker salesDate;
     
     @FXML
-    private Button searchButton, clearButton, returnButton, purchaseVehButton, openVehInfo;    
+    private Button searchButton, clearButton, returnButton, purchaseVehButton, openVehInfo, registerVeh;    
     
     @FXML
     private Text vehInfo;
@@ -82,6 +82,7 @@ public class SearchVehicleController {
             VehicleDao dao = new VehicleDao();
             this.veh = dao.retriveVehicle(VINField.getText());
             
+            if (veh.getVIN() != null) {
         // prints information of the searched vehicle
         	vehInfo.setText("	\r\n"
         			+ veh.getYear() + " "
@@ -99,13 +100,27 @@ public class SearchVehicleController {
         			+ veh.getValue()
         			+ "\r\nVIN: "
         			+ veh.getVIN());
-            
+            }
+            else {
+        		vehInfo.setText("No Vehicle Found");
+            }
         } catch (Exception e) {
-    		vehInfo.setText("No Vehicle Found");
+        	System.out.println("Error in SearchVehicleController.java");
         	return;
         }
       } // not complete
         	
+    public void registerVeh(ActionEvent event) throws IOException {
+    	FXMLLoader loader = new FXMLLoader(getClass().getResource("RecordVehicleUI.fxml"));
+    	Parent root = loader.load();
+    	
+    	RecordVehicleController controller = loader.getController();
+    	controller.showInformation(VINField.getText());
+    	Main m = new Main();
+    	m.changeScene("RecordVehicleUI.fxml", root);
+
+    } // end pageReturn
+    
     // only accessible for managers
     public void openVehInfo(ActionEvent event) throws IOException{    	
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("VehicleInformationUI.fxml"));
@@ -113,8 +128,10 @@ public class SearchVehicleController {
     	
     	// passes searched vehicle VIN to the vehicle information UI
     	VehicleInformationController controller = loader.getController();
-    	controller.showInformation(veh.getVIN(), custFirstName.getText(), custLastName.getText(), customerID.getText(), paymentMethod.getValue(), salesDate.getValue());
-    	
+    	controller.showInformation(veh.getVIN(), veh.getYear(), veh.getMake(), veh.getModel(), veh.getBodyCondition(), 
+    			veh.getMechCondition(), veh.getMileage(), veh.getColor(), veh.getPrice(), veh.getDatePutOnLot(), custFirstName.getText(), 
+    			custLastName.getText(), customerID.getText(), paymentMethod.getValue(), salesDate.getValue());
+
     	Main m = new Main();
     	m.changeScene("VehicleInformationUI.fxml", root);
     	
