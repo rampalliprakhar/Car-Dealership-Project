@@ -214,5 +214,20 @@ public class RegisterCustomerController {
         m.changeScene(previousPage);
         
     } // end pageReturn
+	
+	    // receives information from the search customer UI
+    public void showInformation(String licenseNum) {
+    	DriversLicenseField.setText(licenseNum);
+    }
+    
+    // input validation: returns false if phone number is series of repeating number
+    public boolean phoneNumIsRepeating() {
+    	char a = PhoneField.getText().charAt(0);
+    	for (int i = 1; i < PhoneField.getText().length(); i++) {
+    	if (PhoneField.getText().charAt(i) != a)
+    		return true;
+    	}
+    	return false;
+    }
     
 }
