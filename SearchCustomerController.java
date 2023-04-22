@@ -87,7 +87,10 @@ public class SearchCustomerController {
         	Parent root = loader.load();
         	
         	CustomerProfileController controller = loader.getController();
-        	controller.showInformation(customer.getLicenseNum(), yearField.getText(), makeDropdown.getValue(), modelField.getText(), VINField.getText(), valueField.getText(), paymentMethod.getValue(), salesDate.getValue());
+        	controller.showInformation(customer.getFirstName(), customer.getLastName(), customer.getLicenseNum(), customer.getPhoneNum(), 
+        			customer.getAddress().getStreet(),customer.getAddress().getCity(), customer.getAddress().getCountry(), customer.getAddress().getZipCode()	
+        			,yearField.getText(), makeDropdown.getValue(), modelField.getText(), VINField.getText(), valueField.getText(), paymentMethod.getValue(), 
+        			salesDate.getValue());
         	
         	Main m = new Main();
         	m.changeScene("CustomerProfileUI.fxml", root);
