@@ -54,12 +54,16 @@ public class SearchVehicleController {
     public void clear(ActionEvent event) {
         /* This method clears all of the fields.*/
     	VINField.clear();
+    	vehInfo.setText(null);
+    	this.veh = null;
     } // end clear
     
+    // returns to record of sale UI
     public void pageReturn(ActionEvent event) throws IOException {
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("RecordOfSaleUI.fxml"));
     	Parent root = loader.load();
     	
+    	// passes information back to record of sale UI
     	RecordOfSaleController controller = loader.getController();
     	controller.showInformation(custFirstName.getText(), custLastName.getText(), customerID.getText(), tempYear.getText(), tempMake.getValue(), tempModel.getText(), tempVIN.getText(), tempValue.getText(), paymentMethod.getValue(), salesDate.getValue());
     	
@@ -82,7 +86,7 @@ public class SearchVehicleController {
             VehicleDao dao = new VehicleDao();
             this.veh = dao.retriveVehicle(VINField.getText());
             
-        // if VIN is null, print message
+        // if VIN of searched vehicle is null, print message
             if (veh.getVIN() == null || veh.getVIN().equals("No VIN Specified")) {
         		vehInfo.setText("No Vehicle Found");
             }
@@ -109,21 +113,35 @@ public class SearchVehicleController {
         	System.out.println("Error in SearchVehicleController.java");
         	return;
         }
-      } // not complete
-        	
+      }
+    
+    // only accessible for managers
+    // goes to the register vehicle UI
     public void registerVeh(ActionEvent event) throws IOException {
+    	
+    	// if no VIN inputed
+    	if (VINField.getText().isBlank())
+    		return;
+    	
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("RecordVehicleUI.fxml"));
     	Parent root = loader.load();
     	
+    	// passes inputed VIN to register vehicle UI
     	RecordVehicleController controller = loader.getController();
     	controller.showInformation(VINField.getText());
+    	
     	Main m = new Main();
     	m.changeScene("RecordVehicleUI.fxml", root);
 
-    } // end pageReturn
+    } // end registerVeh
     
     // only accessible for managers
+    // opens vehicle information UI of searched vehicle
     public void openVehInfo(ActionEvent event) throws IOException{    	
+    	// if no VIN inputed
+    	if (VINField.getText().isBlank())
+    		return;
+    	
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("VehicleInformationUI.fxml"));
     	Parent root = loader.load();
     	
@@ -136,11 +154,15 @@ public class SearchVehicleController {
     	Main m = new Main();
     	m.changeScene("VehicleInformationUI.fxml", root);
     	
-	} // not complete/tested
+	} // end openVehInfo
 	
 	@FXML
 	// switches scene to record of sales UI
-	public void purchaseVeh(ActionEvent event) throws IOException {		
+	public void purchaseVeh(ActionEvent event) throws IOException {	
+    	// if no VIN inputed
+    	if (VINField.getText().isBlank())
+    		return;
+    	
 		try {
 			
 		    FXMLLoader loader = new FXMLLoader(getClass().getResource("RecordOfSaleUI.fxml"));
@@ -157,7 +179,7 @@ public class SearchVehicleController {
         	System.out.println("Error in SearchVehicleController.java");
         	return;
         }		
-	} // testing needed
+	} 
 	
 	// receives information from vehicle information UI
     public void showInformation (String VIN) {
