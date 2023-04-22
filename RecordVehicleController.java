@@ -13,10 +13,12 @@
 package application;
 
 import javafx.fxml.FXML;
+import javafx.scene.text.Text;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.collections.*;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.Date;
 import dao.VehicleDao;
 import backend.Vehicle;
@@ -25,6 +27,8 @@ public class RecordVehicleController {
     
     // Declare UI Fields
     
+    @FXML
+    private Text nullError;
     @FXML
     private TextField ValueField;
     @FXML
@@ -138,14 +142,42 @@ public class RecordVehicleController {
         /* Saves the vehicle to the database. Creates a vehicle with the values inputted by the user,
          * then creates a DAO instance to save it to database.
          */
-        Vehicle vehicle = new Vehicle(VINField.getText(), new Double(ValueField.getText()), new Integer(YearField.getText()), MakeDropdown.getValue(),
-                ModelField.getText(), BodyConDropdown.getValue(), MechConDropdown.getValue(), ColorField.getText(), new Integer(MileageField.getText()), new Date());
+    	
+    	
+   	// input validation
+    	
+    	// if any fields are empty print out error message
+    	if (ModelField.getText().isBlank() || MakeDropdown.getValue() == null || YearField.getText().isBlank() || 
+    			ColorField.getText().isBlank() || VINField.getText().isBlank() || ValueField.getText().isBlank() || 
+    			MileageField.getText().isBlank() || BodyConDropdown.getValue() == null || MechConDropdown.getValue() == null) {
+        	
+    		nullError.setText("*Error: Please fill out all input fields*");
+    		return;
+    	}
+    			
+    	// if year is not between current year and year when cars were invented print out error message
+    	else if (yearIsValid() == false) {
+    		nullError.setText("*Error: Please input a valid year*");
+    		return;
+    	}
+    	
+    	// if price has more than 2 decimal places print out error message
+    	if (!ValueField.getText().matches("^\\d+\\.\\d{0,2}$") && !ValueField.getText().matches("[0-9]*$")) {
+    		nullError.setText("*Error: Please input a valid price*");
+    		return;
+    	}
+    	// end input validation
+    	
+    	
+        try {
+
+        Vehicle vehicle = new Vehicle(VINField.getText(), Double.valueOf(ValueField.getText()), Integer.valueOf(YearField.getText()), MakeDropdown.getValue(),
+                ModelField.getText(), BodyConDropdown.getValue(), MechConDropdown.getValue(), ColorField.getText(), Integer.valueOf(MileageField.getText()), new Date());
         VehicleDao dao = new VehicleDao();
         
         System.out.println(vehicle.getVIN() + " " + vehicle.getValue() + " " + vehicle.getYear() + " " + vehicle.getMake() + " " + vehicle.getModel() + " " +vehicle.getBodyCondition() + " " + vehicle.getMechCondition() + " " + vehicle.getColor() +
         " " + vehicle.getMileage() + " " + vehicle.getDatePutOnLot());
         
-        try {
             dao.saveVehicle(vehicle);
         } catch (Exception e) {
             System.out.println("Error in RecordVehicleController.java");
@@ -185,5 +217,15 @@ public class RecordVehicleController {
     public void showInformation(String VIN) {
     	VINField.setText(VIN);
     } // end showInformation
+    
+	
+	// returns true if year is greater than 1889 (year cars were invented)
+	public boolean yearIsValid() {
+		int year = Integer.valueOf(YearField.getText());
+		if (year > LocalDate.now().getYear() || year < 1889)
+			return false;
+		
+		else return true;
+	} // end yearIsValid
     
 } // end RecordVehicleController
