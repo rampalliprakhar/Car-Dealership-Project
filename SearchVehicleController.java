@@ -70,7 +70,7 @@ public class SearchVehicleController {
     
     public void searchVehicle(ActionEvent event) throws IOException {
     	
-    	// if input field is empty return nd print out error message
+    	// if input field is empty return and print out error message
     	if (VINField.getText().isBlank()){
     		vehInfo.setText("*Please input a VIN Number*");
     		return;
