@@ -78,7 +78,7 @@ public class Employee {
         this.lastName = lastName;
     }
 
-    public int getEmployeeID() {
+   public Integer getEmployeeID() {
         return employeeID;
     }
     public void setEmployeeID(Integer employeeID) {
