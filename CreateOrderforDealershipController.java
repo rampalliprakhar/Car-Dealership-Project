@@ -137,9 +137,12 @@ public class CreateOrderforDealershipController {
 			dealershipEntry.clear();
 		}
 		if(YearValidator(year) == false) {
-			Year.setStyle(failurePrompt);
-			Year.clear();
-		}
+	 		if(year.length() > 4 || year.length() < 4) {
+	 			invalidPrompt.setText("Year length should be 4 digits!");
+	 			Year.setStyle(failurePrompt);
+	 			Year.clear();
+	 		}
+	 	}
 		// Accepts alphabetical characters upto 40 characters allowed
 		if(!model.matches("^[a-zA-Z]{0,40}$")) { //"^[a-zA-Z]{0,40}$"
 			ModelCar.setStyle(failurePrompt);
