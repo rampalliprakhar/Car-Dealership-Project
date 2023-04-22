@@ -138,6 +138,7 @@ public class CreateOrderforDealershipController {
 		}
 		if(YearValidator(year) == false) {
 			Year.setStyle(failurePrompt);
+			Year.clear();
 		}
 		// Accepts alphabetical characters upto 40 characters allowed
 		if(!model.matches("^[a-zA-Z]{0,40}$")) { //"^[a-zA-Z]{0,40}$"
