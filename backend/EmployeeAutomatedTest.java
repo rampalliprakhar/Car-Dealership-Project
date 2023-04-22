@@ -43,8 +43,8 @@ class EmployeeAutomatedTest {
 		emp1.setHasManagerRights(false);
 		assertEquals(false,emp1.hasManagerRights());
 		
-		emp1.setPassword("05Hn18s!");
-		assertEquals("05Hn18s!",emp1.getPassword());
+		emp1.setPassword("05Hn18s");
+		assertEquals("05Hn18s",emp1.getPassword());
 				
 		emp1.setEmployeeID(73219);
 		assertEquals(73219,emp1.getEmployeeID());
