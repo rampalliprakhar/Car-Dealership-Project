@@ -118,7 +118,15 @@ public class SearchVehicleController {
     // only accessible for managers
     // goes to the register vehicle UI
     public void registerVeh(ActionEvent event) throws IOException {
+    
+    	// if input field is empty return and print out error message
+    	if (this.veh == null){
+    		vehInfo.setText("*Please Search Before Trying To Register*");
+    		return;
+    	}
     	
+    	// prevents user from trying to register a new vehicle without searching, since VIN should be unique
+    	if (veh.getVIN().toString().equals(VINField.getText()) || vehInfo.getText().equals("No Vehicle Found")) {    	
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("RecordVehicleUI.fxml"));
     	Parent root = loader.load();
     	
@@ -128,6 +136,10 @@ public class SearchVehicleController {
     	
     	Main m = new Main();
     	m.changeScene("RecordVehicleUI.fxml", root);
+    	}
+    	else {
+    		vehInfo.setText("*Please Search Before Trying To Register*");
+    	}
 
     } // end registerVeh
     
@@ -135,8 +147,10 @@ public class SearchVehicleController {
     // opens vehicle information UI of searched vehicle
     public void openVehInfo(ActionEvent event) throws IOException{    	
     	// if no VIN inputed
-    	if (VINField.getText().isBlank())
+    	if (this.veh == null) {
+    		vehInfo.setText("*Please Search Before Trying To Open Vehicle Information*");
     		return;
+    	}
     	
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("VehicleInformationUI.fxml"));
     	Parent root = loader.load();
@@ -156,8 +170,10 @@ public class SearchVehicleController {
 	// switches scene to record of sales UI
 	public void purchaseVeh(ActionEvent event) throws IOException {	
     	// if no VIN inputed
-    	if (VINField.getText().isBlank())
+    	if (this.veh == null) {
+    		vehInfo.setText("*Please Search Before Trying To Add To Sale*");
     		return;
+    	}
     	
 		try {
 			
