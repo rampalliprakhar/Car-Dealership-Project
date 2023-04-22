@@ -98,7 +98,7 @@ public class CarLoginController {
 				     EmployeeDao dao = new EmployeeDao();
 					 
 					 try {
-					     employee = dao.retriveEmployee(password);
+					     employee = dao.retriveEmployee(userEntry);
 					 } catch (Exception e) {
 					     
 					 }
