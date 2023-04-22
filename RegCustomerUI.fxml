@@ -10,7 +10,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <ScrollPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.RegisterCustomerController">
    <content>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #9DD0D1;">
@@ -62,21 +61,6 @@
                   <Font name="SansSerif Regular" size="40.0" />
                </font>
             </Text>
-            <Button fx:id="ClearButton" layoutX="320.0" layoutY="800.0" mnemonicParsing="false" onAction="#clear" prefHeight="86.0" prefWidth="440.0" text="CLEAR">
-               <font>
-                  <Font name="MV Boli" size="48.0" />
-               </font>
-            </Button>
-            <Button fx:id="SaveButton" layoutX="1180.0" layoutY="800.0" mnemonicParsing="false" onAction="#save" onMouseClicked="#save" prefHeight="86.0" prefWidth="440.0" text="SAVE">
-               <font>
-                  <Font name="MV Boli" size="48.0" />
-               </font>
-            </Button>
-            <Button fx:id="ReturnButton" layoutX="1820.0" layoutY="79.0" mnemonicParsing="false" onAction="#pageReturn" prefHeight="100.0" prefWidth="100.0">
-               <font>
-                  <Font name="MV Boli" size="48.0" />
-               </font>
-            </Button>
             <ImageView fx:id="ReturnArrow" disable="true" fitHeight="100.0" fitWidth="100.0" layoutX="1821.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/Assets/ReturnIcon.png" />
@@ -112,6 +96,11 @@
                   <Font name="SansSerif Regular" size="24.0" />
                </font>
             </TextField>
+            <TextField fx:id="DriversLicenseField" layoutX="564.0" layoutY="480.0" prefHeight="60.0" prefWidth="1242.0" promptText="Driver's License #">
+               <font>
+                  <Font name="SansSerif Regular" size="24.0" />
+               </font>
+            </TextField>
             <TextField fx:id="PhoneField" layoutX="407.0" layoutY="580.0" prefHeight="60.0" prefWidth="1400.0" promptText="Phone Number">
                <font>
                   <Font name="SansSerif Regular" size="24.0" />
@@ -127,16 +116,26 @@
                   <Font name="SansSerif Regular" size="40.0" />
                </font>
             </Text>
-            <TextField fx:id="DriversLicenseField" layoutX="564.0" layoutY="480.0" prefHeight="60.0" prefWidth="1242.0" promptText="Driver's License #">
-               <font>
-                  <Font name="SansSerif Regular" size="24.0" />
-               </font>
-            </TextField>
             <Text fx:id="nullError" fill="RED" layoutX="1184.0" layoutY="940.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="436.66015625000006">
                <font>
                   <Font size="14.0" />
                </font>
             </Text>
+            <Button fx:id="ClearButton" layoutX="320.0" layoutY="800.0" mnemonicParsing="false" onAction="#clear" prefHeight="86.0" prefWidth="440.0" text="CLEAR">
+               <font>
+                  <Font name="MV Boli" size="48.0" />
+               </font>
+            </Button>
+            <Button fx:id="SaveButton" layoutX="1180.0" layoutY="800.0" mnemonicParsing="false" onAction="#save" onMouseClicked="#save" prefHeight="86.0" prefWidth="440.0" text="SAVE">
+               <font>
+                  <Font name="MV Boli" size="48.0" />
+               </font>
+            </Button>
+            <Button fx:id="ReturnButton" layoutX="1820.0" layoutY="79.0" mnemonicParsing="false" onAction="#pageReturn" prefHeight="100.0" prefWidth="100.0">
+               <font>
+                  <Font name="MV Boli" size="48.0" />
+               </font>
+            </Button>
             <Text fx:id="updateSuccessful" layoutX="1177.0" layoutY="781.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT" wrappingWidth="446.4000244140625">
                <font>
                   <Font size="14.0" />
