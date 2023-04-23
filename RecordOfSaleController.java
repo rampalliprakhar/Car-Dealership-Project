@@ -30,7 +30,7 @@ import dao.*;
 public class RecordOfSaleController {
 	    
 	// Declare UI fields
-	
+
     @FXML
     private TextField valueField, VINField, yearField, modelField;
     
@@ -78,6 +78,10 @@ public class RecordOfSaleController {
     
     // switches scene to Search Vehicle UI 
     public void addVehToSale(ActionEvent event) throws IOException{
+    	
+    	// if the user is a manager, open search UI that includes buttons for recording new vehicle and updating vehicle
+    	if (Main.getCurrentUser().hasManagerRights()) {
+    		
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("SearchVehicleUI.fxml"));
     	Parent root = loader.load();
     	
@@ -87,7 +91,22 @@ public class RecordOfSaleController {
     	controller.showInformation(firstName.getText(), lastName.getText(), customerID.getText(), yearField.getText(), makeDropdown.getValue(), modelField.getText(), VINField.getText(), valueField.getText(), paymentMethod.getValue(), salesDate.getValue());
 
     	Main m = new Main();
-    	m.changeScene("SearchVehicleUI.fxml", root);    	
+    	m.changeScene("SearchVehicleUI.fxml", root);   
+    	}
+    	
+    	else {
+
+        	FXMLLoader loader = new FXMLLoader(getClass().getResource("SalespersonViewSearchVehicleUI.fxml"));
+        	Parent root = loader.load();
+        	
+        	SearchVehicleController controller = loader.getController();
+        	
+            // sends any filled information to the search vehicle UI
+        	controller.showInformation(firstName.getText(), lastName.getText(), customerID.getText(), yearField.getText(), makeDropdown.getValue(), modelField.getText(), VINField.getText(), valueField.getText(), paymentMethod.getValue(), salesDate.getValue());
+
+        	Main m = new Main();
+        	m.changeScene("SalespersonViewSearchVehicleUI.fxml", root);   
+    	}
     } // end addVehToSale method
     
     // switches scene to main menu
