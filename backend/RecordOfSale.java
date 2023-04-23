@@ -50,9 +50,9 @@ public class RecordOfSale {
         
         Double total = 0.0;
         total = total + soldVehicle.getValue(); // Add the cost of the vehicle
-        total = total + Math.round((soldVehicle.getValue() * SALES_TAX_RATE) * 100.00) / 100.00; // Add sales tax
+        total = total + (soldVehicle.getValue() * SALES_TAX_RATE); // Add sales tax
         total = total + DEALERSHIP_FEE + TAG_FEE; // Add flat fees
-        
+        total = Math.round(total * 100.00) / 100.00;
         return total;
         
     } // end calcTotal
