@@ -169,9 +169,15 @@ public class SearchVehicleController {
 	@FXML
 	// switches scene to record of sales UI
 	public void purchaseVeh(ActionEvent event) throws IOException {	
-    	// if no VIN inputed
+    	// if no VIN searched
     	if (this.veh == null) {
     		vehInfo.setText("*Please Search Before Trying To Add To Sale*");
+    		return;
+    	}
+    	
+    	// if the vehicle with the specified VIN is not in the database, prevent user from adding it to sale
+    	if (veh.getVIN().equals("No VIN Specified")) {
+    		vehInfo.setText("Please Input a Registered VIN");
     		return;
     	}
     	
