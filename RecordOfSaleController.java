@@ -31,6 +31,8 @@ public class RecordOfSaleController {
 	    
 	// Declare UI fields
 	
+	private Vehicle veh;
+	private CustomerProfile cus;
     @FXML
     private TextField valueField, VINField, yearField, modelField;
     
@@ -133,8 +135,15 @@ public class RecordOfSaleController {
         // Insert RecordOfSaleDAO here
         
         try {
-            // Creates a new record of sale with the info provided in the fields
-            RecordOfSale record = new RecordOfSale(vDAO.retriveVehicle(VINField.toString()), Main.getCurrentUser(), cDAO.retriveCustomer(customerID.toString()));
+        	
+        	// retrieves the customer and vehicle that correspond to the customerID and VIN
+        	this.cus = cDAO.retriveCustomer(customerID.getText());
+        	this.veh = vDAO.retriveVehicle(VINField.getText());
+
+                // Creates a new record of sale with the retrieved customer and vehicle
+        	RecordOfSale record = new RecordOfSale(veh, Main.getCurrentUser(), cus);
+        	
+//            RecordOfSale record = new RecordOfSale(vDAO.retriveVehicle(VINField.toString()), Main.getCurrentUser(), cDAO.retriveCustomer(customerID.toString()));
         } catch (Exception e) {
             
         }
