@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.fxml.FXMLLoader;
+import backend.Employee;
 
 public class Main extends Application {
 	
@@ -27,6 +28,9 @@ public class Main extends Application {
     
     private static String view = "SampleSalesperson.fxml";
     // This variable will either be SalespersonView.fxml or ManagerView.fxml
+	
+	public static Employee currentUser;
+    // Holds the current Employee using the system, for use on RecordOfSale
     
     @Override
 	public void start(Stage primaryStage) {
@@ -75,6 +79,14 @@ public class Main extends Application {
 	        view = "SampleSalesperson.fxml";
 	    }
 	} // Method to set the view variable
+	
+	public static Employee getCurrentUser() {
+	    return currentUser;
+	} // getter for the currentUser
+	
+	public static void setCurrentUser(Employee user) {
+	    currentUser = user;
+	} // setter for the currentUser
 
 	public static Connection getGoogleCloudDBConnection() throws Exception {
 
