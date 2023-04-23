@@ -135,7 +135,7 @@ public class RecordOfSaleDao {
 	* 
 	*
 	*/
-	void deleteSoldVehicle(Vehicle vehicleInformation)
+	public void deleteSoldVehicle(Vehicle vehicleInformation)
 	{
 		//Statement is an interface in the JDBC API that represents a SQL statement that
 		//is sent to the database and executed. 
