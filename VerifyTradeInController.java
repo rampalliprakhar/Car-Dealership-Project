@@ -1,7 +1,7 @@
 /* --------------------------------------------------- 
  *  Author: Team 3 Car Dealership
  *  Written: 3/10/23
- *  Last Updated: 4/18/2023
+ *  Last Updated: 4/23/2023
  *  
  *  Compilation: javac VerifyTradeInController.java
  *  Execution: java VerifyTradeInController
@@ -72,19 +72,59 @@ public class VerifyTradeInController {
         MechConDropdown.setItems(conditionList);
         
     } // end initialize method
-    
+  	public static boolean YearValidator(String yearinput) {
+  		return yearinput.matches("^(19|20)[0-9][0-9]$"); // yearinput matches with regular expression
+  	}
     public void getValue(ActionEvent event) {
         
         /* This logic is to fake the functionality of the KellyBlueBook API.
          * We do not have the time to hook up the API, so this is just logic
          * to simulate that. It is ($300,000 - mileage) / (2030-Year)
          */
-        
-        Double value = new Double(300_000.00);
-        value = value - new Double(MileageField.getText());
-        value = value / (2030 - new Double(YearField.getText()));
-        setValue(value);
-        
+    	String year = YearField.getText();
+		String model = ModelField.getText();
+		String mileage = MileageField.getText();
+		String color = ColorField.getText();
+		// checks to see if any field is blank/empty
+		if(year.isBlank() || model.isBlank() || mileage.isBlank() || color.isBlank()) {
+			YearField.setStyle(String.format("-fx-text-fill: RED;"));
+			ModelField.setStyle(String.format("-fx-text-fill: RED;"));
+			ColorField.setStyle(String.format("-fx-text-fill: RED;"));
+		}
+		else 
+		{   
+			// checks to see if everthing is true and matches the pattern
+			if(YearValidator(year) == true && model.matches("^[a-zA-Z]{0,40}$") && mileage.matches("^[0-9]{0,8}$") && color.matches("^[A-Za-z]{0,40}$")) {
+		        Double value = new Double(300_000.00);
+		        value = value - new Double(MileageField.getText());
+		        value = value / (2030 - new Double(YearField.getText()));
+		        setValue(value);
+			}
+			else {
+				// Checks whether year field is correct
+				if(YearValidator(year) != true) {
+	 		 	    if(year.length() > 4 || year.length() < 4){ // checks whether the input is greater than 4
+	 		 	    	YearField.setStyle(String.format("-fx-text-fill: RED;"));
+						YearField.clear();
+	 		 	    }
+	 			}
+				// Accepts alphabetical characters upto 40 characters allowed
+		 		if(!color.matches("^[A-Za-z]{0,40}$")){
+		 			ColorField.setStyle(String.format("-fx-text-fill: RED;"));
+		 			ColorField.clear();
+		 		}
+		 		// Accepts numbers between 0 to 9 and digits length between 0 to 8 only
+		 		if(!mileage.matches("^[0-9]{0,8}$")) {
+		 			MileageField.setStyle(String.format("-fx-text-fill: RED;"));
+		 			MileageField.clear();
+		 		}
+		 		// Accepts alphabetical characters upto 40 characters allowed
+		 		if(!model.matches("^[a-zA-Z]{0,40}$")){
+		 			ModelField.setStyle(String.format("-fx-text-fill: RED;"));
+		 			ModelField.clear();
+		 		}
+			}
+		}   
     } // end getValue
     
     public void setValue(Double value) {
