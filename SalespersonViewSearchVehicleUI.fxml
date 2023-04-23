@@ -3,10 +3,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.InnerShadow?>
@@ -22,48 +19,32 @@
    <content>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1921.0" style="-fx-background-color: #9DD0D1;">
          <children>
-            <ChoiceBox fx:id="makeDropdown" layoutX="359.0" layoutY="178.0" prefHeight="50.0" prefWidth="378.0" />
-            <TextField fx:id="modelField" layoutX="359.0" layoutY="248.8" prefHeight="51.0" prefWidth="378.0" promptText="Model">
-               <font>
-                  <Font size="24.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="TEXT" />
-               </cursor>
-            </TextField>
-            <TextField fx:id="yearField" layoutX="359.0" layoutY="318.8" prefHeight="51.0" prefWidth="378.0" promptText="Year">
+            <TextField fx:id="VINField" layoutX="308.0" layoutY="275.0" prefHeight="51.0" prefWidth="378.0" promptText="VIN">
                <font>
                   <Font size="24.0" />
                </font>
             </TextField>
-            <TextField fx:id="colorField" layoutX="359.0" layoutY="388.8" prefHeight="51.0" prefWidth="378.0" promptText="Color">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </TextField>
-            <ChoiceBox fx:id="bodyConDropdown" layoutX="359.0" layoutY="457.0" prefHeight="50.0" prefWidth="378.0" />
-            <ChoiceBox fx:id="mechConDropdown" layoutX="359.0" layoutY="528.0" prefHeight="50.0" prefWidth="378.0" />
-            <Button fx:id="clearButton" layoutX="90.0" layoutY="736.0" mnemonicParsing="false" onAction="#clear" prefHeight="51.0" prefWidth="132.0" text="Clear">
+            <Button fx:id="clearButton" layoutX="83.0" layoutY="472.0" mnemonicParsing="false" onAction="#clear" prefHeight="51.0" prefWidth="132.0" text="Clear">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Button>
-            <Button fx:id="searchButton" layoutX="614.0" layoutY="736.0" mnemonicParsing="false" onAction="#searchVehicle" prefHeight="51.0" prefWidth="132.0" text="Search">
+            <Button fx:id="searchButton" layoutX="607.0" layoutY="472.0" mnemonicParsing="false" onAction="#searchVehicle" prefHeight="51.0" prefWidth="132.0" text="Search">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Button>
-            <Button fx:id="purchaseVehButton" alignment="TOP_LEFT" layoutX="1230.0" layoutY="736.0" mnemonicParsing="false" onAction="#purchaseVeh" prefHeight="51.0" prefWidth="392.0" text="Add Selected Vehicle To Sale&#10;&#10;&#10;&#10;">
+            <Button fx:id="purchaseVehButton" alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="215.0" layoutY="653.0" mnemonicParsing="false" onAction="#purchaseVeh" prefHeight="51.0" prefWidth="391.0" text="Add Vehicle To Sale&#10;&#10;&#10;&#10;" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Button>
-            <Button fx:id="returnButton" layoutX="829.0" layoutY="80.0" mnemonicParsing="false" onAction="#pageReturn" prefHeight="100.0" prefWidth="100.0">
+            <Button fx:id="returnButton" layoutX="1822.0" layoutY="72.0" mnemonicParsing="false" onAction="#pageReturn" prefHeight="100.0" prefWidth="100.0">
                <font>
                   <Font name="MV Boli" size="48.0" />
                </font>
             </Button>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="80.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: #00AA83;" width="1920.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="80.0" layoutY="-8.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: #00AA83;" width="1920.0" />
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="34.0" layoutY="1046.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: #00AA83;" width="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1045.6" />
             <Text layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tucker's Cars,LLC">
                <font>
@@ -75,12 +56,7 @@
                   <Image url="@Assets/OriginalCarArt.png" />
                </image>
             </ImageView>
-            <Text layoutX="81.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Model">
-               <font>
-                  <Font size="34.0" />
-               </font>
-            </Text>
-            <Text layoutX="81.0" layoutY="218.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Make">
+            <Text layoutX="207.0" layoutY="313.0" strokeType="OUTSIDE" strokeWidth="0.0" text="VIN">
                <font>
                   <Font size="34.0" />
                </font>
@@ -90,38 +66,9 @@
                   <Font size="36.0" />
                </font>
             </Text>
-            <Text layoutX="81.0" layoutY="355.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Year">
-               <font>
-                  <Font size="34.0" />
-               </font>
-            </Text>
-            <Text layoutX="82.0" layoutY="428.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Color">
-               <font>
-                  <Font size="34.0" />
-               </font>
-            </Text>
-            <Text layoutX="81.0" layoutY="497.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Body Condition">
-               <font>
-                  <Font size="34.0" />
-               </font>
-            </Text>
-            <Text layoutX="82.0" layoutY="568.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mech Condition" wrappingWidth="344.37164306640625">
-               <font>
-                  <Font size="34.0" />
-               </font>
-            </Text>
-            <HBox layoutX="927.0" layoutY="80.0" prefHeight="546.0" prefWidth="996.0">
+            <HBox layoutX="881.0" layoutY="72.0" prefHeight="546.0" prefWidth="813.0">
                <children>
-                  <ListView fx:id="listView" fixedCellSize="60.0" onMouseClicked="#listViewSelectedVeh" prefHeight="546.0" prefWidth="498.0">
-                     <contextMenu>
-                        <ContextMenu>
-                           <items>
-                              <MenuItem mnemonicParsing="false" text="Select" />
-                           </items>
-                        </ContextMenu>
-                     </contextMenu>
-                  </ListView>
-                  <Text fx:id="vehInfo" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="494.23556995391846">
+                  <Text fx:id="vehInfo" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="812.635594367981">
                      <font>
                         <Font size="28.0" />
                      </font>
@@ -140,27 +87,17 @@
             <TextField fx:id="custLastName" editable="false" layoutX="691.0" layoutY="813.0" visible="false" />
             <DatePicker fx:id="salesDate" editable="false" layoutX="856.0" layoutY="826.0" visible="false" />
             <ChoiceBox fx:id="paymentMethod" layoutX="811.0" layoutY="932.0" opacity="0.0" prefWidth="150.0" visible="false" />
-            <ImageView fitHeight="75.0" fitWidth="158.0" layoutX="1822.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@Assets/OriginalCarArt.png" />
-               </image>
-            </ImageView>
             <ImageView disable="true" fitHeight="100.0" fitWidth="100.0" layoutX="1822.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../images/Assets/ReturnIcon.png" />
                </image>
             </ImageView>
-            <ImageView disable="true" fitHeight="100.0" fitWidth="100.0" layoutX="829.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../images/Assets/ReturnIcon.png" />
-               </image>
-            </ImageView>
-            <Text layoutX="829.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RETURN" textAlignment="CENTER">
+            <Text layoutX="1822.0" layoutY="72.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RETURN" textAlignment="CENTER">
                <font>
                   <Font name="MV Boli" size="22.0" />
                </font>
             </Text>
-            <Text disable="true" layoutX="1575.0" layoutY="779.0" strokeType="OUTSIDE" strokeWidth="0.0" text="+" wrappingWidth="56.2091064453125">
+            <Text disable="true" layoutX="537.0" layoutY="696.0" strokeType="OUTSIDE" strokeWidth="0.0" text="+" wrappingWidth="56.2091064453125">
                <font>
                   <Font name="System Bold" size="60.0" />
                </font>
@@ -173,7 +110,6 @@
             <TextField fx:id="tempModel" editable="false" layoutX="721.0" layoutY="843.0" visible="false" />
             <ChoiceBox fx:id="tempMake" layoutX="821.0" layoutY="942.0" opacity="0.0" prefWidth="150.0" visible="false" />
             <TextField fx:id="tempVIN" editable="false" layoutX="731.0" layoutY="853.0" visible="false" />
-            <TextField fx:id="VINField" editable="false" layoutX="741.0" layoutY="863.0" visible="false" />
          </children>
       </AnchorPane>
    </content>
