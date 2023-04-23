@@ -88,7 +88,7 @@ public class CustomerProfileController {
 		// only allows numbers and regular characters up to 40
 		streetAddress.setTextFormatter(new TextFormatter<> (change -> {
 			if ((change.getControlNewText().length() > 40) ||
-			(change.getText().matches("[^A-Za-z0-9\\s]"))) {
+			(change.getText().matches("[^A-Za-z0-9.,\\s]"))) {
 			return null;
 		}
 		return change;
@@ -151,27 +151,7 @@ public class CustomerProfileController {
                 	customer.getAddress().getStreet().equals(streetAddress.getText()) &&
                   customer.getAddress().getCity().equals(city.getText()) &&
                 customer.getAddress().getCountry().equals(state.getText()) &&
-              customer.getAddress().getZipCode().equals(zipCode.getText())
-
-
-
-
-            		
-            		
-            		
-            		
-            		
-            		
-            		
-            		) 
-            		
-//            	customer.getLastName().equals(lastName.getText()) &&
-////            	customer.getLicenseNum().equals(customerID.getText()) &&
-//            	customer.getPhoneNum().equals(phoneNumber.getText()) &&
-//            	customer.getAddress().getStreet().equals(streetAddress.getText()) &&
-//                customer.getAddress().getCity().equals(city.getText()) &&
-//                customer.getAddress().getCountry().equals(state.getText()) &&
-//                customer.getAddress().getZipCode().equals(city.getText()))
+              customer.getAddress().getZipCode().equals(zipCode.getText()))
             {
             	FXMLLoader loader = new FXMLLoader(getClass().getResource("RecordOfSaleUI.fxml"));
             	Parent root = loader.load();
