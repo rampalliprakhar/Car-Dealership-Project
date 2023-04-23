@@ -99,7 +99,7 @@ public class RegisterCustomerController {
 		// only allows numbers and regular characters up to 40
 		AddressField.setTextFormatter(new TextFormatter<> (change -> {
 			if ((change.getControlNewText().length() > 40) ||
-			(change.getText().matches("[^A-Za-z1-9\\s]"))) {
+			(change.getText().matches("[^A-Za-z1-9.,\\s]"))) {
 			return null;
 		}
 		return change;
