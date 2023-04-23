@@ -80,10 +80,10 @@ public class CreateOrderforDealershipController {
         MakeCar.setValue("Select a Make");
         MakeCar.getItems().addAll(makeList);
         
-        bodyCondition.setValue("Select condition");
+        bodyCondition.setValue("Select Condition");
         bodyCondition.getItems().addAll(bodyconditionList);
         
-        mechCondition.setValue("Select condition");
+        mechCondition.setValue("Select Condition");
         mechCondition.getItems().addAll(mechconditionList);   
     } // end initialize method
  	
