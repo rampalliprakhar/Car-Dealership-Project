@@ -1,8 +1,8 @@
 /* --------------------------------------------------------------------------------- 
- *  Author: Team 3 Car Dealership
+ *  Author: Triny Nguyen & Alan Wallace
  *  
  *  Written: 3/6/2023
- *  Last Updated: 4/20/2023
+ *  Last Updated: 4/22/2023
  *  
  *  Compilation: javac RecordOfSaleController.java
  *  Execution: java RecordOfSaleController
@@ -152,25 +152,24 @@ public class RecordOfSaleController {
         	// Create new DAOs
             CustomerDao cDAO = new CustomerDao();
             VehicleDao vDAO = new VehicleDao();
-//            RecordOfSale rDAO = new RecordOfSaleDao();
+            RecordOfSaleDao rDAO = new RecordOfSaleDao();
 
             // Creates a new record of sale with the retrieved customer and vehicle, and the current employee user        	
-            RecordOfSale record = new RecordOfSale(vDAO.retriveVehicle(VINField.toString()), Main.getCurrentUser(), cDAO.retriveCustomer(customerID.toString()));
+            RecordOfSale record = new RecordOfSale(vDAO.retriveVehicle(VINField.getText()), Main.getCurrentUser(), cDAO.retriveCustomer(customerID.getText()));
+        
+            // saves sold vehicle and record of sale information into database
+            rDAO.saveSoldVehicle(vDAO.retriveVehicle(VINField.getText()), cDAO.retriveCustomer(customerID.getText()), Main.getCurrentUser(), record);
+            
+            // delete sold vehicle from database
+            rDAO.deleteSoldVehicle(vDAO.retriveVehicle(VINField.getText()));
+            
+        	// confirmation message
+    		nullError.setText(null);
+        	updateSuccessful.setText("Save Succesful");
+        	
         } catch (Exception e) {
             
         }
-    	
-    	
-    	// database needed
-    	
-    	
-    	
-    	
-    	
-    	
-    	// confirmation message
-		nullError.setText(null);
-    	updateSuccessful.setText("Save Succesful");
     }
     
     // receives information from customer profile UI, vehicle information UI, or search vehicle UI
