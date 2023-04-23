@@ -64,11 +64,6 @@
                   <Font name="MV Boli" size="35.0" />
                </font>
             </Text>
-            <Button fx:id="ReturnButton" layoutX="1723.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnPage" style="-fx-background-color: #00AA83;" text="Return">
-               <font>
-                  <Font name="MV Boli" size="35.0" />
-               </font>
-            </Button>
             <ImageView fitHeight="98.0" fitWidth="150.0" layoutX="1762.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@ReturnIcon.png" />
@@ -129,6 +124,12 @@
                   <Font name="Georgia" size="21.0" />
                </font>
             </TextField>
+            <ChoiceBox fx:id="MakeCar" layoutX="890.0" layoutY="290.0" prefHeight="39.0" prefWidth="529.0" />
+            <TextField fx:id="ModelCar" layoutX="890.0" layoutY="340.0" prefHeight="39.0" prefWidth="529.0" promptText="Model (alphabets allowed)">
+               <font>
+                  <Font name="Georgia" size="21.0" />
+               </font>
+            </TextField>
             <TextField fx:id="mileageText" layoutX="890.0" layoutY="394.0" prefHeight="39.0" prefWidth="529.0" promptText="Mileage (numbers allowed)">
                <font>
                   <Font name="Georgia" size="21.0" />
@@ -139,6 +140,8 @@
                   <Font name="Georgia" size="21.0" />
                </font>
             </TextField>
+            <ChoiceBox fx:id="bodyCondition" layoutX="920.0" layoutY="496.0" prefHeight="39.0" prefWidth="499.0" />
+            <ChoiceBox fx:id="mechCondition" layoutX="1030.0" layoutY="542.0" prefHeight="39.0" prefWidth="389.0" />
             <TextField fx:id="orderNumber" layoutX="955.0" layoutY="589.0" prefHeight="39.0" prefWidth="465.0" promptText="Order Number (4 digits long)">
                <font>
                   <Font name="Georgia" size="21.0" />
@@ -154,19 +157,16 @@
                   <Font name="Georgia Bold" size="34.0" />
                </font>
             </Button>
-            <ChoiceBox fx:id="MakeCar" layoutX="890.0" layoutY="290.0" prefHeight="39.0" prefWidth="529.0" />
-            <ChoiceBox fx:id="bodyCondition" layoutX="920.0" layoutY="496.0" prefHeight="39.0" prefWidth="499.0" />
-            <ChoiceBox fx:id="mechCondition" layoutX="1030.0" layoutY="542.0" prefHeight="39.0" prefWidth="389.0" />
+            <Button fx:id="ReturnButton" layoutX="1723.0" layoutY="6.0" mnemonicParsing="false" onAction="#returnPage" style="-fx-background-color: #00AA83;" text="Return">
+               <font>
+                  <Font name="MV Boli" size="35.0" />
+               </font>
+            </Button>
             <Label fx:id="invalidPrompt" layoutX="895.0" layoutY="661.0" prefHeight="39.0" prefWidth="527.0" textFill="#e90505">
                <font>
                   <Font name="Times New Roman" size="21.0" />
                </font>
             </Label>
-            <TextField fx:id="ModelCar" layoutX="890.0" layoutY="340.0" prefHeight="39.0" prefWidth="529.0" promptText="Model (alphabets allowed)">
-               <font>
-                  <Font name="Georgia" size="21.0" />
-               </font>
-            </TextField>
          </children>
       </AnchorPane>
    </content>
