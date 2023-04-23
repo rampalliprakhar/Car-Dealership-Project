@@ -1,3 +1,18 @@
+/* --------------------------------------------------------------------------------- 
+ *  Author: Triny Nguyen
+ *  
+ *  Written: 3/6/2023
+ *  Last Updated: 4/23/2023
+ *  
+ *  Compilation: javac SearchVehicleController.java
+ *  Execution: java SearchVehicleController
+ *  
+ *  Controller class of the Search Vehicle UI. The UI page allows the user to 
+ *  search a vehicle in the database using the vehicle's VIN number.
+ *  
+ *  Corresponding fxml file is SearchVehicleUI.fxml
+ ---------------------------------------------------------------------------------*/
+
 package application;
 
 import java.io.IOException;
@@ -16,6 +31,8 @@ public class SearchVehicleController {
 	
 	// searched vehicle
 	private Vehicle veh;
+	
+	// Declare UI Fields
 	
     @FXML
     private TextField VINField, mileageField, valueField, 
@@ -137,6 +154,8 @@ public class SearchVehicleController {
     	Main m = new Main();
     	m.changeScene("RecordVehicleUI.fxml", root);
     	}
+    	
+    	// if no vehicle is searched, prevent user from registering vehicle
     	else {
     		vehInfo.setText("*Please Search Before Trying To Register*");
     	}
@@ -145,7 +164,8 @@ public class SearchVehicleController {
     
     // only accessible for managers
     // opens vehicle information UI of searched vehicle
-    public void openVehInfo(ActionEvent event) throws IOException{    	
+    public void openVehInfo(ActionEvent event) throws IOException{ 
+    	
     	// if no VIN inputed
     	if (this.veh == null) {
     		vehInfo.setText("*Please Search Before Trying To Open Vehicle Information*");
@@ -167,7 +187,7 @@ public class SearchVehicleController {
 	} // end openVehInfo
 	
 	@FXML
-	// switches scene to record of sales UI
+	// goes to the record of sales UI
 	public void purchaseVeh(ActionEvent event) throws IOException {	
     	// if no VIN searched
     	if (this.veh == null) {
@@ -197,12 +217,12 @@ public class SearchVehicleController {
         	System.out.println("Error in SearchVehicleController.java");
         	return;
         }		
-	} 
+	} // end purchaseVeh
 	
 	// receives information from vehicle information UI
     public void showInformation (String VIN) {
     	VINField.setText(VIN);
-    }
+    } // end showInformation
     
     // receives car information from record of sales UI
     public void showInformation(String first, String last, String cusID, String year, String make, String model, String VIN, String price, String paymentMethod, LocalDate salesDate) {
@@ -216,5 +236,6 @@ public class SearchVehicleController {
     	tempValue.setText(price);
     	this.paymentMethod.setValue(paymentMethod);
     	this.salesDate.setValue(salesDate);
-    } 
+    } // end showInformation
+    
 } // end RecordVehicleController
