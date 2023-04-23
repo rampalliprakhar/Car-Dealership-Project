@@ -42,7 +42,7 @@
             </TextField>
             <ChoiceBox fx:id="BodyConDropdown" layoutX="1265.0" layoutY="279.0" prefHeight="51.0" prefWidth="537.0" />
             <ChoiceBox fx:id="MechConDropdown" layoutX="1265.0" layoutY="360.0" prefHeight="51.0" prefWidth="537.0" />
-            <TextField fx:id="VINField" layoutX="1264.0" layoutY="444.0" prefHeight="51.0" prefWidth="539.0">
+            <TextField fx:id="VINField" editable="false" layoutX="1264.0" layoutY="444.0" prefHeight="51.0" prefWidth="539.0">
                <font>
                   <Font size="24.0" />
                </font>
