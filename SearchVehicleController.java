@@ -96,17 +96,17 @@ public class SearchVehicleController {
             			+ veh.getYear() + " "
             			+ veh.getMake() + " "
             			+ veh.getModel() + " "
-                    	+ "\r\nColor: "
+                    	+ "\r\n\nColor:  "
             			+ veh.getColor()
-            			+ "\r\nBody Condition: "
+            			+ "\r\n\nBody Condition:  "
             			+ veh.getBodyCondition()
-            			+ "\r\nMechanical Condition: "
+            			+ "\r\n\nMechanical Condition:  "
             			+ veh.getMechCondition() 
-            			+ "\r\nMileage: "
+            			+ "\r\n\nMileage:  "
             			+ veh.getMileage()
-            			+ "\r\nPrice: $"
+            			+ "\r\n\nPrice:  $"
             			+ String.format("%,.2f", veh.getValue())
-            			+ "\r\nVIN: "
+            			+ "\r\n\nVIN:  "
             			+ veh.getVIN());
             }
         } catch (Exception e) {
