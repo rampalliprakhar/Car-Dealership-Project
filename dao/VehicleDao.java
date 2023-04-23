@@ -5,7 +5,7 @@ import backend.Vehicle;
 /*-------------------------------------------------
  * Author:          Carlot Team
  * Written:         04/07/2023
- * Last Update:     04/19/2023
+ * Last Update:     04/22/2023
  * 
  * 
  * VehicleDao class. The Vehicle Data Access Object allows us to access and manipulate
@@ -402,7 +402,7 @@ public class VehicleDao {
     * 
     *
     */
-    void deleteVehicle(Vehicle vehicleInformation)
+    public void deleteVehicle(Vehicle vehicleInformation)
     {
         //Statement is an interface in the JDBC API that represents a SQL statement that
         //is sent to the database and executed. 
@@ -457,7 +457,7 @@ public class VehicleDao {
     * 
     *
     */
-    void close()
+    public void close()
     {
         //If conn does not equal null.
         if (conn != null)
