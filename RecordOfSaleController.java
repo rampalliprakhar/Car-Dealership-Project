@@ -115,7 +115,8 @@ public class RecordOfSaleController {
     	
     	// if any fields are empty return and print out error message
     	if (valueField.getText().isBlank() || makeDropdown.getValue() == null || yearField.getText().isBlank() || 
-    			paymentMethod.getValue() == null || VINField.getText().isBlank() || salesDate.getValue() == null || 
+    			paymentMethod.getValue() == null || paymentMethod.getValue() == "Select a Payment Method" ||
+    			VINField.getText().isBlank() || salesDate.getValue() == null || 
     			firstName.getText().isBlank() || lastName.getText().isBlank() || 
     			customerID.getText().isBlank() || valueField.getText().isBlank()) {
         	
