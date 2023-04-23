@@ -24,6 +24,8 @@ import javafx.collections.*;
 import java.io.IOException;
 import java.time.LocalDate;
 import javafx.scene.text.Text;
+import backend.*;
+import dao.*;
 
 public class RecordOfSaleController {
 	    
@@ -124,7 +126,17 @@ public class RecordOfSaleController {
     	
     	// end input validation 
     	    	
-    	
+    	// Create new DAOs
+        CustomerDao cDAO = new CustomerDao();
+        VehicleDao vDAO = new VehicleDao();
+        // Insert RecordOfSaleDAO here
+        
+        try {
+            // Creates a new record of sale with the info provided in the fields
+            RecordOfSale record = new RecordOfSale(vDAO.retriveVehicle(VINField.toString()), Main.getCurrentUser(), cDAO.retriveCustomer(customerID.toString()));
+        } catch (Exception e) {
+            
+        }
     	
     	
     	// database needed
