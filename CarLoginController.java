@@ -109,11 +109,13 @@ public class CarLoginController {
 			     */
 			    if(employee.hasManagerRights()) {
 				Main m = new Main();
-				Main.setCurrentUser(employee);    
+				Main.setCurrentUser(employee); 
+ 			        Main.setView(true);
 				m.changeScene("ManagerViewUISample.fxml");
 			    }
 			    Main m = new Main();
 			    Main.setCurrentUser(employee);
+			    Main.setView(false);
 			    m.changeScene("SampleSalesperson.fxml");
 			 }
 			 // if either username or password is incorrect, it denies and shows the login attempts made
