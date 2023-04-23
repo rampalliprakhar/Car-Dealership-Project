@@ -1,3 +1,19 @@
+/* --------------------------------------------------------------------------------- 
+ *  Author: Triny Nguyen
+ *  
+ *  Written: 3/6/2023
+ *  Last Updated: 4/23/2023
+ *  
+ *  Compilation: javac CustomerProfileController.java
+ *  Execution: java CustomerProfileController
+ *  
+ *  Controller class of the Customer Profile UI. The UI page allows the user to 
+ *  see and update a specific customer in the database that was searched in the
+ *  previous UI. 
+ *  
+ *  Corresponding fxml file is CustomerProfileUI.fxml
+ ---------------------------------------------------------------------------------*/
+
 package application;
 import java.io.IOException;
 import javafx.event.ActionEvent;
@@ -16,8 +32,10 @@ public class CustomerProfileController {
 	
 	// customerID refers to the driver's license number
 	
+	// searched customer
 	CustomerProfile customer = new CustomerProfile();
 	
+	// declare UI fields
 	@FXML
 	private TextField firstName, lastName, phoneNumber, customerID, streetAddress, city, state, zipCode, VINField, yearField, modelField, valueField;
 	
@@ -34,9 +52,9 @@ public class CustomerProfileController {
 	private Button addCusToSale, returnButton, updateProfile;
 	    
 	@FXML
-	public void initialize() {  // is 40 a good length limit for the strings?
+	public void initialize() { 
 		
-		// note: customer ID length limit might be incorrect
+		// note: customer ID length limit may be incorrect
 		
 		// input validation through text formatters
 		
@@ -120,15 +138,17 @@ public class CustomerProfileController {
 			}
 			return change;
 		}));
-	}
+	} // end initialize
 	
-	// switches and passes first and last name to search customer UI
+	// goes to search customer UI
     public void pageReturn(ActionEvent event) throws IOException {
         
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("SearchCustomerUI.fxml"));
     	Parent root = loader.load();
     	
     	SearchCustomerController searchCusController = loader.getController();
+    	
+    	// passes customer ID to search customer UI
     	searchCusController.showInformation(customerID.getText());
 
     	Main m = new Main();
@@ -136,7 +156,7 @@ public class CustomerProfileController {
         
     } // end pageReturn	
     
-    // switches and passes information to record of sale UI 
+    // goes to record of sale UI
     public void addCusToSale(ActionEvent event) throws IOException{
     	
         try {
@@ -144,7 +164,7 @@ public class CustomerProfileController {
         	CustomerDao cus = new CustomerDao();
         	this.customer = cus.retriveCustomer(customerID.getText());
         	
-//            // check to see if any changes were made
+            // if no changes were made, go to record of sale UI
             if (customer.getFirstName().equals(firstName.getText()) &&
                 	customer.getLastName().equals(lastName.getText()) &&
                 	customer.getPhoneNum().equals(phoneNumber.getText()) &&
@@ -157,12 +177,16 @@ public class CustomerProfileController {
             	Parent root = loader.load();
             	
             	RecordOfSaleController recSaleController = loader.getController();
+            	
+            	// passes information to record of sale UI 
             	recSaleController.showInformation(firstName.getText(), lastName.getText(), customerID.getText(), yearField.getText(), makeDropdown.getValue(), 
             	modelField.getText(), VINField.getText(), valueField.getText(), paymentMethod.getValue(), salesDate.getValue());
 
             	Main m = new Main();
             	m.changeScene("RecordOfSaleUI.fxml", root);
             }
+            
+            // otherwise, prompt user to save changes before add the customer to a sale
             else {
                 // print out error saying please save changes 
             	nullError.setText("Please Save Changes");
@@ -192,7 +216,7 @@ public class CustomerProfileController {
     	valueField.setText(price);
     	this.paymentMethod.setValue(paymentMethod);
     	this.salesDate.setValue(salesDate);
-    }
+    } // end showInformation
     
     public void updateProfile(ActionEvent event) throws IOException {
     	
@@ -207,7 +231,7 @@ public class CustomerProfileController {
     		updateSuccessful.setText(null);
     		nullError.setText("*Error: Please fill out all input fields*");
     		return;
-    	}
+    	} 
     	
     	// if zip is less than 5 digits print out error message
     	if (zipCode.getText().length() < 5) {
@@ -217,38 +241,44 @@ public class CustomerProfileController {
     	}
 
     	// if phone number is less than 10 or a series of a repeating number print out error message
-    	if (phoneNumber.getText().length() < 10 || validPhoneNum() == false) {
+    	if (phoneNumber.getText().length() < 10 || isValidPhoneNum() == false) {
     		updateSuccessful.setText(null);
     		nullError.setText("*Error: Please input a valid phone number*");
     		return;	
     	}
-    	
-    	
-    	// validate city, state, address? 
-    	
+    	    	
     	// end input validation
    
+    	
+    	// update customer information
+    	
         try {
+        	
+        // create address object using inputed address information
         	Address custAddress = new Address(streetAddress.getText(), city.getText(), state.getText(), zipCode.getText(), "");
-            CustomerProfile customer = new CustomerProfile(customerID.getText(), firstName.getText(), lastName.getText(), phoneNumber.getText(), custAddress);
-            CustomerDao dao = new CustomerDao();
+       
+        // create new customer object with inputed customer information
+        	CustomerProfile customer = new CustomerProfile(customerID.getText(), firstName.getText(), lastName.getText(), phoneNumber.getText(), custAddress);
+           
+        // update customer in database
+        	CustomerDao dao = new CustomerDao();
             dao.updateCustomer(customer);
             
-        	// confirmation message
+        // confirmation message
     		nullError.setText(null);
     		updateSuccessful.setText("Changes Saved");
         } catch (Exception e) {
             System.out.println("Error in CustomerProfileController.java");
         }
-    }
+    } // end updateProfile
     
     // input validation: returns false if phone number is series of repeating number
-    public boolean validPhoneNum() {
+    public boolean isValidPhoneNum() {
     	char a = phoneNumber.getText().charAt(0);
     	for (int i = 1; i < phoneNumber.getText().length(); i++) {
     	if (phoneNumber.getText().charAt(i) != a)
     		return true;
     	}
     	return false;
-    }
+    } // end isValidPhoneNum
 }
