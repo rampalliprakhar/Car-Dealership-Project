@@ -1,4 +1,19 @@
-// this page can only be seen by a manager
+/* --------------------------------------------------------------------------------- 
+ *  Author: Triny Nguyen
+ *  
+ *  Written: 3/6/2023
+ *  Last Updated: 4/23/2023
+ *  
+ *  Compilation: javac VehicleInformationController.java
+ *  Execution: java VehicleInformationController
+ *  
+ *  Controller class of the Vehicle Information UI. The UI page allows the user to 
+ *  see and update a specific vehicle in the database that was searched in the
+ *  previous UI. The corresponding UI is only accessible by the manager. 
+ *  
+ *  
+ *  Corresponding fxml file is VehicleInformationUI.fxml
+ ---------------------------------------------------------------------------------*/
 
 package application;
 
@@ -19,13 +34,14 @@ import javafx.scene.text.Text;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import backend.Vehicle;
-import dao.CustomerDao;
 import dao.VehicleDao;
 
 public class VehicleInformationController {
 
+	// searched vehicle
 	Vehicle veh = new Vehicle();
 	
+	// declare UI fields
     @FXML
     private TextField ValueField, VINField, YearField, ModelField, MileageField, ColorField, customerID, custFirstName, custLastName;
     
@@ -44,7 +60,10 @@ public class VehicleInformationController {
     @FXML
     private Button SaveButton, ReturnButton;   
     
+    // condition choices
     final private ObservableList<String> conditionList = FXCollections.observableArrayList("New", "Excellent", "Good", "Average", "Fair", "Poor", "Broken");
+    
+    // make choices
     final private ObservableList<String> makeList = FXCollections.observableArrayList("Acura", "Alfa Romeo", "Aston Martin", "Audi", "Bentley", "BMW", "Buick", 
             "Cadillac", "Chevrolet", "Chrysler", "Dodge", "Ferrari", "Fiat", "Ford", "Genesis", "GMC", "Honda", "Hyundai", "Infiniti", "Jaguar", "Jeep", "Kia", 
             "Lamborghini", "Land Rover", "Lexus", "Lincoln", "Maserati", "Mazda", "McLaren", "Mercedes-Benz", "Mini", "Mitsubishi", "Nissan", "Porsche", "Ram", 
@@ -69,7 +88,7 @@ public class VehicleInformationController {
         		return null;
         	}
         	return change;
-        })); // add length limit
+        })); 
         
         // only allows alphabetical characters up to 40
 		ColorField.setTextFormatter(new TextFormatter<> (change -> {
@@ -78,7 +97,7 @@ public class VehicleInformationController {
 				return null;
 			}
 			return change;
-		})); // add length limit
+		}));
 
         // only allows numbers up to 4
 		YearField.setTextFormatter(new TextFormatter<> (change -> {
@@ -119,14 +138,17 @@ public class VehicleInformationController {
 		
 		// input validation end
         
-    } // end initialize method // NOT COMPLETE, NEEDS TESTING
+    } // end initialize method 
     
+    // returns to the search vehicle UI
     public void pageReturn(ActionEvent event) throws IOException {
         
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("SearchVehicleUI.fxml"));
     	Parent root = loader.load();
     	
     	SearchVehicleController searchVehController = loader.getController();
+    	
+    	// passes VIN to search vehicle UI
     	searchVehController.showInformation(VINField.getText());
     	
     	Main m = new Main();
@@ -135,6 +157,7 @@ public class VehicleInformationController {
     } // end pageReturn	
     
         
+    // saves changes to the database
     public void saveChanges(ActionEvent event) throws IOException {
     	
     	// input validation
@@ -163,14 +186,18 @@ public class VehicleInformationController {
     		nullError.setText("*Error: Please input a valid price*");
     		return;
     	}
+    	
     	// end input validation
     	
     	
     	// update vehicle information
         try {
+        	// create vehicle object
             Vehicle vehicle = new Vehicle(VINField.getText(), Double.valueOf(ValueField.getText()), Integer.valueOf(YearField.getText()), MakeDropdown.getValue(), 
             		ModelField.getText(), BodyConDropdown.getValue(), MechConDropdown.getValue(), ColorField.getText(), Integer.parseInt(MileageField.getText()), 
             		java.sql.Date.valueOf(datePutOnLot.getValue()));
+            
+            // search vehicle through dao class
             VehicleDao dao = new VehicleDao();
             dao.updateVehicle(vehicle);
             
@@ -181,8 +208,55 @@ public class VehicleInformationController {
             System.out.println("Error in VehicleInformationController.java");
         }        
         
-    } // needs testing
+    } // end saveChanges
     
+	@FXML
+	// goes to record of sales UI
+	public void purchaseVeh(ActionEvent event) throws IOException {	
+		 
+		// send error if changes were made and it wasn't saved
+        try {
+        	
+        	VehicleDao vehicle = new VehicleDao();
+        	this.veh = vehicle.retriveVehicle(VINField.getText());
+
+            // if no changes to the input fields were made, add vehicle to record of sale
+            if (veh.getVIN().equals(VINField.getText()) &&
+            	veh.getValue().toString().equals(ValueField.getText()) &&
+            	veh.getModel().equals(ModelField.getText()) &&
+            	veh.getMake().equals(MakeDropdown.getValue()) &&
+           		veh.getMileage().toString().equals(MileageField.getText()) &&
+           		veh.getYear().toString().equals(YearField.getText()) &&
+           		veh.getColor().equals(ColorField.getText()) &&
+           		veh.getMechCondition().equals(MechConDropdown.getValue()) &&
+           		veh.getBodyCondition().equals(BodyConDropdown.getValue()) &&
+				veh.getDatePutOnLot().equals(java.sql.Date.valueOf(datePutOnLot.getValue())))
+            {
+            	
+    		    FXMLLoader loader = new FXMLLoader(getClass().getResource("RecordOfSaleUI.fxml"));
+    		   	Parent root = loader.load();
+    		   	
+    		   	RecordOfSaleController recSaleController = loader.getController();
+
+    		   	// passes vehicle information to record of sale
+    		   	recSaleController.showInformation(custFirstName.getText(), custLastName.getText(), customerID.getText(), YearField.getText(), MakeDropdown.getValue(), ModelField.getText(), 
+    		   			VINField.getText(), ValueField.getText(), paymentMethod.getValue(), salesDate.getValue());
+    		   	
+    	    	Main m = new Main();
+    	    	m.changeScene("RecordOfSaleUI.fxml", root);
+            }
+            else {
+                // otherwise, print out error prompting user to save changes
+            	nullError.setText("Please Save Changes");
+            	updateSuccessful.setText(null);
+            }
+                        
+        } catch (Exception e) {
+            System.out.println("Error in VehicleInformationController.java");
+        }
+		
+	} 
+	
 	// receives customer information from search vehicle UI
     public void showInformation(String VIN, Integer year, String make, String model, String body, String mech, Integer mileage, String color, Double price, Date date, String first, String last, String cusID, String paymentMethod, LocalDate salesDate) {
     	VINField.setText(VIN);
@@ -201,52 +275,7 @@ public class VehicleInformationController {
     	customerID.setText(cusID);
     	this.paymentMethod.setValue(paymentMethod);
     	this.salesDate.setValue(salesDate);
-    }
-    
-	@FXML
-	// sends customer information to record of sale UI and switches to record of sale page
-	public void purchaseVeh(ActionEvent event) throws IOException {	
-		 
-		// send error if changes were made and it wasn't saved
-        try {
-        	
-        	VehicleDao vehicle = new VehicleDao();
-        	this.veh = vehicle.retriveVehicle(VINField.getText());
-
-            // check to see if any changes were made
-            if (veh.getVIN().equals(VINField.getText()) &&
-            	veh.getValue().toString().equals(ValueField.getText()) &&
-            	veh.getModel().equals(ModelField.getText()) &&
-            	veh.getMake().equals(MakeDropdown.getValue()) &&
-           		veh.getMileage().toString().equals(MileageField.getText()) &&
-           		veh.getYear().toString().equals(YearField.getText()) &&
-           		veh.getColor().equals(ColorField.getText()) &&
-           		veh.getMechCondition().equals(MechConDropdown.getValue()) &&
-           		veh.getBodyCondition().equals(BodyConDropdown.getValue()) &&
-				veh.getDatePutOnLot().equals(java.sql.Date.valueOf(datePutOnLot.getValue())))
-            {
-    		    FXMLLoader loader = new FXMLLoader(getClass().getResource("RecordOfSaleUI.fxml"));
-    		   	Parent root = loader.load();
-    		   	
-    		   	RecordOfSaleController recSaleController = loader.getController();
-
-    		   	recSaleController.showInformation(custFirstName.getText(), custLastName.getText(), customerID.getText(), YearField.getText(), MakeDropdown.getValue(), ModelField.getText(), 
-    		   			VINField.getText(), ValueField.getText(), paymentMethod.getValue(), salesDate.getValue());
-    		   	
-    	    	Main m = new Main();
-    	    	m.changeScene("RecordOfSaleUI.fxml", root);
-            }
-            else {
-                // print out error saying please save changes 
-            	nullError.setText("Please Save Changes");
-            	updateSuccessful.setText(null);
-            }
-                        
-        } catch (Exception e) {
-            System.out.println("Error in VehicleInformationController.java");
-        }
-		
-	} // needs testing
+    } // end showInformation
 	
 	// returns true if year is greater than 1889 (year cars were invented)
 	public boolean yearIsValid() {
@@ -255,5 +284,5 @@ public class VehicleInformationController {
 			return false;
 		
 		else return true;
-	}
+	} // end yearisValid
 }
