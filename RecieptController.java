@@ -18,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
 import java.io.IOException;
 import java.util.Date;
+import dao.VehicleDao;
 
 import backend.*;
 
@@ -59,7 +60,18 @@ public class RecieptController {
 
     
     public void pageReturn(ActionEvent event) throws IOException {
-        // Takes users back to previous page       
+        /* Because the transaction is complete, removes the purchased vehicle from the database
+         * Then takes the user back the main screen.
+         */
+        
+        Vehicle vehicleToRemove = record.getSoldVehicle();
+        VehicleDao dao = new VehicleDao();
+        // Try to delete the sold vehicle
+        try {
+            dao.deleteVehicle(vehicleToRemove);
+        } catch (Exception e) {
+            
+        }
         
         Main m = new Main();
         m.changeScene(previousPage);
