@@ -1,3 +1,18 @@
+/* --------------------------------------------------------------------------------- 
+ *  Author: Triny Nguyen
+ *  
+ *  Written: 3/6/2023
+ *  Last Updated: 4/23/2023
+ *  
+ *  Compilation: javac SearchCustomerController.java
+ *  Execution: java SearchCustomerController
+ *  
+ *  Controller class of the Search Customer UI. The UI page allows the user to 
+ *  search a customer in the database using the customer's license number.
+ *  
+ *  Corresponding fxml file is SearchCustomerUI.fxml
+ ---------------------------------------------------------------------------------*/
+
 package application;
 
 import java.io.IOException;
@@ -16,6 +31,7 @@ public class SearchCustomerController {
 	
 	private CustomerProfile customer;
 
+    // Declare UI Fields
     @FXML
     private Text errorText;
     
@@ -43,8 +59,8 @@ public class SearchCustomerController {
 			return null;
 		}
 		return change;
-	})); // length limit correct?	
-    }
+	})); 
+    } // end initialize
         
     public void clear(ActionEvent event) {
         
@@ -62,6 +78,8 @@ public class SearchCustomerController {
     	Parent root = loader.load();
     	
     	RecordOfSaleController controller = loader.getController();
+    	
+    	// filled data gets passed to record of sale UI
     	controller.showInformation(tempFirst.getText(), tempLast.getText(), tempID.getText(), yearField.getText(), makeDropdown.getValue(), modelField.getText(), VINField.getText(), valueField.getText(), paymentMethod.getValue(), salesDate.getValue());
     	
     	Main m = new Main();
@@ -81,20 +99,21 @@ public class SearchCustomerController {
             CustomerDao dao = new CustomerDao();            
             this.customer = dao.retriveCustomer(customerID.getText());
             
-            // if customer is found open customer profile UI while passing customer ID and other additional information
+            // if customer is found open customer profile UI 
             if (customer.getLicenseNum() != null) {
         	FXMLLoader loader = new FXMLLoader(getClass().getResource("CustomerProfileUI.fxml"));
         	Parent root = loader.load();
         	
         	CustomerProfileController controller = loader.getController();
+        	
+        	// pass customer information and other additional information to the customer profile UI
         	controller.showInformation(customer.getFirstName(), customer.getLastName(), customer.getLicenseNum(), customer.getPhoneNum(), 
         			customer.getAddress().getStreet(),customer.getAddress().getCity(), customer.getAddress().getCountry(), customer.getAddress().getZipCode()	
         			,yearField.getText(), makeDropdown.getValue(), modelField.getText(), VINField.getText(), valueField.getText(), paymentMethod.getValue(), 
         			salesDate.getValue());
         	
         	Main m = new Main();
-        	m.changeScene("CustomerProfileUI.fxml", root);
-        	        	
+        	m.changeScene("CustomerProfileUI.fxml", root);	
             }
             
             // if customer if not found, print error message and prompt user to register customer
@@ -107,15 +126,17 @@ public class SearchCustomerController {
         	return;
         }
       
-    } // needs testing
+    } // end searchCus
 	
-	// opens RegisterCustomerUI and passes inputed customer ID
+	// opens RegisterCustomerUI
     public void registerNewCus(ActionEvent event) throws IOException {
     	
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("RegisterCustomerUI.fxml"));
     	Parent root = loader.load();
     	
     	RegisterCustomerController regCusController = loader.getController();
+    	
+    	// passes inputed customer ID to register customer UI
     	regCusController.showInformation(customerID.getText());
     	
     	Main m = new Main();
@@ -125,7 +146,7 @@ public class SearchCustomerController {
     // receives customer ID from customer profile UI
     public void showInformation(String customerID) {
     	this.customerID.setText(customerID);
-    }
+    } // end showInformation
     
     // receives recorded sale information from record of sales UI
     public void showInformation(String first, String last, String cusID, String year, String make, String model, String VIN, String price, String paymentMethod, LocalDate salesDate) {
@@ -139,5 +160,5 @@ public class SearchCustomerController {
     	valueField.setText(price);
     	this.paymentMethod.setValue(paymentMethod);
     	this.salesDate.setValue(salesDate);
-    }    
+    } // end showInformation 
 }
