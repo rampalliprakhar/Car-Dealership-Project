@@ -134,84 +134,84 @@ public class EmployeeDao {
 	* 
 	*
 	*/
-	public Employee retriveEmployee(String lastName)
-	{
-		//Create a employee object
-		Employee retrivedInformation = new Employee();
-		
-		//Statement is an interface in the JDBC API that represents a SQL statement that
-		//is sent to the database and executed. 
-		Statement stmt = null;
-		//ResultSet is a table of data that represents the results of a database query.
-		ResultSet getEmployee = null;
-		//Possible exception can be thrown, failure to respond.
-		try
-		{
-			//Creates a Statement object for sendingSQL statements to the database.
-			stmt = conn.createStatement();
-			//Executes the given SQL statement, which returns a single ResultSet object.
-			//The statement is to return ALL *.
-			getEmployee = stmt.executeQuery("SELECT * FROM Employee WHERE LastNAME = '" + lastName + "'");
-			//If has next then set values
-			if (getEmployee.next())
-			{
-				//Set object variables
-				retrivedInformation.setEmployeeID(getEmployee.getInt("employeeID"));
-				retrivedInformation.setFirstName(getEmployee.getString("firstName"));
-				retrivedInformation.setLastName(getEmployee.getString("lastName"));
-				retrivedInformation.setHasManagerRights(getEmployee.getBoolean("hasManagerRights"));
-				retrivedInformation.setPassword(getEmployee.getString("password"));
-				retrivedInformation.setComPercentage(getEmployee.getDouble("CommissionPercentage"));
-			}
-			
-		}
-		catch (SQLException retrieve)
-		{
-			//Returns the detail message string of this throwable.
+	public Employee retriveEmployee(String employeeID)
+    {
+        //Create a employee object
+        Employee retrivedInformation = new Employee();
+        
+        //Statement is an interface in the JDBC API that represents a SQL statement that
+        //is sent to the database and executed. 
+        Statement stmt = null;
+        //ResultSet is a table of data that represents the results of a database query.
+        ResultSet getEmployee = null;
+        //Possible exception can be thrown, failure to respond.
+        try
+        {
+            //Creates a Statement object for sendingSQL statements to the database.
+            stmt = conn.createStatement();
+            //Executes the given SQL statement, which returns a single ResultSet object.
+            //The statement is to return ALL *.
+            getEmployee = stmt.executeQuery("SELECT * FROM Employee WHERE EmployeeID = '" + employeeID + "'");
+            //If has next then set values
+            if (getEmployee.next())
+            {
+                //Set object variables
+                retrivedInformation.setEmployeeID(getEmployee.getInt("employeeID"));
+                retrivedInformation.setFirstName(getEmployee.getString("firstName"));
+                retrivedInformation.setLastName(getEmployee.getString("lastName"));
+                retrivedInformation.setHasManagerRights(getEmployee.getBoolean("hasManagerRights"));
+                retrivedInformation.setPassword(getEmployee.getString("password"));
+                retrivedInformation.setComPercentage(getEmployee.getDouble("CommissionPercentage"));
+            }
+            
+        }
+        catch (SQLException retrieve)
+        {
+            //Returns the detail message string of this throwable.
             System.out.println("SQLException: " + retrieve.getMessage());
             //Retrieves the SQLState for this SQLException object.
             System.out.println("SQLState: " + retrieve.getSQLState());
             //Retrieves the vendor-specific exception code for this SQLException object.
             System.out.println("VendorError: " + retrieve.getErrorCode());
-		}
-		//Exception doesn�t occur in try-block, close out connection
-		finally
-		{
-			//If not null then release resources. 
-			if(getEmployee != null)
-			{
-				try
-				{
-					//Releases this ResultSet object's database andJDBC resources immediately 
-					//instead of waiting for this to happen when it is automatically closed. 
-					getEmployee.close();
-				}
-				//Catch error message print to screen. 
-				catch (SQLException closeResults)
-				{
-					 System.out.println("SQLException: " + closeResults.getMessage());
-				}
-			}
-			//If stmt is not null then close connection
-			if(stmt != null)
-			{
-				//Possible exception can be thrown catch it
-				try
-				{
-					//Releases this Statement object's database and JDBC resources immediately instead of 
-					//waiting for this to happen when it is automatically closed.
-					stmt.close();
-				}
-				//Catch error message print to screen. 
-				catch (SQLException closeStmt)
-				{
-					 System.out.println("SQLException: " + closeStmt.getMessage());
-				}
-			}
-		}
-		//Return the object
-		return retrivedInformation;
-	}
+        }
+        //Exception doesn�t occur in try-block, close out connection
+        finally
+        {
+            //If not null then release resources. 
+            if(getEmployee != null)
+            {
+                try
+                {
+                    //Releases this ResultSet object's database andJDBC resources immediately 
+                    //instead of waiting for this to happen when it is automatically closed. 
+                    getEmployee.close();
+                }
+                //Catch error message print to screen. 
+                catch (SQLException closeResults)
+                {
+                     System.out.println("SQLException: " + closeResults.getMessage());
+                }
+            }
+            //If stmt is not null then close connection
+            if(stmt != null)
+            {
+                //Possible exception can be thrown catch it
+                try
+                {
+                    //Releases this Statement object's database and JDBC resources immediately instead of 
+                    //waiting for this to happen when it is automatically closed.
+                    stmt.close();
+                }
+                //Catch error message print to screen. 
+                catch (SQLException closeStmt)
+                {
+                     System.out.println("SQLException: " + closeStmt.getMessage());
+                }
+            }
+        }
+        //Return the object
+        return retrivedInformation;
+    }
 	/**
 	* updateEmployee - Updates existing Employee information in the database, passed Employee Object. 
 	* 
