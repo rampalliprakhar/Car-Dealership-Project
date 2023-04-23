@@ -29,6 +29,7 @@ import javafx.scene.text.Text;
 
 public class SearchCustomerController {
 	
+	// searched customer
 	private CustomerProfile customer;
 
     // Declare UI Fields
