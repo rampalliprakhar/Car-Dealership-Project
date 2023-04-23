@@ -87,16 +87,16 @@ public class RegisterCustomerController {
 		})); // not correct, add length limit
 			
 			
-		// only allows numbers and uppercase characters up to 12
+		// only allows numbers and uppercase characters up to 16
 		DriversLicenseField.setTextFormatter(new TextFormatter<> (change -> {
-				if ((change.getControlNewText().length() > 12) ||
+				if ((change.getControlNewText().length() > 16) ||
 				(change.getText().matches("[^A-Z1-9]"))) {
 				return null;
 			}
 			return change;
-		})); // change length limit NOWWWWW
+		})); 
 		
-		// only allows numbers and regular characters up to 40
+		// only allows numbers, regular characters, commas and periods up to 40
 		AddressField.setTextFormatter(new TextFormatter<> (change -> {
 			if ((change.getControlNewText().length() > 40) ||
 			(change.getText().matches("[^A-Za-z1-9.,\\s]"))) {
