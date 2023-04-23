@@ -1,19 +1,33 @@
+/*---------------------------------------------------
+ *  Author: Triny Nguyen
+ *  Written: 4/22/2023
+ *  Last Updated: 4/22/2023
+ *  
+ *  Compilation: javac VehicleAutomatedTest.java
+ *  Execution: java VehicleAutomatedTest
+ *  
+ *  JUnit test for Vehicle.java
+ *---------------------------------------------------*/
+
 package backend;
 
 import static org.junit.Assert.assertEquals;
 import java.util.Date;
-
 import org.junit.jupiter.api.Test;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+
 
 class VehicleAutomatedTest {
 
 	@Test
 	void test() {
 		
-		
 		Date date = new Date();
-		
-		Vehicle veh = new Vehicle("VIN", 1000.00, 2019, "Nissan" , "Sentra", "new", "new", "gray", 0, date);
+		System.out.println(date.toString());
+				
+		Vehicle veh = new Vehicle("VIN", 1000.00, 2019, "Nissan" , "Sentra", "new", "average", "gray", 89, date);
 		
 		// price: 1000
 		assertEquals(Double.valueOf(1000),veh.getPrice());
@@ -95,7 +109,7 @@ class VehicleAutomatedTest {
 		// new price should be 945.244 rounded
 		assertEquals(Double.valueOf(945.24),veh.getPrice());
 		
-		// new discount value should be 54.76
+		// new discount value should be 342.63
 		assertEquals(Double.valueOf(54.76),veh.getDiscount());
 		
 		// 38.1608% discount for $1000 vehicle
@@ -153,9 +167,49 @@ class VehicleAutomatedTest {
 		assertEquals(Double.valueOf(-10),veh.getPrice());
 		
 		assertEquals(Double.valueOf(1010),veh.getDiscount());
+	
+		
+		// constructor and getters tests
+		
+		assertEquals("VIN",veh.getVIN());
+		assertEquals("Nissan",veh.getMake());
+		assertEquals("Sentra",veh.getModel());
+		assertEquals(Integer.valueOf(2019),veh.getYear());
+		assertEquals("new",veh.getBodyCondition());
+		assertEquals("average",veh.getMechCondition());
+		assertEquals("gray",veh.getColor());
+		assertEquals(Integer.valueOf(89),veh.getMileage());
+		assertEquals(date,veh.getDatePutOnLot());
 
 		
-
+		// getters and setters tests
+		veh.setVIN("432HM21K2");
+		assertEquals("432HM21K2",veh.getVIN());
+		
+		veh.setMake("Dodge");
+		assertEquals("Dodge",veh.getMake());
+		
+		veh.setModel("Charger");
+		assertEquals("Charger",veh.getModel());
+		
+		veh.setYear(2020);
+		assertEquals(Integer.valueOf(2020),veh.getYear());
+		
+		veh.setBodyCondition("average");
+		assertEquals("average",veh.getBodyCondition());
+		
+		veh.setMechCondition("bad");
+		assertEquals("bad",veh.getMechCondition());
+		
+		veh.setColor("black");
+		assertEquals("black",veh.getColor());
+		
+		veh.setMileage(92);
+		assertEquals(Integer.valueOf(92),veh.getMileage());
+		
+		
+		for (int i = 0 ; i < 1234000; i++) {
+			System.out.println("poooooo");
+		}
 	}
-
 }
