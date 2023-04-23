@@ -173,7 +173,12 @@ public class RecordVehicleController {
         try {
         	Vehicle veh = new Vehicle();
             VehicleDao dao = new VehicleDao();
+            
+            // retrieve vehicle from database with inputed VIN number
             veh = dao.retriveVehicle(VINField.getText());
+            
+            // if retrieved vehicle's VIN number is equal to the inputed number, vehicle already exists in database
+            // prevent user from saving multiple vehicles in the database with same license number
         	if (veh.getVIN().equals(VINField.getText())) {
         		nullError.setText("Vehicle Already Registered Under Inputed VIN");
         		return;
