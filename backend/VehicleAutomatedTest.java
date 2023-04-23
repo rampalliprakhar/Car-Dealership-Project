@@ -206,10 +206,5 @@ class VehicleAutomatedTest {
 		
 		veh.setMileage(92);
 		assertEquals(Integer.valueOf(92),veh.getMileage());
-		
-		
-		for (int i = 0 ; i < 1234000; i++) {
-			System.out.println("poooooo");
-		}
 	}
 }
