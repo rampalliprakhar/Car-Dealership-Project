@@ -24,7 +24,7 @@ public class Vehicle {
     private String make;
     private String model;
     private Double value;
-    private Double discount; // Price = value - discount
+    private Double discount = 0.00; // Price = value - discount
     private String bodyCondition;
     private String mechCondition; // Mechanical Condition
     private String color;
