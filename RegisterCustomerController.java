@@ -18,8 +18,10 @@ import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
 import java.io.IOException;
 import dao.CustomerDao;
+import dao.VehicleDao;
 import backend.Address;
 import backend.CustomerProfile;
+import backend.Vehicle;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.text.Text;
 
@@ -167,6 +169,21 @@ public class RegisterCustomerController {
     	}
     	    	
     	// end input validation
+    	
+        try {
+
+    	CustomerProfile cus = new CustomerProfile();
+        CustomerDao dao = new CustomerDao();
+        
+        // retrieve customer from database with inputed license number
+        cus = dao.retriveCustomer(DriversLicenseField.getText());
+        
+        // if retrieved customer's license number is equal to the inputed number, customer already exists in database
+        // prevent user from saving multiple customers in the database with same license number
+    	if (cus.getLicenseNum().equals(DriversLicenseField.getText())) {
+    		nullError.setText("Customer Already Registered Under Inputed License Number");
+    		return;
+    	}
         
         Address custAddress = new Address(AddressField.getText(), CityField.getText(), StateField.getText(), ZIPField.getText(), "");
         
@@ -176,11 +193,9 @@ public class RegisterCustomerController {
          * Utilizes the DAO class to save the customer to the DB
          */
         CustomerProfile customer = new CustomerProfile(DriversLicenseField.getText(), FirstNameField.getText(), LastNameField.getText(), PhoneField.getText(), custAddress);
-        CustomerDao dao = new CustomerDao();
         
         System.out.println(customer.toString());
         
-        try {
             dao.saveCustomer(customer);
         } catch (Exception e) {
             System.out.println("Error in RegisterCustomerController.java");
