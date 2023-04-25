@@ -170,6 +170,11 @@ public class RecordOfSaleController {
         } catch (Exception e) {
             
         }
+	    
+	// Takes user to next screen, receipt
+        RecieptController.setRecieptRecord(record);
+        Main m = new Main();
+        m.changeScene("RecieptUI.fxml");
     }
     
     // receives information from customer profile UI, vehicle information UI, or search vehicle UI
