@@ -146,17 +146,15 @@ public class RecordOfSaleController {
     	
     	// end input validation 
 
-        
-        try {
-        	
-        	// Create new DAOs
-            CustomerDao cDAO = new CustomerDao();
-            VehicleDao vDAO = new VehicleDao();
-            RecordOfSaleDao rDAO = new RecordOfSaleDao();
+	// Create new DAOs
+        CustomerDao cDAO = new CustomerDao();
+        VehicleDao vDAO = new VehicleDao();
+        RecordOfSaleDao rDAO = new RecordOfSaleDao();
 
-            // Creates a new record of sale with the retrieved customer and vehicle, and the current employee user        	
-            RecordOfSale record = new RecordOfSale(vDAO.retriveVehicle(VINField.getText()), Main.getCurrentUser(), cDAO.retriveCustomer(customerID.getText()));
+        // Creates a new record of sale with the retrieved customer and vehicle, and the current employee user        	
+        RecordOfSale record = new RecordOfSale(vDAO.retriveVehicle(VINField.getText()), Main.getCurrentUser(), cDAO.retriveCustomer(customerID.getText()));
         
+        try {       
             // saves sold vehicle and record of sale information into database
             rDAO.saveSoldVehicle(vDAO.retriveVehicle(VINField.getText()), cDAO.retriveCustomer(customerID.getText()), Main.getCurrentUser(), record);
             
