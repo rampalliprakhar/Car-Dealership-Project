@@ -37,6 +37,11 @@ public class Employee {
     
     // default constructor
     public Employee() {
+        this.firstName = "No First Name Set";
+        this.lastName = "No Last Name Set";
+        this.hasManagerRights = false;
+        this.employeeID = 00000000;
+        this.password = "";
         this.comPercentage = COM_RANK_ONE;
     }
     
