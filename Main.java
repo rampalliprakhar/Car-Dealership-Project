@@ -29,7 +29,7 @@ public class Main extends Application {
     private static String view = "SampleSalesperson.fxml";
     // This variable will either be SalespersonView.fxml or ManagerView.fxml
 	
-	public static Employee currentUser;
+	public static Employee currentUser = new Employee();
     // Holds the current Employee using the system, for use on RecordOfSale
     
     @Override
