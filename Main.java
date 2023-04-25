@@ -95,8 +95,8 @@ public class Main extends Application {
         Connection conn = null;
 
         try {
-            //IP of connection
-            String url = "jdbc:mysql://34.138.111.221/car-lot-database";
+	    //IP of connection
+            String url = "jdbc:mysql://34.133.59.182/carlot";
             //Assigned username of database.
             String user = "teamaccount";
             //Assigned password to username
