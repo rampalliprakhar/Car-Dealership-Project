@@ -1,7 +1,7 @@
 /* --------------------------------------------------- 
  *  Author: Team 3 Car Dealership
  *  Written: 4/22/23
- *  Last Updated: 4/22/2023
+ *  Last Updated: 4/25/2023
  *  
  *  Compilation: javac RecieptController.java
  *  Execution: java RecipetController
@@ -18,7 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
 import java.io.IOException;
 import java.util.Date;
-import dao.VehicleDao;
+import dao.*;
 
 import backend.*;
 
@@ -61,7 +61,21 @@ public class RecieptController {
     
     public void pageReturn(ActionEvent event) throws IOException {
         /* Because the transaction is complete, removes the purchased vehicle from the database
+         * and recalculates the commission percentage for the employee
          * Then takes the user back the main screen.
+         */
+        
+        removeVehicle();
+        recalcCommissionPerc();
+                
+        Main m = new Main();
+        m.changeScene(previousPage);
+        
+    } // end pageReturn
+    
+    public void removeVehicle() {
+        /* This method removes the vehicle from the database, as it has been purchased.
+         * 
          */
         
         Vehicle vehicleToRemove = record.getSoldVehicle();
@@ -70,13 +84,26 @@ public class RecieptController {
         try {
             dao.deleteVehicle(vehicleToRemove);
         } catch (Exception e) {
-            
+            System.out.println("Error in deleting vehicle.");
         }
-        
-        Main m = new Main();
-        m.changeScene(previousPage);
-        
-    } // end pageReturn
+      
+    } // end removeVehicle
+    
+    public void recalcCommissionPerc() {
+        /* This method recalculates a salesperson's commission rank
+         * It toals up all their sales and compares that to their rank
+         */
+        try {
+            EmployeeDao eDAO = new EmployeeDao();
+            RecordOfSaleDao rDAO = new RecordOfSaleDao();
+            Employee emp = record.getEmployee();
+            Double total = rDAO.getSalespersonSalesTotal(emp.getEmployeeID());
+            emp.updateCommission(total);
+            eDAO.updateEmployee(emp);
+        } catch (Exception e) {
+            System.out.println("Error updating commission percentage");
+        }
+    } // end recalcCommissionPerc
     
     public static void setRecieptRecord(RecordOfSale newRecord) {
         // Sets the recipet record. It can be called from other screens because it is static.
