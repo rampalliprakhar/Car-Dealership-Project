@@ -50,7 +50,7 @@ public class RecieptController {
         this.dealershipFeeField.setText(record.getDealershipFee().toString());
         this.tagFeeField.setText(record.getTagFee().toString());
         this.totalField.setText(record.calcTotal().toString());
-        this.dateOfSaleField.setText(record.getDateOfSale().toString());
+        this.dateOfSaleField.setText(record.getDateOfSaleDate().toString());
         this.SalespersonIDField.setText(record.getEmployee().getEmployeeID().toString());
         this.commissionField.setText(record.getSalespersonCommission(record.getEmployee().getComPercentage()).toString());
         calcCoupon();
