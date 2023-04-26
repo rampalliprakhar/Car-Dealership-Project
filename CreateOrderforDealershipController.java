@@ -1,7 +1,7 @@
 /* --------------------------------------------------- 
  *  Author: Team 3 Car Dealership
  *  Written: 2/08/23
- *  Last Updated: 4/18/2023
+ *  Last Updated: 4/25/2023
  *  
  *  Compilation: javac CreateOrderforDealershipController.java
  *  Execution: java CreateOrderforDealershipController
@@ -33,10 +33,10 @@ public class CreateOrderforDealershipController {
     private ChoiceBox<String> MakeCar;
     
     // List of all possible makes
-	final private ObservableList<String> makeList = FXCollections.observableArrayList("Acura", "Alfa Romeo", "Aston Martin", "Audi", "Bentley", "BMW", "Buick", 
-           "Cadillac", "Chevrolet", "Chrysler", "Dodge", "Ferrari", "Fiat", "Ford", "Genesis", "GMC", "Honda", "Hyundai", "Infiniti", "Jaguar", "Jeep", "Kia", 
-           "Lamborghini", "Land Rover", "Lexus", "Lincoln", "Maserati", "Mazda", "McLaren", "Mercedes-Benz", "Mini", "Mitsubishi", "Nissan", "Porsche", "Ram", 
-           "Rolls-Royce", "Subaru", "Tesla", "Toyota", "Volkswagen", "Volvo");
+    final private ObservableList<String> makeList = FXCollections.observableArrayList("Acura", "Alfa Romeo", "Aston Martin", "Audi", "Bentley", "BMW", "Buick", 
+          "Cadillac", "Chevrolet", "Chrysler", "Dodge", "Ferrari", "Fiat", "Ford", "Genesis", "GMC", "Honda", "Hyundai", "Infiniti", "Jaguar", "Jeep", "Kia", 
+          "Lamborghini", "Land Rover", "Lexus", "Lincoln", "Maserati", "Mazda", "McLaren", "Mercedes-Benz", "Mini", "Mitsubishi", "Nissan", "Porsche", "Ram", 
+          "Rolls-Royce", "Subaru", "Tesla", "Toyota", "Volkswagen", "Volvo");
 	 
     @FXML
     private TextField ModelCar;
@@ -69,13 +69,14 @@ public class CreateOrderforDealershipController {
     private TextField Color;
 	
     @FXML
-    private Label invalidPrompt;
+    private Label invalidPrompt; // label which states the incorrect input
 	 
     protected String successPrompt = String.format("-fx-text-fill: GREEN;"); // correct input with green font
     protected String failurePrompt = String.format("-fx-text-fill: RED;"); // incorrect input with red font
 	 
     @FXML
     private void initialize() {
+	    
         // Triggers when the screen is loaded
         MakeCar.setValue("Select a Make");
         MakeCar.getItems().addAll(makeList);
@@ -85,16 +86,18 @@ public class CreateOrderforDealershipController {
         
         mechCondition.setValue("Select Condition");
         mechCondition.getItems().addAll(mechconditionList);   
+    
     } // end initialize method
  	
-    public static boolean YearValidator(String yearinput) {
-        if(yearinput.length() > 4){ // checks whether the input is greater than 4
-            System.out.println("Invalid year format"); // prints invalid year format
-        }
+    public static boolean YearValidator(String yearinput) { // Input validation of Year field
+    
         return yearinput.matches("^(19|20)[0-9][0-9]$"); // yearinput matches with regular expression
-    }
+    
+    } // end YearValidator method
 	
     public void clear(ActionEvent event) {
+	
+	// Clears and resets all the UI fields
 	dealershipEntry.clear();
 	orderNumber.clear();
 	Year.clear();
@@ -104,9 +107,11 @@ public class CreateOrderforDealershipController {
 	ModelCar.clear();
 	bodyCondition.setValue("Select condition");
 	mechCondition.setValue("Select condition");
-    }
+
+    } // end clear method
 	
     public void send(ActionEvent event) throws IOException {
+
 	String dealership = dealershipEntry.getText();
 	String order = orderNumber.getText();
 	String mileage = mileageText.getText();
@@ -164,11 +169,13 @@ public class CreateOrderforDealershipController {
 			orderNumber.clear();
 		}
 	}
-    }
+    } // end send method
 	 
     public void returnPage(ActionEvent event) throws IOException {
+	    
 	// returns back to the main page
 	Main m = new Main();
 	m.changeScene(previousPage);
-    }
+	    
+    } // end returnPage method
 }
