@@ -73,29 +73,34 @@ public class RecordOfSaleDao {
       //Statement is an interface in the JDBC API that represents a SQL statement that
         //is sent to the database and executed. 
         Statement stmt = null;
+        Double total = 0.0;
+        ResultSet getTotal = null;
         try
         {
             //Creates a Statement object for sendingSQL statements to the database.
             stmt = conn.createStatement();
-            int total = 0;
             
             //Commands for totaling Salesperson Sales 
-            String retrieveTotal = ("SELECT SUM(Total) AS SalesTotal FROM RecordOfSale WHERE EmployeeID = " + EmployeeID);
+            String sql = "SELECT SUM(Total) AS SalesTotal FROM Sold_Vehicle WHERE EmployeeID = " + EmployeeID;
             
             //Executes the given SQL statement, which may be an INSERT, UPDATE, or DELETE 
             //statement or anSQL statement that returns nothing, such as an SQL DDL statement.
-            total = stmt.executeUpdate(retrieveTotal);
-            return new Double(total);
+            getTotal = stmt.executeQuery(sql);
+            while (getTotal.next()) {
+                total = getTotal.getDouble(1);
+            }
+            return total;
             
         }
-        catch (SQLException delete)
+        catch (SQLException retrieve)
         {
+            System.out.println("RecordDAO SalesTotal");
             //Returns the detail message string of this throwable.
-            System.out.println("SQLException: " + delete.getMessage());
+            System.out.println("SQLException: " + retrieve.getMessage());
             //Retrieves the SQLState for this SQLException object.
-            System.out.println("SQLState: " + delete.getSQLState());
+            System.out.println("SQLState: " + retrieve.getSQLState());
             //Retrieves the vendor-specific exception code for this SQLException object.
-            System.out.println("VendorError: " + delete.getErrorCode());
+            System.out.println("VendorError: " + retrieve.getErrorCode());
         }
         //Exception does not occur in try-block, close out connection
         finally
@@ -119,6 +124,7 @@ public class RecordOfSaleDao {
         }
         return 0.0;
     }
+
     
     
     /**
