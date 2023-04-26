@@ -146,11 +146,6 @@ public class RecordOfSaleController {
            
             		// saves sold vehicle and record of sale information into database
             		rDAO.saveSoldVehicle(vDAO.retriveVehicle(VINField.getText()), cDAO.retriveCustomer(customerID.getText()), Main.getCurrentUser(), record);
-      	  
-            		// confirmation message
-            		nullError.setText(null);
-            		updateSuccessful.setText("Save Succesful");
-
             	}
             }
             
@@ -168,18 +163,6 @@ public class RecordOfSaleController {
             RecieptController.setRecieptRecord(record);
             Main m = new Main();
             m.changeScene("RecieptUI.fxml");
-            
-            
-//        	FXMLLoader loader = new FXMLLoader(getClass().getResource("RecieptUI.fxml"));
-//        	Parent root = loader.load();
-//        	
-//        	RecieptController controller = loader.getController();
-//        	
-//            // sends any filled information to the search vehicle UI
-//        	controller.showInformation(record);
-//
-//        	Main m = new Main();
-//        	m.changeScene("RecieptUI.fxml", root); 
     }
     
     // receives information from customer profile UI, vehicle information UI, or search vehicle UI
