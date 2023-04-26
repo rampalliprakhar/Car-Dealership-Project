@@ -127,6 +127,7 @@ public class RecordOfSaleController {
     	lastName.clear();
     	customerID.clear();
     	paymentMethod.setValue("Select a Payment Method");
+    	nullError.setText("");
     } // end clear method
     
     public void save(ActionEvent event) throws IOException{
