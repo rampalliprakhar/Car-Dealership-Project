@@ -1,7 +1,7 @@
 /* --------------------------------------------------- 
  *  Author: Team 3 Car Dealership
  *  Written: 2/08/23
- *  Last Updated: 4/18/2023
+ *  Last Updated: 4/25/2023
  *  
  *  Compilation: javac CreateOrderforManufacturerController.java
  *  Execution: java CreateOrderforManufacturerController
@@ -52,33 +52,40 @@ public class CreateOrderforManufacturerController {
     private TextField Color;
 	 
     @FXML
-    private Label invalidInput;
+    private Label invalidInput; // label which states the incorrect input
 	 
     protected String successPrompt = String.format("-fx-text-fill: GREEN;"); // correct input with green font
     protected String failurePrompt = String.format("-fx-text-fill: RED;"); // incorrect input with red font
 
     private String previousPage = Main.getView();
 
-    public static boolean YearValidator(String yearinput) {
+    public static boolean YearValidator(String yearinput) { // Input validation of Year field
+	    
   	return yearinput.matches("^(19|20)[0-9][0-9]$"); // yearinput matches with regular expression
-    }
+	    
+    } // end YearValidator method
 
     public void initialize() throws IOException {
+	    
         // Triggers when the screen starts
         MakeCar.setValue("Select a Make");
         MakeCar.getItems().addAll(makeList);
-    }	
+	    
+    }	// end initialize method
     
     public void clear(ActionEvent event) {
+	    
 	// checks the functionality of the button and resets the input field
         OrderID.clear();
 	Year.clear();
 	Color.clear();
 	MakeCar.setValue("Select a Make");
 	ModelCar.clear();
-    }
+	    
+    } // end clear method
 	 
     public void send(ActionEvent event) throws IOException {
+	    
         String order = OrderID.getText();
 	String year = Year.getText();
 	String model = ModelCar.getText();
@@ -100,34 +107,36 @@ public class CreateOrderforManufacturerController {
 		}
 		else {
 			if(YearValidator(year) != true) {
-	 	 	    if(year.length() > 4){ // checks whether the input is greater than 4
+	 	 	    if(year.length() > 4 || year.length < 4){ // checks whether the input is greater than 4
 	 		 	invalidInput.setText("Year length should be 4 digits!");
 	 		 	Year.setStyle(failurePrompt);
-				Year.clear();
+				Year.clear(); // clears the incorrect input
 	 	 	    }
 	 		}
 			// Accepts alphabetical characters upto 40 characters allowed
 		 	if(!color.matches("^[A-Za-z]{0,40}$")){
-		 		Color.setStyle(failurePrompt);
-		 		Color.clear();
+		 		Color.setStyle(failurePrompt); // When wrong input, sets incorrect style
+		 		Color.clear(); // clears the incorrect input
 		 	}
 		 	// Accepts numbers between 0 to 9 and 4 digits length only
 		 	if(!order.matches("^[0-9]{4}$")) {
-		 		OrderID.setStyle(failurePrompt);
-		 		OrderID.clear();
+		 		OrderID.setStyle(failurePrompt); // When wrong input, sets incorrect style
+		 		OrderID.clear(); // clears the incorrect input
 		 	}
 		 	// Accepts alphabetical characters upto 40 characters allowed
 		 	if(!model.matches("^[a-zA-Z]{0,40}$")){
-		 		ModelCar.setStyle(failurePrompt);
-		 		ModelCar.clear();
+		 		ModelCar.setStyle(failurePrompt); // When wrong input, sets incorrect style
+		 		ModelCar.clear(); // clears the incorrect input
 		 	}
 		}
 	}
-    }
+    } // end send method
 	
     public void returnPage(ActionEvent event) throws IOException {
+	    
 	// returns back to the main page
 	Main m = new Main();
 	m.changeScene(previousPage);
-    }
+	    
+    } // end returnPage method
 }
