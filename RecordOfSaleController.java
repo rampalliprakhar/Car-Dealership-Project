@@ -165,6 +165,7 @@ public class RecordOfSaleController {
         }
                         
             // goes to the receipt UI
+            RecieptController.setRecieptRecord(record);
             Main m = new Main();
             m.changeScene("RecieptUI.fxml");
             
