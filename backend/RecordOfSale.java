@@ -11,6 +11,7 @@
  ---------------------------------------------------*/
 
 package backend;
+import java.util.Date;
 
 public class RecordOfSale {
     
@@ -76,7 +77,7 @@ public class RecordOfSale {
      * This value is not stored in the databse
      */
     public Double getSalespersonCommission(Double CommissionRate) {
-        return this.total * CommissionRate;
+        return Math.round((this.total * CommissionRate) * 100.00) / 100.00;
     }
     
     // Standard getters and setters
@@ -116,11 +117,10 @@ public class RecordOfSale {
         this.employee = employee;
     }
     
-    
     // Getters for constants
     // Returns the sales tax for the sold vehicle
     public Double getSalesTax() {
-        return (soldVehicle.getValue() * SALES_TAX_RATE);
+        return Math.round((soldVehicle.getValue() * SALES_TAX_RATE) * 100.00) / 100.00;
     }
     
     public Double getSalesTaxRate() {
