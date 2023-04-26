@@ -219,6 +219,7 @@ public class RegisterCustomerController {
         ZIPField.clear();
         PhoneField.clear();
         DriversLicenseField.clear();
+        nullError.setText("");
         
     } // end clear
     
