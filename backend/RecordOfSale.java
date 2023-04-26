@@ -88,8 +88,8 @@ public class RecordOfSale {
         this.soldVehicle = soldVehicle;
     }
 
-    public Date getDateOfSale() {
-        return new Date(this.dateOfSale);
+    public Long getDateOfSale() {
+        return this.dateOfSale;
     }
 
     public void setDateOfSale(Long date) {
