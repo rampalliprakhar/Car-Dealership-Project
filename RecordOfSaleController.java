@@ -164,13 +164,14 @@ public class RecordOfSaleController {
            
             		// saves sold vehicle and record of sale information into database
             		rDAO.saveSoldVehicle(vDAO.retriveVehicle(VINField.getText()), cDAO.retriveCustomer(customerID.getText()), Main.getCurrentUser(), record);
-            
-            		// delete sold vehicle from database
-            		rDAO.deleteSoldVehicle(vDAO.retriveVehicle(VINField.getText()));
+      	  
+            		// confirmation message
+            		nullError.setText(null);
+            		updateSuccessful.setText("Save Succesful");
         	
             		// goes to the receipt UI
             	    Main m = new Main();
-            	    m.changeScene("ReceiptUI.fxml");
+            	    m.changeScene("RecieptUI.fxml");
             	}
             }
             
