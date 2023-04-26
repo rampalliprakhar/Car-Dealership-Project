@@ -145,34 +145,46 @@ public class RecordOfSaleController {
     	}
     	
     	// end input validation 
-
-	// Create new DAOs
-        CustomerDao cDAO = new CustomerDao();
-        VehicleDao vDAO = new VehicleDao();
-        RecordOfSaleDao rDAO = new RecordOfSaleDao();
-
-        // Creates a new record of sale with the retrieved customer and vehicle, and the current employee user        	
-        RecordOfSale record = new RecordOfSale(vDAO.retriveVehicle(VINField.getText()), Main.getCurrentUser(), cDAO.retriveCustomer(customerID.getText()));
-        
-        try {       
-            // saves sold vehicle and record of sale information into database
-            rDAO.saveSoldVehicle(vDAO.retriveVehicle(VINField.getText()), cDAO.retriveCustomer(customerID.getText()), Main.getCurrentUser(), record);
-            
-            // delete sold vehicle from database
-            rDAO.deleteSoldVehicle(vDAO.retriveVehicle(VINField.getText()));
-            
-        	// confirmation message
-    		nullError.setText(null);
-        	updateSuccessful.setText("Save Succesful");
         	
-        } catch (Exception e) {
+        	// Create new DAOs
+            CustomerDao cDAO = new CustomerDao();
+            VehicleDao vDAO = new VehicleDao();
+            RecordOfSaleDao rDAO = new RecordOfSaleDao();
+            EmployeeDao eDAO = new EmployeeDao();
+
+
+            // Creates a new record of sale with the retrieved customer and vehicle, and the current employee user        	
+            RecordOfSale record = new RecordOfSale(vDAO.retriveVehicle(VINField.getText()), Main.getCurrentUser(), cDAO.retriveCustomer(customerID.getText()));            
+            try {
+            if (Main.getCurrentUser().getEmployeeID() != null && VINField.getText() != null && customerID.getText() != null) {
+            	
+            	// confirms that user exists in database
+            	if (eDAO.retriveEmployee(Main.getCurrentUser().getEmployeeID().toString()) != null) {
+            		System.out.println(Main.getCurrentUser().getEmployeeID().toString());
+           
+            		// saves sold vehicle and record of sale information into database
+            		rDAO.saveSoldVehicle(vDAO.retriveVehicle(VINField.getText()), cDAO.retriveCustomer(customerID.getText()), Main.getCurrentUser(), record);
             
+            		// delete sold vehicle from database
+//            		rDAO.deleteSoldVehicle(vDAO.retriveVehicle(VINField.getText()));
+      	  
+            		// confirmation message
+            		nullError.setText(null);
+            		updateSuccessful.setText("Save Succesful");
+        	
+            		// go to receipt UI?
+            	}
+            }
+            
+            else {
+            	System.out.println(Main.getCurrentUser());
+            	nullError.setText("*Error*");
+            }
+        	        	
+        } catch (Exception e) {
+            System.out.println("Error in RecordOfSaleController.java");
+            return;
         }
-	    
-	// Takes user to next screen, receipt
-        RecieptController.setRecieptRecord(record);
-        Main m = new Main();
-        m.changeScene("RecieptUI.fxml");
     }
     
     // receives information from customer profile UI, vehicle information UI, or search vehicle UI
