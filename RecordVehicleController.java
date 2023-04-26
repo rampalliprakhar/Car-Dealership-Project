@@ -213,6 +213,7 @@ public class RecordVehicleController {
         ColorField.clear();
         BodyConDropdown.setValue("Select a Condition");
         MechConDropdown.setValue("Select a Condition");
+        nullError.setText("");
         
     } // end clear
     
