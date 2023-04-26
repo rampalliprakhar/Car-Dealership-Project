@@ -70,7 +70,16 @@ public class RecordOfSale {
         
     } // end isCouponIssued
     
-
+/* Method to calculate the salesperson's commission from the sale
+     * The CommissionRate should be one of the three COM_RANK contants
+     * in the Employee backend class.
+     * This value is not stored in the databse
+     */
+    public Double getSalespersonCommission(Double CommissionRate) {
+        return this.total * CommissionRate;
+    }
+    
+    // Standard getters and setters
     public Vehicle getSoldVehicle() {
         return soldVehicle;
     }
@@ -79,8 +88,8 @@ public class RecordOfSale {
         this.soldVehicle = soldVehicle;
     }
 
-    public Long getDateOfSale() {
-        return dateOfSale;
+    public Date getDateOfSale() {
+        return new Date(this.dateOfSale);
     }
 
     public void setDateOfSale(Long date) {
@@ -103,5 +112,23 @@ public class RecordOfSale {
         this.employee = employee;
     }
     
+    
+    // Getters for constants
+    // Returns the sales tax for the sold vehicle
+    public Double getSalesTax() {
+        return (soldVehicle.getValue() * SALES_TAX_RATE);
+    }
+    
+    public Double getSalesTaxRate() {
+        return SALES_TAX_RATE;
+    }
+    
+    public Double getDealershipFee() {
+        return DEALERSHIP_FEE;
+    }
+    
+    public Double getTagFee() {
+        return TAG_FEE;
+    }
     
 }
