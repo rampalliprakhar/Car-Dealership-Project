@@ -78,9 +78,6 @@ public class RecordOfSaleController {
     
     // switches scene to Search Vehicle UI 
     public void addVehToSale(ActionEvent event) throws IOException{
-    	
-    	// if the user is a manager, open search UI that includes buttons for recording new vehicle and updating vehicle
-    	if (Main.getCurrentUser().hasManagerRights()) {
     		
     	FXMLLoader loader = new FXMLLoader(getClass().getResource("SearchVehicleUI.fxml"));
     	Parent root = loader.load();
@@ -92,21 +89,6 @@ public class RecordOfSaleController {
 
     	Main m = new Main();
     	m.changeScene("SearchVehicleUI.fxml", root);   
-    	}
-    	
-    	else {
-
-        	FXMLLoader loader = new FXMLLoader(getClass().getResource("SalespersonViewSearchVehicleUI.fxml"));
-        	Parent root = loader.load();
-        	
-        	SearchVehicleController controller = loader.getController();
-        	
-            // sends any filled information to the search vehicle UI
-        	controller.showInformation(firstName.getText(), lastName.getText(), customerID.getText(), yearField.getText(), makeDropdown.getValue(), modelField.getText(), VINField.getText(), valueField.getText(), paymentMethod.getValue(), salesDate.getValue());
-
-        	Main m = new Main();
-        	m.changeScene("SalespersonViewSearchVehicleUI.fxml", root);   
-    	}
     } // end addVehToSale method
     
     // switches scene to main menu
@@ -168,10 +150,7 @@ public class RecordOfSaleController {
             		// confirmation message
             		nullError.setText(null);
             		updateSuccessful.setText("Save Succesful");
-        	
-            		// goes to the receipt UI
-            	    Main m = new Main();
-            	    m.changeScene("RecieptUI.fxml");
+
             	}
             }
             
@@ -184,6 +163,22 @@ public class RecordOfSaleController {
             System.out.println("Error in RecordOfSaleController.java");
             return;
         }
+                        
+            // goes to the receipt UI
+            Main m = new Main();
+            m.changeScene("RecieptUI.fxml");
+            
+            
+//        	FXMLLoader loader = new FXMLLoader(getClass().getResource("RecieptUI.fxml"));
+//        	Parent root = loader.load();
+//        	
+//        	RecieptController controller = loader.getController();
+//        	
+//            // sends any filled information to the search vehicle UI
+//        	controller.showInformation(record);
+//
+//        	Main m = new Main();
+//        	m.changeScene("RecieptUI.fxml", root); 
     }
     
     // receives information from customer profile UI, vehicle information UI, or search vehicle UI
