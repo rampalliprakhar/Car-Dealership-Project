@@ -91,6 +91,10 @@ public class RecordOfSale {
     public Long getDateOfSale() {
         return this.dateOfSale;
     }
+ 
+    public Date getDateOfSaleDate() {
+        return new Date(this.dateOfSale);
+    }
 
     public void setDateOfSale(Long date) {
         this.dateOfSale = date;
