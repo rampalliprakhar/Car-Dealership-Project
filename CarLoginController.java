@@ -1,7 +1,7 @@
 /* --------------------------------------------------- 
  *  Author: Team 3 Car Dealership
  *  Written: 2/08/23
- *  Last Updated: 4/18/2023
+ *  Last Updated: 4/26/2023
  *  
  *  Compilation: javac CarLoginController.java
  *  Execution: java CarLoginController
@@ -94,7 +94,7 @@ public class CarLoginController {
 			     * Instantiates a new DAO and a holder for the employee object,
 			     * then tries to connect to the DB and retrieve using the methods in the dao class.
 			     */
-		            Employee employee = new Employee();
+		        Employee employee = new Employee();
 			    EmployeeDao dao = new EmployeeDao();
 					 
 			    try {
@@ -108,15 +108,16 @@ public class CarLoginController {
 			     * corresponding main menu screen.
 			     */
 			    if(employee.hasManagerRights()) {
-				Main m = new Main();
-				Main.setCurrentUser(employee); 
- 			        Main.setView(true);
-				m.changeScene("ManagerViewUISample.fxml");
+			        Main m = new Main();
+			        Main.setCurrentUser(employee); 
+			        Main.setView(true);
+			        m.changeScene("ManagerViewUISample.fxml");
+			    } else {
+			        Main m = new Main();
+	                Main.setCurrentUser(employee);
+	                Main.setView(false);
+	                m.changeScene("SampleSalesperson.fxml");
 			    }
-			    Main m = new Main();
-			    Main.setCurrentUser(employee);
-			    Main.setView(false);
-			    m.changeScene("SampleSalesperson.fxml");
 			 }
 			 // if either username or password is incorrect, it denies and shows the login attempts made
 			 else if(login_attempt == 4 && !isValidUsername(userEntry) == true || !isValidPassword(password) == true){
@@ -128,8 +129,9 @@ public class CarLoginController {
 			     PasswordField.clear();
 			 }
 			 login_attempt++; // increment with button clicked
-		    }
-             }
-	}
-   }
-}
+		     } 
+        }
+	    }
+   } // end LogIn method
+    
+} // end class
