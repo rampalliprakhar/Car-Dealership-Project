@@ -107,7 +107,7 @@ public class CreateOrderforManufacturerController {
 		}
 		else {
 			if(YearValidator(year) != true) {
-	 	 	    if(year.length() > 4 || year.length < 4){ // checks whether the input is greater than 4
+	 	 	    if(year.length() > 4 || year.length() < 4){ // checks whether the input is greater than 4
 	 		 	invalidInput.setText("Year length should be 4 digits!");
 	 		 	Year.setStyle(failurePrompt);
 				Year.clear(); // clears the incorrect input
