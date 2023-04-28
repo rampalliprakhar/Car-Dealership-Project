@@ -1,7 +1,7 @@
 /* --------------------------------------------------- 
  *  Author: Team 3 Car Dealership
  *  Written: 2/13/23
- *  Last Updated: 4/18/2023
+ *  Last Updated: 4/27/2023
  *  
  *  Compilation: javac SalesPersonOfTheYearUIController.java
  *  Execution: java SalesPersonOfTheYearUIController
@@ -17,7 +17,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import java.io.IOException;
+
+import backend.Employee;
 import javafx.event.ActionEvent;
+import dao.*;
 
 public class SalesPersonOfTheYearUIController {
     
@@ -46,7 +49,23 @@ public class SalesPersonOfTheYearUIController {
         // Code for calculating SOTY
         // SOTY = that result
         
+        // Creates a DAO, and then gets the number of the salesperson with highest sales
+        RecordOfSaleDao rDAO = new RecordOfSaleDao();
+        String id = rDAO.getSOTYNum();
+        
+        // Creates a DAO, and retrieves the employee with the ID from above
+        EmployeeDao eDAO = new EmployeeDao();
+        Employee emp = eDAO.retriveEmployee(id);
+        System.out.println(emp.toString());
+        
+        // Sets the SOTY string to the first and last name of the salesperson
+        if (emp.getFirstName() != null && emp.getLastName() != null) {
+            SOTY = emp.getFirstName();
+            SOTY = SOTY.concat(" ");
+            SOTY = SOTY.concat(emp.getLastName());
+        }
+        
         this.salespersonNameTF.setText(SOTY);
         
-    }
+    } // end calculate
 }
