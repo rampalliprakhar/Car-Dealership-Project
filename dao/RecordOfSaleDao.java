@@ -81,7 +81,7 @@ public class RecordOfSaleDao {
             stmt = conn.createStatement();
             
             //Commands for totaling Salesperson Sales 
-            String sql = "SELECT SUM(Total) AS SalesTotal FROM Sold_Vehicle WHERE EmployeeID = " + EmployeeID;
+            String sql = "SELECT SUM(Total_Price) AS SalesTotal FROM Sold_Vehicle WHERE Employee_EmployeeID = " + EmployeeID;
             
             //Executes the given SQL statement, which may be an INSERT, UPDATE, or DELETE 
             //statement or anSQL statement that returns nothing, such as an SQL DDL statement.
@@ -124,8 +124,66 @@ public class RecordOfSaleDao {
         }
         return 0.0;
     }
-
     
+    public String getSOTYNum() {
+      //Statement is an interface in the JDBC API that represents a SQL statement that
+        //is sent to the database and executed. 
+        Statement stmt = null;
+        Employee emp = new Employee();
+        ResultSet results = null;
+        String id = "0";
+        try
+        {
+            //Creates a Statement object for sendingSQL statements to the database.
+            stmt = conn.createStatement();
+            
+            //Commands for totaling Salesperson Sales 
+            String sql = "SELECT Employee_EmployeeID, COUNT(*) as Total_Vehicles_Sold, SUM(Total_Price) as Total_Sales FROM Sold_Vehicle \r\n"
+                    + "GROUP BY Employee_EmployeeID \r\n"
+                    + "ORDER BY Total_Sales DESC \r\n"
+                    + "LIMIT 1;";
+            
+            //Executes the given SQL statement, which may be an INSERT, UPDATE, or DELETE 
+            //statement or anSQL statement that returns nothing, such as an SQL DDL statement.
+            results = stmt.executeQuery(sql);
+            if (results.next()) {
+                id = results.getString(1);
+            }
+            return id;         
+            
+        }
+        catch (SQLException retrieve)
+        {
+            System.out.println("SOTY");
+            //Returns the detail message string of this throwable.
+            System.out.println("SQLException: " + retrieve.getMessage());
+            //Retrieves the SQLState for this SQLException object.
+            System.out.println("SQLState: " + retrieve.getSQLState());
+            //Retrieves the vendor-specific exception code for this SQLException object.
+            System.out.println("VendorError: " + retrieve.getErrorCode());
+        }
+        //Exception does not occur in try-block, close out connection
+        finally
+        {
+            //If stmt is not null then close connection
+            if(stmt != null)
+            {
+                //Possible exception can be thrown catch it
+                try
+                {
+                    //Releases this Statement object's database and JDBC resources immediately instead of 
+                    //waiting for this to happen when it is automatically closed.
+                    stmt.close();
+                }
+                //Catch error message print to screen. 
+                catch (SQLException closeStmt)
+                {
+                     System.out.println("SQLException: " + closeStmt.getMessage());
+                }
+            }
+        }
+        return id;
+    }
     
     /**
     * saveSoldVehicle - Method passed vehicle object, utilized "getter" methods from the back end classes
