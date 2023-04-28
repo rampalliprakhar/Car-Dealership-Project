@@ -5,7 +5,7 @@ import backend.Vehicle;
 /*-------------------------------------------------
  * Author:          Carlot Team
  * Written:         04/07/2023
- * Last Update:     04/22/2023
+ * Last Update:     04/27/2023
  * 
  * 
  * VehicleDao class. The Vehicle Data Access Object allows us to access and manipulate
@@ -263,7 +263,7 @@ public class VehicleDao {
             stmt = conn.createStatement();
             //Executes the given SQL statement, which returns a single ResultSet object.
             //The statement is to return ALL *.
-            getVehicle = stmt.executeQuery("SELECT * FROM Vehicle ORDER BY datePutOnLot");
+            getVehicle = stmt.executeQuery("SELECT * FROM Vehicle ORDER BY DateOnLot");
             //If has next then set values for 7 vehicles
             for (int i = 0; i < vehicleList.length; i++) {
                 if (getVehicle.next()) {
